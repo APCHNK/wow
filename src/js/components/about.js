@@ -142,5 +142,19 @@ function initSlider() {
         mousewheel: {
             forceToAxis: true,
         },
+        breakpoints: {
+            0: {
+                spaceBetween: 8,
+            },
+            481: {
+                spaceBetween: 12,
+            },
+            769: {
+                spaceBetween: 16,
+            },
+            1025: {
+                spaceBetween: 20,
+            },
+        },
     });
 }

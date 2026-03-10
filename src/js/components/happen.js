@@ -60,6 +60,20 @@ export function initHappen() {
         mousewheel: {
             forceToAxis: true,
         },
+        breakpoints: {
+            0: {
+                spaceBetween: 10,
+            },
+            481: {
+                spaceBetween: 14,
+            },
+            769: {
+                spaceBetween: 20,
+            },
+            1025: {
+                spaceBetween: 32,
+            },
+        },
     });
 
     // Parallax settings

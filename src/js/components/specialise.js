@@ -24,6 +24,39 @@ export function initSpecialise() {
         mousewheel: {
             forceToAxis: true,
         },
+        breakpoints: {
+            // Mobile first approach
+            0: {
+                spaceBetween: 12,
+                centeredSlides: false,
+                slidesOffsetBefore: 0,
+                slidesOffsetAfter: 0,
+            },
+            481: {
+                spaceBetween: 16,
+                centeredSlides: false,
+                slidesOffsetBefore: 0,
+                slidesOffsetAfter: 0,
+            },
+            769: {
+                spaceBetween: 80,
+                centeredSlides: true,
+                slidesOffsetBefore: offset,
+                slidesOffsetAfter: offset,
+            },
+            1025: {
+                spaceBetween: 150,
+                centeredSlides: true,
+                slidesOffsetBefore: offset,
+                slidesOffsetAfter: offset,
+            },
+            1281: {
+                spaceBetween: 220,
+                centeredSlides: true,
+                slidesOffsetBefore: offset,
+                slidesOffsetAfter: offset,
+            },
+        },
     });
 
     // Specialise title shrink effect
