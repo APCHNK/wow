@@ -201,20 +201,23 @@
 
 @media (max-width: 480px) {
     .dream {
-        padding: 40px 12px 30px 0; // No left padding - text bleeds off
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
+        padding: 40px 12px 30px 0;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-template-rows: auto auto;
+        grid-template-areas:
+            "dreambg title"
+            "desc desc";
         gap: 0;
+        align-items: start;
     }
     
     .dream-bg {
+        grid-area: dreambg;
         position: relative;
-        left: -20px; // Bleed off left edge
+        left: -20px;
         top: auto;
         transform: none;
-        margin-bottom: 0;
-        flex-shrink: 0;
         
         &.animate {
             transform: none;
@@ -232,36 +235,51 @@
     }
     
     .dream-slider {
-        flex: 1;
+        grid-area: title;
+        width: 100%;
         max-width: none;
         margin-left: 0;
-        padding-right: 12px;
-        padding-top: 8px;
+        padding-right: 0;
+        padding-top: 6px;
     }
     
     .dream-title {
         font-size: 16px;
-        margin-bottom: 20px;
+        margin-bottom: 0;
         line-height: 1.25;
-        text-transform: none; // Title Case, not uppercase
+        text-transform: none;
         font-variant: normal;
     }
     
+    // Description positioned in its own grid area
     .dream-desc {
+        grid-area: desc;
+        margin-top: 24px;
+        padding-left: 12px;
         font-size: 11px;
         line-height: 1.45;
+    }
+    
+    .dream-slide-content {
+        display: contents; // Let children participate in parent grid
+    }
+    
+    .dream-swiper {
+        display: contents;
+        
+        .swiper-wrapper {
+            display: contents;
+        }
+        
+        .swiper-slide {
+            display: contents;
+            opacity: 1;
+        }
     }
     
     // Hide slider nav on mobile
     .dream-nav {
         display: none;
-    }
-    
-    // Hide swiper pagination/arrows on mobile
-    .dream-swiper {
-        .swiper-slide {
-            opacity: 1;
-        }
     }
 }
 
@@ -271,7 +289,7 @@
     }
     
     .dream-bg {
-        left: -25px; // More bleed on smaller screens
+        left: -25px;
         
         span {
             font-size: 45px;
@@ -280,10 +298,10 @@
     
     .dream-title {
         font-size: 14px;
-        margin-bottom: 16px;
     }
     
     .dream-desc {
+        margin-top: 20px;
         font-size: 10px;
     }
 }
