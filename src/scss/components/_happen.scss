@@ -218,3 +218,193 @@
         pointer-events: none;
     }
 }
+
+// Responsive styles
+@media (max-width: 1024px) {
+    .happen {
+        padding: 80px 50px;
+    }
+    
+    .happen-header {
+        margin-bottom: 100px;
+        gap: 40px;
+    }
+    
+    .happen-title-text {
+        font-size: 80px;
+    }
+    
+    .happen-title-border {
+        width: 350px;
+        right: -25px;
+    }
+    
+    .happen-desc {
+        font-size: 16px;
+        max-width: 600px;
+    }
+    
+    .happen-swiper .swiper-slide {
+        width: 350px;
+    }
+}
+
+@media (max-width: 768px) {
+    .happen {
+        padding: 60px 30px;
+    }
+    
+    .happen-header {
+        margin-bottom: 60px;
+        gap: 30px;
+    }
+    
+    .happen-title-text {
+        font-size: 60px;
+    }
+    
+    .happen-title-border {
+        width: 280px;
+        right: -20px;
+    }
+    
+    .happen-desc {
+        font-size: 14px;
+        max-width: 500px;
+    }
+    
+    .happen-swiper .swiper-slide {
+        width: 280px;
+        
+        &:nth-child(odd),
+        &:nth-child(even) {
+            transform: translateY(0);
+        }
+    }
+    
+    .happen-card {
+        border-radius: 16px;
+    }
+    
+    .happen-card-content {
+        padding: 24px 28px;
+    }
+    
+    .happen-card-title {
+        font-size: 20px;
+        letter-spacing: 1.5px;
+    }
+    
+    .happen-card-country {
+        font-size: 11px;
+    }
+    
+    .happen-nav {
+        margin-top: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .happen {
+        padding: 40px 16px;
+    }
+    
+    .happen-header {
+        margin-bottom: 40px;
+        gap: 24px;
+    }
+    
+    .happen-title-text {
+        font-size: 36px;
+    }
+    
+    .happen-title-border {
+        width: 180px;
+        right: -15px;
+    }
+    
+    .happen-desc {
+        font-size: 12px;
+        max-width: 100%;
+    }
+    
+    .happen-swiper .swiper-slide {
+        width: 200px;
+    }
+    
+    .happen-card {
+        border-radius: 12px;
+    }
+    
+    .happen-card-content {
+        padding: 18px 20px;
+    }
+    
+    .happen-card-title {
+        font-size: 14px;
+        letter-spacing: 1px;
+    }
+    
+    .happen-card-country {
+        font-size: 10px;
+        margin-bottom: 6px;
+    }
+    
+    .happen-nav {
+        margin-top: 24px;
+        gap: 10px;
+    }
+    
+    .happen-btn {
+        padding: 6px 14px;
+        
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+    }
+}
+
+@media (max-width: 320px) {
+    .happen {
+        padding: 30px 12px;
+    }
+    
+    .happen-header {
+        margin-bottom: 30px;
+        gap: 20px;
+    }
+    
+    .happen-title-text {
+        font-size: 30px;
+    }
+    
+    .happen-title-border {
+        width: 150px;
+        right: -12px;
+    }
+    
+    .happen-desc {
+        font-size: 11px;
+    }
+    
+    .happen-swiper .swiper-slide {
+        width: 160px;
+    }
+    
+    .happen-card {
+        border-radius: 10px;
+    }
+    
+    .happen-card-content {
+        padding: 14px 16px;
+    }
+    
+    .happen-card-title {
+        font-size: 12px;
+    }
+    
+    .happen-card-country {
+        font-size: 9px;
+    }
+}

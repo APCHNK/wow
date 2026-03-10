@@ -1,0 +1,3603 @@
+[
+  {
+    "name": "Document",
+    "type": "DOCUMENT",
+    "id": "0:0"
+  },
+  {
+    "name": "5G Design ",
+    "type": "CANVAS",
+    "id": "335:759"
+  },
+  {
+    "name": "5g",
+    "type": "SECTION",
+    "id": "386:17047",
+    "size": {
+      "width": 14482,
+      "height": 25702
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(231, 232, 255, 1)"
+      }
+    ]
+  },
+  {
+    "name": "iPhone SE - 1",
+    "type": "FRAME",
+    "id": "404:17349",
+    "size": {
+      "width": 320,
+      "height": 3813
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "borderRadius": 16
+  },
+  {
+    "name": "BG Who Weare",
+    "type": "FRAME",
+    "id": "408:17647",
+    "size": {
+      "width": 322,
+      "height": 715
+    }
+  },
+  {
+    "name": "Group 553",
+    "type": "GROUP",
+    "id": "408:17648",
+    "size": {
+      "width": 444,
+      "height": 638
+    }
+  },
+  {
+    "name": "Rectangle 224",
+    "type": "RECTANGLE",
+    "id": "408:17649",
+    "size": {
+      "width": 322,
+      "height": 634
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(241, 246, 255, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Ellipse 4",
+    "type": "ELLIPSE",
+    "id": "408:17650",
+    "size": {
+      "width": 273,
+      "height": 273
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(220, 197, 255, 1)"
+      }
+    ],
+    "effects": [
+      {
+        "type": "LAYER_BLUR",
+        "radius": 70.37042999267578,
+        "color": null
+      }
+    ]
+  },
+  {
+    "name": "Ellipse 2",
+    "type": "ELLIPSE",
+    "id": "408:17651",
+    "size": {
+      "width": 272,
+      "height": 272
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(226, 232, 255, 1)"
+      }
+    ],
+    "effects": [
+      {
+        "type": "LAYER_BLUR",
+        "radius": 83.7870864868164,
+        "color": null
+      }
+    ]
+  },
+  {
+    "name": "Rectangle 226",
+    "type": "RECTANGLE",
+    "id": "408:17663",
+    "size": {
+      "width": 322,
+      "height": 55
+    },
+    "fills": [
+      {
+        "type": "GRADIENT_LINEAR"
+      }
+    ]
+  },
+  {
+    "name": "Rectangle 227",
+    "type": "RECTANGLE",
+    "id": "408:17665",
+    "size": {
+      "width": 322,
+      "height": 109
+    },
+    "fills": [
+      {
+        "type": "GRADIENT_LINEAR"
+      }
+    ]
+  },
+  {
+    "name": "Group 557",
+    "type": "GROUP",
+    "id": "408:17667",
+    "size": {
+      "width": 800,
+      "height": 57
+    }
+  },
+  {
+    "name": "Subtract",
+    "type": "BOOLEAN_OPERATION",
+    "id": "408:17652",
+    "size": {
+      "width": 800,
+      "height": 57
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(212, 187, 255, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Rectangle 225",
+    "type": "RECTANGLE",
+    "id": "408:17653",
+    "size": {
+      "width": 800,
+      "height": 57
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(212, 187, 255, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Separator",
+    "type": "GROUP",
+    "id": "408:17654",
+    "size": {
+      "width": 7,
+      "height": 33
+    }
+  },
+  {
+    "name": "Group 554",
+    "type": "GROUP",
+    "id": "408:17655",
+    "size": {
+      "width": 7,
+      "height": 33
+    }
+  },
+  {
+    "name": "Ellipse 6",
+    "type": "ELLIPSE",
+    "id": "408:17656",
+    "size": {
+      "width": 5,
+      "height": 5
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(237, 236, 255, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Ellipse 7",
+    "type": "ELLIPSE",
+    "id": "408:17657",
+    "size": {
+      "width": 5,
+      "height": 5
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(237, 236, 255, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Ellipse 8",
+    "type": "ELLIPSE",
+    "id": "408:17658",
+    "size": {
+      "width": 5,
+      "height": 5
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(237, 236, 255, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Ellipse 9",
+    "type": "ELLIPSE",
+    "id": "408:17659",
+    "size": {
+      "width": 5,
+      "height": 5
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(237, 236, 255, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Ellipse 10",
+    "type": "ELLIPSE",
+    "id": "408:17660",
+    "size": {
+      "width": 5,
+      "height": 5
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(237, 236, 255, 1)"
+      }
+    ]
+  },
+  {
+    "name": "“We provide a full range of services for organizing and holding events of any format”",
+    "type": "TEXT",
+    "id": "408:17661",
+    "size": {
+      "width": 381,
+      "height": 29
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(25, 25, 25, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 12,
+      "fontWeight": 400,
+      "lineHeight": 16.3439998626709,
+      "letterSpacing": 0
+    },
+    "text": "“We provide a full range of services for organizing and holding events of any format”"
+  },
+  {
+    "name": "“We provide a full range of services for organizing and holding events of any format”",
+    "type": "TEXT",
+    "id": "408:17662",
+    "size": {
+      "width": 381,
+      "height": 29
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(25, 25, 25, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 12,
+      "fontWeight": 400,
+      "lineHeight": 16.3439998626709,
+      "letterSpacing": 0
+    },
+    "text": "“We provide a full range of services for organizing and holding events of any format”"
+  },
+  {
+    "name": "3",
+    "type": "FRAME",
+    "id": "408:17672",
+    "size": {
+      "width": 134,
+      "height": 201
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Blue 1-2 1",
+    "type": "RECTANGLE",
+    "id": "408:17673",
+    "size": {
+      "width": 145,
+      "height": 218
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ]
+  },
+  {
+    "name": "Screenshot 2026-01-16 at 00.08.33 1",
+    "type": "RECTANGLE",
+    "id": "408:17674",
+    "size": {
+      "width": 171,
+      "height": 229
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ]
+  },
+  {
+    "name": "Madeira",
+    "type": "TEXT",
+    "id": "408:17675",
+    "size": {
+      "width": 403,
+      "height": 85
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "SF Compact",
+      "fontSize": 71.40789794921875,
+      "fontWeight": 200,
+      "lineHeight": 85.21528625488281,
+      "letterSpacing": 26.77796173095703
+    },
+    "text": "Madeira"
+  },
+  {
+    "name": "4",
+    "type": "FRAME",
+    "id": "408:17689",
+    "size": {
+      "width": 134,
+      "height": 201
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Blue 1-2 1",
+    "type": "RECTANGLE",
+    "id": "408:17690",
+    "size": {
+      "width": 145,
+      "height": 218
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ]
+  },
+  {
+    "name": "Screenshot 2026-01-16 at 00.08.33 1",
+    "type": "RECTANGLE",
+    "id": "408:17691",
+    "size": {
+      "width": 171,
+      "height": 229
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ]
+  },
+  {
+    "name": "Screenshot 2026-01-16 at 00.08.33 2",
+    "type": "RECTANGLE",
+    "id": "409:17750",
+    "size": {
+      "width": 183,
+      "height": 245
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ]
+  },
+  {
+    "name": "Madeira",
+    "type": "TEXT",
+    "id": "408:17692",
+    "size": {
+      "width": 403,
+      "height": 85
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "SF Compact",
+      "fontSize": 71.40789794921875,
+      "fontWeight": 200,
+      "lineHeight": 85.21528625488281,
+      "letterSpacing": 26.77796173095703
+    },
+    "text": "Madeira"
+  },
+  {
+    "name": "5",
+    "type": "FRAME",
+    "id": "408:17693",
+    "size": {
+      "width": 134,
+      "height": 201
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Blue 1-2 1",
+    "type": "RECTANGLE",
+    "id": "408:17694",
+    "size": {
+      "width": 145,
+      "height": 218
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ]
+  },
+  {
+    "name": "Screenshot 2026-01-16 at 00.08.33 1",
+    "type": "RECTANGLE",
+    "id": "408:17695",
+    "size": {
+      "width": 171,
+      "height": 229
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ]
+  },
+  {
+    "name": "Madeira",
+    "type": "TEXT",
+    "id": "408:17696",
+    "size": {
+      "width": 403,
+      "height": 85
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "SF Compact",
+      "fontSize": 71.40789794921875,
+      "fontWeight": 200,
+      "lineHeight": 85.21528625488281,
+      "letterSpacing": 26.77796173095703
+    },
+    "text": "Madeira"
+  },
+  {
+    "name": "Screenshot 2026-01-11 at 17.45.56 1",
+    "type": "RECTANGLE",
+    "id": "408:17697",
+    "size": {
+      "width": 324,
+      "height": 175
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ]
+  },
+  {
+    "name": "We create captivating and unique realities for those who seek more, who want to bring their dreams to life. I realize the luxury of self-expression. I believe that celebrations are more than just the sum of their parts. It’s a living organism that I approach comprehensively. Getting to know my clients, I sense their energy, surround them with care, and give them all my attention. As a result, I know how to give each celebration a unique individuality that reflects the personality. This enables me to conduct unique, vibrant events at the highest level, constantly innovating and leveraging broad know-how acquired over more than 15 years! I invite you to the world of celebrations!",
+    "type": "TEXT",
+    "id": "408:17668",
+    "size": {
+      "width": 296,
+      "height": 208
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 12,
+      "fontWeight": 300,
+      "lineHeight": 16.3439998626709,
+      "letterSpacing": 0
+    },
+    "text": "We create captivating and unique realities for those who seek more, who want to bring their dreams t"
+  },
+  {
+    "name": "Rectangle 97",
+    "type": "RECTANGLE",
+    "id": "404:17352",
+    "size": {
+      "width": 320,
+      "height": 568
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Ellipse 9",
+    "type": "ELLIPSE",
+    "id": "404:17354",
+    "size": {
+      "width": 647,
+      "height": 647
+    }
+  },
+  {
+    "name": "Group 2",
+    "type": "GROUP",
+    "id": "405:17515",
+    "size": {
+      "width": 30,
+      "height": 18
+    }
+  },
+  {
+    "name": "Group 1",
+    "type": "GROUP",
+    "id": "405:17516",
+    "size": {
+      "width": 30,
+      "height": 18
+    }
+  },
+  {
+    "name": "Rectangle 1",
+    "type": "RECTANGLE",
+    "id": "405:17517",
+    "size": {
+      "width": 30,
+      "height": 2
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Rectangle 2",
+    "type": "RECTANGLE",
+    "id": "405:17518",
+    "size": {
+      "width": 19,
+      "height": 2
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Rectangle 3",
+    "type": "RECTANGLE",
+    "id": "405:17519",
+    "size": {
+      "width": 30,
+      "height": 2
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Logo",
+    "type": "FRAME",
+    "id": "404:17510",
+    "size": {
+      "width": 44,
+      "height": 39
+    }
+  },
+  {
+    "name": "Vector",
+    "type": "VECTOR",
+    "id": "404:17511",
+    "size": {
+      "width": 32,
+      "height": 34
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "WOW",
+    "type": "TEXT",
+    "id": "404:17512",
+    "size": {
+      "width": 11,
+      "height": 8
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 6.021391868591309,
+      "fontWeight": 300,
+      "lineHeight": 8.201135635375977,
+      "letterSpacing": 0
+    },
+    "text": "WOW"
+  },
+  {
+    "name": "Event",
+    "type": "TEXT",
+    "id": "404:17513",
+    "size": {
+      "width": 12,
+      "height": 8
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 6.021391868591309,
+      "fontWeight": 300,
+      "lineHeight": 8.201135635375977,
+      "letterSpacing": 0
+    },
+    "text": "Event"
+  },
+  {
+    "name": "WOW EVENTS",
+    "type": "TEXT",
+    "id": "405:17521",
+    "size": {
+      "width": 320,
+      "height": 83
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 52,
+      "fontWeight": 600,
+      "lineHeight": 70.8239974975586,
+      "letterSpacing": 0
+    },
+    "text": "WOW EVENTS"
+  },
+  {
+    "name": "WE CREATE ",
+    "type": "TEXT",
+    "id": "405:17523",
+    "size": {
+      "width": 194,
+      "height": 30
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 22,
+      "fontWeight": 300,
+      "lineHeight": 29.964000701904297,
+      "letterSpacing": 0
+    },
+    "text": "WE CREATE "
+  },
+  {
+    "name": "IN THE WORLD",
+    "type": "TEXT",
+    "id": "406:17525",
+    "size": {
+      "width": 194,
+      "height": 30
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 22,
+      "fontWeight": 300,
+      "lineHeight": 29.964000701904297,
+      "letterSpacing": 0
+    },
+    "text": "IN THE WORLD"
+  },
+  {
+    "name": "dorel-gnatiuc-sLEO6BoRZF8-unsplash 1",
+    "type": "RECTANGLE",
+    "id": "406:17528",
+    "size": {
+      "width": 295,
+      "height": 141
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ],
+    "borderRadius": 2.322296619415283
+  },
+  {
+    "name": "What",
+    "type": "TEXT",
+    "id": "406:17539",
+    "size": {
+      "width": 142,
+      "height": 63
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 48,
+      "fontWeight": 500,
+      "lineHeight": 65.3759994506836,
+      "letterSpacing": 0
+    },
+    "text": "What"
+  },
+  {
+    "name": "Who",
+    "type": "TEXT",
+    "id": "408:17645",
+    "size": {
+      "width": 142,
+      "height": 63
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 48,
+      "fontWeight": 500,
+      "lineHeight": 65.3759994506836,
+      "letterSpacing": 0
+    },
+    "text": "Who"
+  },
+  {
+    "name": "We Specialise in",
+    "type": "TEXT",
+    "id": "406:17540",
+    "size": {
+      "width": 186,
+      "height": 42
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 28,
+      "fontWeight": 500,
+      "lineHeight": 38.13600158691406,
+      "letterSpacing": 0
+    },
+    "text": "We Specialise in"
+  },
+  {
+    "name": "We Are",
+    "type": "TEXT",
+    "id": "408:17646",
+    "size": {
+      "width": 186,
+      "height": 42
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 28,
+      "fontWeight": 500,
+      "lineHeight": 38.13600158691406,
+      "letterSpacing": 0
+    },
+    "text": "We Are"
+  },
+  {
+    "name": "From concept to execution — we deliver experiences without compromise.",
+    "type": "TEXT",
+    "id": "406:17542",
+    "size": {
+      "width": 295,
+      "height": 44
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(25, 25, 25, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 16,
+      "fontWeight": 400,
+      "lineHeight": 21.79199981689453,
+      "letterSpacing": 0
+    },
+    "text": "From concept to execution — we deliver experiences without compromise."
+  },
+  {
+    "name": "Wedding",
+    "type": "FRAME",
+    "id": "406:17544",
+    "size": {
+      "width": 296,
+      "height": 189
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ],
+    "borderRadius": 14.095236778259277
+  },
+  {
+    "name": "Star 8",
+    "type": "STAR",
+    "id": "406:17545",
+    "size": {
+      "width": 6,
+      "height": 6
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Star 9",
+    "type": "STAR",
+    "id": "406:17546",
+    "size": {
+      "width": 6,
+      "height": 6
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Rectangle 16",
+    "type": "RECTANGLE",
+    "id": "406:17547",
+    "size": {
+      "width": 296,
+      "height": 115
+    },
+    "fills": [
+      {
+        "type": "GRADIENT_LINEAR"
+      }
+    ]
+  },
+  {
+    "name": "Weddings & Love Stories",
+    "type": "TEXT",
+    "id": "406:17548",
+    "size": {
+      "width": 168,
+      "height": 25
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 18,
+      "fontWeight": 200,
+      "lineHeight": 24.51599884033203,
+      "letterSpacing": 0
+    },
+    "text": "Weddings & Love Stories"
+  },
+  {
+    "name": "Group 310",
+    "type": "GROUP",
+    "id": "406:17549",
+    "size": {
+      "width": 73,
+      "height": 23
+    },
+    "borderRadius": 17.853967666625977
+  },
+  {
+    "name": "Rectangle 5",
+    "type": "RECTANGLE",
+    "id": "406:17550",
+    "size": {
+      "width": 73,
+      "height": 23
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ],
+    "borderRadius": 17.853967666625977,
+    "effects": [
+      {
+        "type": "BACKGROUND_BLUR",
+        "radius": 1.8793649673461914,
+        "color": null
+      }
+    ],
+    "strokes": {
+      "weight": 0.46984124183654785,
+      "colors": [
+        "rgba(255, 255, 255, 1)"
+      ]
+    }
+  },
+  {
+    "name": "Show More",
+    "type": "TEXT",
+    "id": "406:17551",
+    "size": {
+      "width": 49,
+      "height": 15
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 11,
+      "fontWeight": 500,
+      "lineHeight": 14.982000350952148,
+      "letterSpacing": 0
+    },
+    "text": "Show More"
+  },
+  {
+    "name": "Wedding",
+    "type": "FRAME",
+    "id": "408:17559",
+    "size": {
+      "width": 296,
+      "height": 189
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ],
+    "borderRadius": 14.095236778259277
+  },
+  {
+    "name": "Corporate Events & Business Gatherings",
+    "type": "FRAME",
+    "id": "408:17567",
+    "size": {
+      "width": 296,
+      "height": 190
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ],
+    "borderRadius": 10
+  },
+  {
+    "name": "Star 8",
+    "type": "STAR",
+    "id": "408:17568",
+    "size": {
+      "width": 11,
+      "height": 11
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Star 9",
+    "type": "STAR",
+    "id": "408:17569",
+    "size": {
+      "width": 11,
+      "height": 11
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Rectangle 16",
+    "type": "RECTANGLE",
+    "id": "408:17570",
+    "size": {
+      "width": 536,
+      "height": 213
+    },
+    "fills": [
+      {
+        "type": "GRADIENT_LINEAR"
+      }
+    ]
+  },
+  {
+    "name": "Corporate Events & Business Gatherings",
+    "type": "TEXT",
+    "id": "408:17571",
+    "size": {
+      "width": 324,
+      "height": 92
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 34,
+      "fontWeight": 200,
+      "lineHeight": 46.30799865722656,
+      "letterSpacing": 0
+    },
+    "text": "Corporate Events & Business Gatherings"
+  },
+  {
+    "name": "Star 8",
+    "type": "STAR",
+    "id": "408:17560",
+    "size": {
+      "width": 6,
+      "height": 6
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Star 9",
+    "type": "STAR",
+    "id": "408:17561",
+    "size": {
+      "width": 6,
+      "height": 6
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Rectangle 16",
+    "type": "RECTANGLE",
+    "id": "408:17562",
+    "size": {
+      "width": 296,
+      "height": 115
+    },
+    "fills": [
+      {
+        "type": "GRADIENT_LINEAR"
+      }
+    ]
+  },
+  {
+    "name": "Corporate Events & Business Gatherings",
+    "type": "TEXT",
+    "id": "408:17563",
+    "size": {
+      "width": 168,
+      "height": 50
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 18,
+      "fontWeight": 200,
+      "lineHeight": 24.51599884033203,
+      "letterSpacing": 0
+    },
+    "text": "Corporate Events & Business Gatherings"
+  },
+  {
+    "name": "Group 310",
+    "type": "GROUP",
+    "id": "408:17564",
+    "size": {
+      "width": 73,
+      "height": 23
+    },
+    "borderRadius": 17.853967666625977
+  },
+  {
+    "name": "Rectangle 5",
+    "type": "RECTANGLE",
+    "id": "408:17565",
+    "size": {
+      "width": 73,
+      "height": 23
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ],
+    "borderRadius": 17.853967666625977,
+    "effects": [
+      {
+        "type": "BACKGROUND_BLUR",
+        "radius": 1.8793649673461914,
+        "color": null
+      }
+    ],
+    "strokes": {
+      "weight": 0.46984124183654785,
+      "colors": [
+        "rgba(255, 255, 255, 1)"
+      ]
+    }
+  },
+  {
+    "name": "Show More",
+    "type": "TEXT",
+    "id": "408:17566",
+    "size": {
+      "width": 49,
+      "height": 15
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 11,
+      "fontWeight": 500,
+      "lineHeight": 14.982000350952148,
+      "letterSpacing": 0
+    },
+    "text": "Show More"
+  },
+  {
+    "name": "Wedding",
+    "type": "FRAME",
+    "id": "408:17573",
+    "size": {
+      "width": 296,
+      "height": 189
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ],
+    "borderRadius": 14.095236778259277
+  },
+  {
+    "name": "Corporate Events & Business Gatherings",
+    "type": "FRAME",
+    "id": "408:17574",
+    "size": {
+      "width": 296,
+      "height": 190
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ],
+    "borderRadius": 10
+  },
+  {
+    "name": "Star 8",
+    "type": "STAR",
+    "id": "408:17575",
+    "size": {
+      "width": 11,
+      "height": 11
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Star 9",
+    "type": "STAR",
+    "id": "408:17576",
+    "size": {
+      "width": 11,
+      "height": 11
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Rectangle 16",
+    "type": "RECTANGLE",
+    "id": "408:17577",
+    "size": {
+      "width": 536,
+      "height": 213
+    },
+    "fills": [
+      {
+        "type": "GRADIENT_LINEAR"
+      }
+    ]
+  },
+  {
+    "name": "Corporate Events & Business Gatherings",
+    "type": "TEXT",
+    "id": "408:17578",
+    "size": {
+      "width": 324,
+      "height": 92
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 34,
+      "fontWeight": 200,
+      "lineHeight": 46.30799865722656,
+      "letterSpacing": 0
+    },
+    "text": "Corporate Events & Business Gatherings"
+  },
+  {
+    "name": "Corporate Events & Business Gatherings",
+    "type": "FRAME",
+    "id": "408:17586",
+    "size": {
+      "width": 296,
+      "height": 190
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ],
+    "borderRadius": 10
+  },
+  {
+    "name": "Star 8",
+    "type": "STAR",
+    "id": "408:17587",
+    "size": {
+      "width": 11,
+      "height": 11
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Star 9",
+    "type": "STAR",
+    "id": "408:17588",
+    "size": {
+      "width": 11,
+      "height": 11
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Rectangle 16",
+    "type": "RECTANGLE",
+    "id": "408:17589",
+    "size": {
+      "width": 536,
+      "height": 213
+    },
+    "fills": [
+      {
+        "type": "GRADIENT_LINEAR"
+      }
+    ]
+  },
+  {
+    "name": "Family & Traditional Celebrations",
+    "type": "TEXT",
+    "id": "408:17590",
+    "size": {
+      "width": 324,
+      "height": 92
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 34,
+      "fontWeight": 200,
+      "lineHeight": 46.30799865722656,
+      "letterSpacing": 0
+    },
+    "text": "Family & Traditional Celebrations"
+  },
+  {
+    "name": "Star 8",
+    "type": "STAR",
+    "id": "408:17579",
+    "size": {
+      "width": 6,
+      "height": 6
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Star 9",
+    "type": "STAR",
+    "id": "408:17580",
+    "size": {
+      "width": 6,
+      "height": 6
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Rectangle 16",
+    "type": "RECTANGLE",
+    "id": "408:17581",
+    "size": {
+      "width": 296,
+      "height": 115
+    },
+    "fills": [
+      {
+        "type": "GRADIENT_LINEAR"
+      }
+    ]
+  },
+  {
+    "name": "Family & Traditional Celebrations",
+    "type": "TEXT",
+    "id": "408:17582",
+    "size": {
+      "width": 168,
+      "height": 50
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 18,
+      "fontWeight": 200,
+      "lineHeight": 24.51599884033203,
+      "letterSpacing": 0
+    },
+    "text": "Family & Traditional Celebrations"
+  },
+  {
+    "name": "Group 310",
+    "type": "GROUP",
+    "id": "408:17583",
+    "size": {
+      "width": 73,
+      "height": 23
+    },
+    "borderRadius": 17.853967666625977
+  },
+  {
+    "name": "Rectangle 5",
+    "type": "RECTANGLE",
+    "id": "408:17584",
+    "size": {
+      "width": 73,
+      "height": 23
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ],
+    "borderRadius": 17.853967666625977,
+    "effects": [
+      {
+        "type": "BACKGROUND_BLUR",
+        "radius": 1.8793649673461914,
+        "color": null
+      }
+    ],
+    "strokes": {
+      "weight": 0.46984124183654785,
+      "colors": [
+        "rgba(255, 255, 255, 1)"
+      ]
+    }
+  },
+  {
+    "name": "Show More",
+    "type": "TEXT",
+    "id": "408:17585",
+    "size": {
+      "width": 49,
+      "height": 15
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 11,
+      "fontWeight": 500,
+      "lineHeight": 14.982000350952148,
+      "letterSpacing": 0
+    },
+    "text": "Show More"
+  },
+  {
+    "name": "Wedding",
+    "type": "FRAME",
+    "id": "408:17592",
+    "size": {
+      "width": 296,
+      "height": 189
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ],
+    "borderRadius": 14.095236778259277
+  },
+  {
+    "name": "Corporate Events & Business Gatherings",
+    "type": "FRAME",
+    "id": "408:17593",
+    "size": {
+      "width": 296,
+      "height": 190
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ],
+    "borderRadius": 10
+  },
+  {
+    "name": "Star 8",
+    "type": "STAR",
+    "id": "408:17594",
+    "size": {
+      "width": 11,
+      "height": 11
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Star 9",
+    "type": "STAR",
+    "id": "408:17595",
+    "size": {
+      "width": 11,
+      "height": 11
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Rectangle 16",
+    "type": "RECTANGLE",
+    "id": "408:17596",
+    "size": {
+      "width": 536,
+      "height": 213
+    },
+    "fills": [
+      {
+        "type": "GRADIENT_LINEAR"
+      }
+    ]
+  },
+  {
+    "name": "Corporate Events & Business Gatherings",
+    "type": "TEXT",
+    "id": "408:17597",
+    "size": {
+      "width": 324,
+      "height": 92
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 34,
+      "fontWeight": 200,
+      "lineHeight": 46.30799865722656,
+      "letterSpacing": 0
+    },
+    "text": "Corporate Events & Business Gatherings"
+  },
+  {
+    "name": "Corporate Events & Business Gatherings",
+    "type": "FRAME",
+    "id": "408:17598",
+    "size": {
+      "width": 296,
+      "height": 190
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ],
+    "borderRadius": 10
+  },
+  {
+    "name": "Star 8",
+    "type": "STAR",
+    "id": "408:17599",
+    "size": {
+      "width": 11,
+      "height": 11
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Star 9",
+    "type": "STAR",
+    "id": "408:17600",
+    "size": {
+      "width": 11,
+      "height": 11
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Rectangle 16",
+    "type": "RECTANGLE",
+    "id": "408:17601",
+    "size": {
+      "width": 536,
+      "height": 213
+    },
+    "fills": [
+      {
+        "type": "GRADIENT_LINEAR"
+      }
+    ]
+  },
+  {
+    "name": "Family & Traditional Celebrations",
+    "type": "TEXT",
+    "id": "408:17602",
+    "size": {
+      "width": 324,
+      "height": 92
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 34,
+      "fontWeight": 200,
+      "lineHeight": 46.30799865722656,
+      "letterSpacing": 0
+    },
+    "text": "Family & Traditional Celebrations"
+  },
+  {
+    "name": "Corporate Events & Business Gatherings",
+    "type": "FRAME",
+    "id": "408:17610",
+    "size": {
+      "width": 296,
+      "height": 190
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ],
+    "borderRadius": 10
+  },
+  {
+    "name": "Star 8",
+    "type": "STAR",
+    "id": "408:17611",
+    "size": {
+      "width": 11,
+      "height": 11
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Star 9",
+    "type": "STAR",
+    "id": "408:17612",
+    "size": {
+      "width": 11,
+      "height": 11
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Rectangle 16",
+    "type": "RECTANGLE",
+    "id": "408:17613",
+    "size": {
+      "width": 536,
+      "height": 213
+    },
+    "fills": [
+      {
+        "type": "GRADIENT_LINEAR"
+      }
+    ]
+  },
+  {
+    "name": "Private Parties",
+    "type": "TEXT",
+    "id": "408:17614",
+    "size": {
+      "width": 324,
+      "height": 46
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 34,
+      "fontWeight": 200,
+      "lineHeight": 46.30799865722656,
+      "letterSpacing": 0
+    },
+    "text": "Private Parties"
+  },
+  {
+    "name": "Star 8",
+    "type": "STAR",
+    "id": "408:17603",
+    "size": {
+      "width": 6,
+      "height": 6
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Star 9",
+    "type": "STAR",
+    "id": "408:17604",
+    "size": {
+      "width": 6,
+      "height": 6
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Rectangle 16",
+    "type": "RECTANGLE",
+    "id": "408:17605",
+    "size": {
+      "width": 296,
+      "height": 115
+    },
+    "fills": [
+      {
+        "type": "GRADIENT_LINEAR"
+      }
+    ]
+  },
+  {
+    "name": "Private Parties",
+    "type": "TEXT",
+    "id": "408:17606",
+    "size": {
+      "width": 168,
+      "height": 25
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 18,
+      "fontWeight": 200,
+      "lineHeight": 24.51599884033203,
+      "letterSpacing": 0
+    },
+    "text": "Private Parties"
+  },
+  {
+    "name": "Group 310",
+    "type": "GROUP",
+    "id": "408:17607",
+    "size": {
+      "width": 73,
+      "height": 23
+    },
+    "borderRadius": 17.853967666625977
+  },
+  {
+    "name": "Rectangle 5",
+    "type": "RECTANGLE",
+    "id": "408:17608",
+    "size": {
+      "width": 73,
+      "height": 23
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ],
+    "borderRadius": 17.853967666625977,
+    "effects": [
+      {
+        "type": "BACKGROUND_BLUR",
+        "radius": 1.8793649673461914,
+        "color": null
+      }
+    ],
+    "strokes": {
+      "weight": 0.46984124183654785,
+      "colors": [
+        "rgba(255, 255, 255, 1)"
+      ]
+    }
+  },
+  {
+    "name": "Show More",
+    "type": "TEXT",
+    "id": "408:17609",
+    "size": {
+      "width": 49,
+      "height": 15
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 11,
+      "fontWeight": 500,
+      "lineHeight": 14.982000350952148,
+      "letterSpacing": 0
+    },
+    "text": "Show More"
+  },
+  {
+    "name": "Wedding",
+    "type": "FRAME",
+    "id": "408:17616",
+    "size": {
+      "width": 296,
+      "height": 189
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ],
+    "borderRadius": 14.095236778259277
+  },
+  {
+    "name": "Corporate Events & Business Gatherings",
+    "type": "FRAME",
+    "id": "408:17617",
+    "size": {
+      "width": 296,
+      "height": 190
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ],
+    "borderRadius": 10
+  },
+  {
+    "name": "Star 8",
+    "type": "STAR",
+    "id": "408:17618",
+    "size": {
+      "width": 11,
+      "height": 11
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Star 9",
+    "type": "STAR",
+    "id": "408:17619",
+    "size": {
+      "width": 11,
+      "height": 11
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Rectangle 16",
+    "type": "RECTANGLE",
+    "id": "408:17620",
+    "size": {
+      "width": 536,
+      "height": 213
+    },
+    "fills": [
+      {
+        "type": "GRADIENT_LINEAR"
+      }
+    ]
+  },
+  {
+    "name": "Corporate Events & Business Gatherings",
+    "type": "TEXT",
+    "id": "408:17621",
+    "size": {
+      "width": 324,
+      "height": 92
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 34,
+      "fontWeight": 200,
+      "lineHeight": 46.30799865722656,
+      "letterSpacing": 0
+    },
+    "text": "Corporate Events & Business Gatherings"
+  },
+  {
+    "name": "Corporate Events & Business Gatherings",
+    "type": "FRAME",
+    "id": "408:17622",
+    "size": {
+      "width": 296,
+      "height": 190
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ],
+    "borderRadius": 10
+  },
+  {
+    "name": "Star 8",
+    "type": "STAR",
+    "id": "408:17623",
+    "size": {
+      "width": 11,
+      "height": 11
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Star 9",
+    "type": "STAR",
+    "id": "408:17624",
+    "size": {
+      "width": 11,
+      "height": 11
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Rectangle 16",
+    "type": "RECTANGLE",
+    "id": "408:17625",
+    "size": {
+      "width": 536,
+      "height": 213
+    },
+    "fills": [
+      {
+        "type": "GRADIENT_LINEAR"
+      }
+    ]
+  },
+  {
+    "name": "Family & Traditional Celebrations",
+    "type": "TEXT",
+    "id": "408:17626",
+    "size": {
+      "width": 324,
+      "height": 92
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 34,
+      "fontWeight": 200,
+      "lineHeight": 46.30799865722656,
+      "letterSpacing": 0
+    },
+    "text": "Family & Traditional Celebrations"
+  },
+  {
+    "name": "Corporate Events & Business Gatherings",
+    "type": "FRAME",
+    "id": "408:17627",
+    "size": {
+      "width": 296,
+      "height": 190
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ],
+    "borderRadius": 10
+  },
+  {
+    "name": "Star 8",
+    "type": "STAR",
+    "id": "408:17628",
+    "size": {
+      "width": 11,
+      "height": 11
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Star 9",
+    "type": "STAR",
+    "id": "408:17629",
+    "size": {
+      "width": 11,
+      "height": 11
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Rectangle 16",
+    "type": "RECTANGLE",
+    "id": "408:17630",
+    "size": {
+      "width": 536,
+      "height": 213
+    },
+    "fills": [
+      {
+        "type": "GRADIENT_LINEAR"
+      }
+    ]
+  },
+  {
+    "name": "Private Parties",
+    "type": "TEXT",
+    "id": "408:17631",
+    "size": {
+      "width": 324,
+      "height": 46
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 34,
+      "fontWeight": 200,
+      "lineHeight": 46.30799865722656,
+      "letterSpacing": 0
+    },
+    "text": "Private Parties"
+  },
+  {
+    "name": "Corporate Events & Business Gatherings",
+    "type": "FRAME",
+    "id": "408:17639",
+    "size": {
+      "width": 296,
+      "height": 190
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ],
+    "borderRadius": 10
+  },
+  {
+    "name": "Star 8",
+    "type": "STAR",
+    "id": "408:17640",
+    "size": {
+      "width": 11,
+      "height": 11
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Star 9",
+    "type": "STAR",
+    "id": "408:17641",
+    "size": {
+      "width": 11,
+      "height": 11
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Rectangle 16",
+    "type": "RECTANGLE",
+    "id": "408:17642",
+    "size": {
+      "width": 536,
+      "height": 213
+    },
+    "fills": [
+      {
+        "type": "GRADIENT_LINEAR"
+      }
+    ]
+  },
+  {
+    "name": "Artists & Celebrity Booking",
+    "type": "TEXT",
+    "id": "408:17643",
+    "size": {
+      "width": 324,
+      "height": 92
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 34,
+      "fontWeight": 200,
+      "lineHeight": 46.30799865722656,
+      "letterSpacing": 0
+    },
+    "text": "Artists & Celebrity Booking"
+  },
+  {
+    "name": "Star 8",
+    "type": "STAR",
+    "id": "408:17632",
+    "size": {
+      "width": 6,
+      "height": 6
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Star 9",
+    "type": "STAR",
+    "id": "408:17633",
+    "size": {
+      "width": 6,
+      "height": 6
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Rectangle 16",
+    "type": "RECTANGLE",
+    "id": "408:17634",
+    "size": {
+      "width": 296,
+      "height": 115
+    },
+    "fills": [
+      {
+        "type": "GRADIENT_LINEAR"
+      }
+    ]
+  },
+  {
+    "name": "Artists & Celebrity Booking",
+    "type": "TEXT",
+    "id": "408:17635",
+    "size": {
+      "width": 168,
+      "height": 50
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 18,
+      "fontWeight": 200,
+      "lineHeight": 24.51599884033203,
+      "letterSpacing": 0
+    },
+    "text": "Artists & Celebrity Booking"
+  },
+  {
+    "name": "Group 310",
+    "type": "GROUP",
+    "id": "408:17636",
+    "size": {
+      "width": 73,
+      "height": 23
+    },
+    "borderRadius": 17.853967666625977
+  },
+  {
+    "name": "Rectangle 5",
+    "type": "RECTANGLE",
+    "id": "408:17637",
+    "size": {
+      "width": 73,
+      "height": 23
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ],
+    "borderRadius": 17.853967666625977,
+    "effects": [
+      {
+        "type": "BACKGROUND_BLUR",
+        "radius": 1.8793649673461914,
+        "color": null
+      }
+    ],
+    "strokes": {
+      "weight": 0.46984124183654785,
+      "colors": [
+        "rgba(255, 255, 255, 1)"
+      ]
+    }
+  },
+  {
+    "name": "Show More",
+    "type": "TEXT",
+    "id": "408:17638",
+    "size": {
+      "width": 49,
+      "height": 15
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 11,
+      "fontWeight": 500,
+      "lineHeight": 14.982000350952148,
+      "letterSpacing": 0
+    },
+    "text": "Show More"
+  },
+  {
+    "name": "Make it Happen!",
+    "type": "TEXT",
+    "id": "408:17703",
+    "size": {
+      "width": 278,
+      "height": 49
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Parisienne",
+      "fontSize": 36,
+      "fontWeight": 400,
+      "lineHeight": 49.04296875,
+      "letterSpacing": 0
+    },
+    "text": "Make it Happen!"
+  },
+  {
+    "name": "Frame 554",
+    "type": "FRAME",
+    "id": "408:17718",
+    "size": {
+      "width": 134,
+      "height": 201
+    },
+    "borderRadius": 6.489104270935059,
+    "effects": []
+  },
+  {
+    "name": "Rectangle 217",
+    "type": "RECTANGLE",
+    "id": "408:17719",
+    "size": {
+      "width": 134,
+      "height": 177
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ]
+  },
+  {
+    "name": "IMG_3367 1",
+    "type": "RECTANGLE",
+    "id": "408:17720",
+    "size": {
+      "width": 297,
+      "height": 403
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ]
+  },
+  {
+    "name": "Rectangle 16",
+    "type": "RECTANGLE",
+    "id": "408:17721",
+    "size": {
+      "width": 134,
+      "height": 69
+    },
+    "fills": [
+      {
+        "type": "GRADIENT_LINEAR"
+      }
+    ]
+  },
+  {
+    "name": "Monatik concert",
+    "type": "TEXT",
+    "id": "408:17722",
+    "size": {
+      "width": 97,
+      "height": 19
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 14,
+      "fontWeight": 200,
+      "lineHeight": 19.06800079345703,
+      "letterSpacing": 0
+    },
+    "text": "Monatik concert "
+  },
+  {
+    "name": "Spain",
+    "type": "TEXT",
+    "id": "408:17723",
+    "size": {
+      "width": 28,
+      "height": 16
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 12,
+      "fontWeight": 400,
+      "lineHeight": 16.3439998626709,
+      "letterSpacing": 0
+    },
+    "text": "Spain"
+  },
+  {
+    "name": "Frame 555",
+    "type": "FRAME",
+    "id": "409:17731",
+    "size": {
+      "width": 134,
+      "height": 201
+    },
+    "borderRadius": 6.489104270935059,
+    "effects": []
+  },
+  {
+    "name": "Rectangle 217",
+    "type": "RECTANGLE",
+    "id": "409:17732",
+    "size": {
+      "width": 134,
+      "height": 177
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ]
+  },
+  {
+    "name": "IMG_3367 1",
+    "type": "RECTANGLE",
+    "id": "409:17733",
+    "size": {
+      "width": 297,
+      "height": 403
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ]
+  },
+  {
+    "name": "IMG_3383 1",
+    "type": "RECTANGLE",
+    "id": "409:17739",
+    "size": {
+      "width": 134,
+      "height": 238
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ]
+  },
+  {
+    "name": "Rectangle 16",
+    "type": "RECTANGLE",
+    "id": "409:17734",
+    "size": {
+      "width": 134,
+      "height": 69
+    },
+    "fills": [
+      {
+        "type": "GRADIENT_LINEAR"
+      }
+    ]
+  },
+  {
+    "name": "Till Lindemann",
+    "type": "TEXT",
+    "id": "409:17735",
+    "size": {
+      "width": 97,
+      "height": 19
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 14,
+      "fontWeight": 200,
+      "lineHeight": 19.06800079345703,
+      "letterSpacing": 0
+    },
+    "text": "Till Lindemann"
+  },
+  {
+    "name": "Poland",
+    "type": "TEXT",
+    "id": "409:17736",
+    "size": {
+      "width": 39,
+      "height": 16
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 12,
+      "fontWeight": 400,
+      "lineHeight": 16.3439998626709,
+      "letterSpacing": 0
+    },
+    "text": "Poland"
+  },
+  {
+    "name": "Frame 556",
+    "type": "FRAME",
+    "id": "409:17741",
+    "size": {
+      "width": 134,
+      "height": 201
+    },
+    "borderRadius": 6.489104270935059,
+    "effects": []
+  },
+  {
+    "name": "Rectangle 217",
+    "type": "RECTANGLE",
+    "id": "409:17742",
+    "size": {
+      "width": 134,
+      "height": 177
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ]
+  },
+  {
+    "name": "IMG_3367 1",
+    "type": "RECTANGLE",
+    "id": "409:17743",
+    "size": {
+      "width": 297,
+      "height": 403
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ]
+  },
+  {
+    "name": "IMG_3383 1",
+    "type": "RECTANGLE",
+    "id": "409:17744",
+    "size": {
+      "width": 134,
+      "height": 238
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ]
+  },
+  {
+    "name": "IMG_3347 (1) 1",
+    "type": "RECTANGLE",
+    "id": "409:17748",
+    "size": {
+      "width": 180,
+      "height": 213
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ]
+  },
+  {
+    "name": "Rectangle 16",
+    "type": "RECTANGLE",
+    "id": "409:17745",
+    "size": {
+      "width": 134,
+      "height": 69
+    },
+    "fills": [
+      {
+        "type": "GRADIENT_LINEAR"
+      }
+    ]
+  },
+  {
+    "name": "Till Lindemann",
+    "type": "TEXT",
+    "id": "409:17746",
+    "size": {
+      "width": 97,
+      "height": 19
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 14,
+      "fontWeight": 200,
+      "lineHeight": 19.06800079345703,
+      "letterSpacing": 0
+    },
+    "text": "Till Lindemann"
+  },
+  {
+    "name": "Poland",
+    "type": "TEXT",
+    "id": "409:17747",
+    "size": {
+      "width": 53,
+      "height": 16
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 12,
+      "fontWeight": 400,
+      "lineHeight": 16.3439998626709,
+      "letterSpacing": 0
+    },
+    "text": "Poland"
+  },
+  {
+    "name": "One of the key advantages of working with us is our direct partnership with an international artist booking agency.",
+    "type": "TEXT",
+    "id": "409:17755",
+    "size": {
+      "width": 296,
+      "height": 38
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 12,
+      "fontWeight": 300,
+      "lineHeight": 16.3439998626709,
+      "letterSpacing": 0
+    },
+    "text": "One of the key advantages of working with us is our direct partnership with an international artist "
+  },
+  {
+    "name": "Instagram",
+    "type": "GROUP",
+    "id": "410:17772",
+    "size": {
+      "width": 140,
+      "height": 42
+    }
+  },
+  {
+    "name": "Button",
+    "type": "GROUP",
+    "id": "410:17773",
+    "size": {
+      "width": 140,
+      "height": 42
+    }
+  },
+  {
+    "name": "Group 555",
+    "type": "GROUP",
+    "id": "410:17774",
+    "size": {
+      "width": 140,
+      "height": 42
+    }
+  },
+  {
+    "name": "Group 552",
+    "type": "GROUP",
+    "id": "410:17775",
+    "size": {
+      "width": 140,
+      "height": 42
+    }
+  },
+  {
+    "name": "Rectangle 5",
+    "type": "RECTANGLE",
+    "id": "410:17776",
+    "size": {
+      "width": 140,
+      "height": 42
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(212, 187, 255, 1)"
+      }
+    ],
+    "borderRadius": 24
+  },
+  {
+    "name": "Rectangle 230",
+    "type": "RECTANGLE",
+    "id": "410:17777",
+    "size": {
+      "width": 28,
+      "height": 28
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(208, 144, 255, 1)"
+      }
+    ],
+    "borderRadius": 8.399999618530273
+  },
+  {
+    "name": "Group 556",
+    "type": "GROUP",
+    "id": "410:17778",
+    "size": {
+      "width": 18,
+      "height": 18
+    }
+  },
+  {
+    "name": "inst",
+    "type": "GROUP",
+    "id": "410:17779",
+    "size": {
+      "width": 18,
+      "height": 18
+    },
+    "fills": []
+  },
+  {
+    "name": "Shape",
+    "type": "BOOLEAN_OPERATION",
+    "id": "410:17780",
+    "size": {
+      "width": 18,
+      "height": 18
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Path",
+    "type": "VECTOR",
+    "id": "410:17781",
+    "size": {
+      "width": 18,
+      "height": 18
+    }
+  },
+  {
+    "name": "Path",
+    "type": "VECTOR",
+    "id": "410:17782",
+    "size": {
+      "width": 15,
+      "height": 15
+    }
+  },
+  {
+    "name": "Shape",
+    "type": "BOOLEAN_OPERATION",
+    "id": "410:17783",
+    "size": {
+      "width": 9,
+      "height": 9
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Path",
+    "type": "VECTOR",
+    "id": "410:17784",
+    "size": {
+      "width": 9,
+      "height": 9
+    }
+  },
+  {
+    "name": "Path",
+    "type": "VECTOR",
+    "id": "410:17785",
+    "size": {
+      "width": 6,
+      "height": 6
+    }
+  },
+  {
+    "name": "Oval",
+    "type": "VECTOR",
+    "id": "410:17786",
+    "size": {
+      "width": 1,
+      "height": 1
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Group 555",
+    "type": "GROUP",
+    "id": "410:17787",
+    "size": {
+      "width": 65,
+      "height": 21
+    }
+  },
+  {
+    "name": "Instagram",
+    "type": "TEXT",
+    "id": "410:17788",
+    "size": {
+      "width": 65,
+      "height": 21
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 15.399999618530273,
+      "fontWeight": 500,
+      "lineHeight": 20.97480010986328,
+      "letterSpacing": 0
+    },
+    "text": "Instagram"
+  },
+  {
+    "name": "Follow us on Instagram",
+    "type": "TEXT",
+    "id": "409:17756",
+    "size": {
+      "width": 698,
+      "height": 33
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 24,
+      "fontWeight": 500,
+      "lineHeight": 32.6879997253418,
+      "letterSpacing": 0
+    },
+    "text": "Follow us on Instagram"
+  },
+  {
+    "name": "2029",
+    "type": "FRAME",
+    "id": "410:17762",
+    "size": {
+      "width": 134,
+      "height": 167
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Madeira",
+    "type": "TEXT",
+    "id": "410:17763",
+    "size": {
+      "width": 314,
+      "height": 66
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "SF Compact",
+      "fontSize": 55.66154098510742,
+      "fontWeight": 200,
+      "lineHeight": 66.42422485351562,
+      "letterSpacing": 20.873077869415283
+    },
+    "text": "Madeira"
+  },
+  {
+    "name": "Screenshot 2026-01-16 at 00.08.33 1",
+    "type": "RECTANGLE",
+    "id": "410:17764",
+    "size": {
+      "width": 140,
+      "height": 187
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ]
+  },
+  {
+    "name": "2030",
+    "type": "FRAME",
+    "id": "410:17766",
+    "size": {
+      "width": 134,
+      "height": 167
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Madeira",
+    "type": "TEXT",
+    "id": "410:17767",
+    "size": {
+      "width": 314,
+      "height": 66
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "SF Compact",
+      "fontSize": 55.66154098510742,
+      "fontWeight": 200,
+      "lineHeight": 66.42422485351562,
+      "letterSpacing": 20.873077869415283
+    },
+    "text": "Madeira"
+  },
+  {
+    "name": "Screenshot 2026-01-16 at 00.08.33 1",
+    "type": "RECTANGLE",
+    "id": "410:17768",
+    "size": {
+      "width": 140,
+      "height": 187
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ]
+  },
+  {
+    "name": "2031",
+    "type": "FRAME",
+    "id": "410:17769",
+    "size": {
+      "width": 134,
+      "height": 167
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Madeira",
+    "type": "TEXT",
+    "id": "410:17770",
+    "size": {
+      "width": 314,
+      "height": 66
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "SF Compact",
+      "fontSize": 55.66154098510742,
+      "fontWeight": 200,
+      "lineHeight": 66.42422485351562,
+      "letterSpacing": 20.873077869415283
+    },
+    "text": "Madeira"
+  },
+  {
+    "name": "Screenshot 2026-01-16 at 00.08.33 1",
+    "type": "RECTANGLE",
+    "id": "410:17771",
+    "size": {
+      "width": 140,
+      "height": 187
+    },
+    "fills": [
+      {
+        "type": "IMAGE"
+      }
+    ]
+  },
+  {
+    "name": "Rectangle 9",
+    "type": "RECTANGLE",
+    "id": "410:17792",
+    "size": {
+      "width": 322,
+      "height": 576
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ]
+  },
+  {
+    "name": "Button",
+    "type": "GROUP",
+    "id": "411:17807",
+    "size": {
+      "width": 140,
+      "height": 42
+    }
+  },
+  {
+    "name": "Group 555",
+    "type": "GROUP",
+    "id": "411:17808",
+    "size": {
+      "width": 140,
+      "height": 42
+    },
+    "borderRadius": 24
+  },
+  {
+    "name": "Group 552",
+    "type": "GROUP",
+    "id": "411:17809",
+    "size": {
+      "width": 140,
+      "height": 42
+    },
+    "borderRadius": 24
+  },
+  {
+    "name": "Rectangle 5",
+    "type": "RECTANGLE",
+    "id": "411:17810",
+    "size": {
+      "width": 140,
+      "height": 42
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(212, 187, 255, 1)"
+      }
+    ],
+    "borderRadius": 24
+  },
+  {
+    "name": "Group 555",
+    "type": "GROUP",
+    "id": "411:17811",
+    "size": {
+      "width": 114,
+      "height": 36
+    }
+  },
+  {
+    "name": "Contact US",
+    "type": "TEXT",
+    "id": "411:17812",
+    "size": {
+      "width": 68,
+      "height": 21
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 15.399999618530273,
+      "fontWeight": 500,
+      "lineHeight": 20.97480010986328,
+      "letterSpacing": 0
+    },
+    "text": "Contact US"
+  },
+  {
+    "name": "Star 10",
+    "type": "STAR",
+    "id": "411:17813",
+    "size": {
+      "width": 36,
+      "height": 36
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(208, 144, 255, 1)"
+      }
+    ],
+    "borderRadius": 2.663414478302002
+  },
+  {
+    "name": "Vector",
+    "type": "VECTOR",
+    "id": "411:17814",
+    "size": {
+      "width": 13,
+      "height": 12
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ],
+    "strokes": {
+      "weight": 0.8866666555404663,
+      "colors": [
+        "rgba(0, 0, 0, 1)"
+      ]
+    }
+  },
+  {
+    "name": "dream",
+    "type": "TEXT",
+    "id": "410:17794",
+    "size": {
+      "width": 150,
+      "height": 69
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 65.38461303710938,
+      "fontWeight": 700,
+      "lineHeight": 68.77827453613281,
+      "letterSpacing": 0
+    },
+    "text": "dream"
+  },
+  {
+    "name": "event",
+    "type": "TEXT",
+    "id": "410:17795",
+    "size": {
+      "width": 133,
+      "height": 69
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 65.38461303710938,
+      "fontWeight": 700,
+      "lineHeight": 68.77827453613281,
+      "letterSpacing": 0
+    },
+    "text": "event"
+  },
+  {
+    "name": "Turn Your Dream Event Into Reality – Book With Us Today!",
+    "type": "TEXT",
+    "id": "410:17797",
+    "size": {
+      "width": 134,
+      "height": 66
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 16,
+      "fontWeight": 500,
+      "lineHeight": 21.79199981689453,
+      "letterSpacing": 0
+    },
+    "text": "Turn Your Dream Event Into Reality – Book With Us Today!"
+  },
+  {
+    "name": "Let’s turn your idea into something real",
+    "type": "TEXT",
+    "id": "410:17800",
+    "size": {
+      "width": 296,
+      "height": 22
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 16,
+      "fontWeight": 500,
+      "lineHeight": 21.79199981689453,
+      "letterSpacing": 0
+    },
+    "text": "Let’s turn your idea into something real"
+  },
+  {
+    "name": "Don’t leave your special day to chance—trust the experts with over 19 years of experience in creating unforgettable weddings, private celebrations, corporate events, and star-studded parties. From concept to execution, we handle every detail with creativity, precision, and passion.",
+    "type": "TEXT",
+    "id": "410:17798",
+    "size": {
+      "width": 295,
+      "height": 89
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 12,
+      "fontWeight": 300,
+      "lineHeight": 16.3439998626709,
+      "letterSpacing": 0
+    },
+    "text": "Don’t leave your special day to chance—trust the experts with over 19 years of experience in creatin"
+  },
+  {
+    "name": "Group 554",
+    "type": "GROUP",
+    "id": "410:17801",
+    "size": {
+      "width": 366,
+      "height": 96
+    }
+  },
+  {
+    "name": "event@golden5here.com",
+    "type": "TEXT",
+    "id": "410:17802",
+    "size": {
+      "width": 363,
+      "height": 16
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 12,
+      "fontWeight": 400,
+      "lineHeight": 16.3439998626709,
+      "letterSpacing": 0
+    },
+    "text": "event@golden5here.com"
+  },
+  {
+    "name": "+48571286783",
+    "type": "TEXT",
+    "id": "410:17803",
+    "size": {
+      "width": 363,
+      "height": 16
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 12,
+      "fontWeight": 400,
+      "lineHeight": 16.3439998626709,
+      "letterSpacing": 0
+    },
+    "text": "+48571286783"
+  },
+  {
+    "name": "Contacts",
+    "type": "TEXT",
+    "id": "410:17804",
+    "size": {
+      "width": 84,
+      "height": 16
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 12,
+      "fontWeight": 500,
+      "lineHeight": 16.3439998626709,
+      "letterSpacing": 0
+    },
+    "text": "Contacts"
+  },
+  {
+    "name": "E-mail",
+    "type": "TEXT",
+    "id": "410:17805",
+    "size": {
+      "width": 84,
+      "height": 16
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 12,
+      "fontWeight": 500,
+      "lineHeight": 16.3439998626709,
+      "letterSpacing": 0
+    },
+    "text": "E-mail"
+  },
+  {
+    "name": "One of the key advantages of working with us is our direct partnership with an international artist booking agency. This means we can provide our clients with exclusive access to world-renowned artists, celebrities, musicians, and performers for weddings, private parties, corporate events, and special occasions.",
+    "type": "TEXT",
+    "id": "408:17707",
+    "size": {
+      "width": 294,
+      "height": 95
+    },
+    "fills": [
+      {
+        "type": "solid",
+        "color": "rgba(0, 0, 0, 1)"
+      }
+    ],
+    "typography": {
+      "fontFamily": "Noto Sans",
+      "fontSize": 12,
+      "fontWeight": 300,
+      "lineHeight": 16.3439998626709,
+      "letterSpacing": 0
+    },
+    "text": "One of the key advantages of working with us is our direct partnership with an international artist "
+  }
+]

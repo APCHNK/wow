@@ -140,3 +140,105 @@
 .header-spacer {
     min-width: 100px;
 }
+
+// Responsive styles
+@media (max-width: 1024px) {
+    .site-header {
+        padding: 30px;
+    }
+    
+    .site-logo {
+        max-width: 80px;
+        max-height: 70px;
+    }
+    
+    .menu-toggle {
+        .menu-text {
+            font-size: 16px;
+        }
+        
+        .hamburger {
+            width: 24px;
+            height: 14px;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .site-header {
+        padding: 20px;
+    }
+    
+    .site-logo {
+        max-width: 60px;
+        max-height: 52px;
+    }
+    
+    .menu-toggle {
+        gap: 10px;
+        
+        .menu-text {
+            font-size: 14px;
+        }
+        
+        .hamburger {
+            width: 22px;
+            height: 12px;
+        }
+    }
+    
+    .header-spacer {
+        min-width: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .site-header {
+        padding: 16px;
+    }
+    
+    .site-logo {
+        max-width: 50px;
+        max-height: 44px;
+    }
+    
+    .menu-toggle {
+        gap: 8px;
+        
+        .menu-text {
+            font-size: 12px;
+        }
+        
+        .hamburger {
+            width: 20px;
+            height: 10px;
+        }
+    }
+    
+    .header-spacer {
+        min-width: 40px;
+    }
+}
+
+@media (max-width: 320px) {
+    .site-header {
+        padding: 12px;
+    }
+    
+    .site-logo {
+        max-width: 44px;
+        max-height: 38px;
+    }
+    
+    .menu-toggle {
+        gap: 6px;
+        
+        .menu-text {
+            font-size: 11px;
+        }
+    }
+    
+    .header-spacer {
+        min-width: 30px;
+    }
+}

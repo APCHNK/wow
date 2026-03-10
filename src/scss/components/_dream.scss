@@ -124,3 +124,142 @@
         pointer-events: none;
     }
 }
+
+// Responsive styles
+@media (max-width: 1024px) {
+    .dream {
+        padding: 150px 50px 100px 50px;
+        min-height: 500px;
+    }
+    
+    .dream-bg {
+        left: -40px;
+        
+        span {
+            font-size: 200px;
+        }
+    }
+    
+    .dream-slider {
+        width: 55%;
+        max-width: 500px;
+    }
+    
+    .dream-title {
+        font-size: 50px;
+        margin-bottom: 60px;
+    }
+    
+    .dream-desc {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .dream {
+        padding: 100px 30px 80px 30px;
+        min-height: auto;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .dream-bg {
+        position: relative;
+        left: 0;
+        top: 0;
+        transform: none;
+        margin-bottom: 40px;
+        
+        &.animate {
+            transform: none;
+        }
+        
+        span {
+            font-size: 100px;
+        }
+    }
+    
+    .dream-slider {
+        width: 100%;
+        max-width: 100%;
+        margin-left: 0;
+    }
+    
+    .dream-title {
+        font-size: 40px;
+        margin-bottom: 40px;
+    }
+    
+    .dream-desc {
+        font-size: 14px;
+    }
+    
+    .dream-nav {
+        margin-top: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .dream {
+        padding: 60px 16px 60px 16px;
+    }
+    
+    .dream-bg {
+        margin-bottom: 30px;
+        
+        span {
+            font-size: 65px;
+            
+            &:last-child {
+                margin-left: 5px;
+            }
+        }
+    }
+    
+    .dream-title {
+        font-size: 24px;
+        margin-bottom: 30px;
+    }
+    
+    .dream-desc {
+        font-size: 12px;
+        line-height: 1.4;
+    }
+    
+    .dream-nav {
+        margin-top: 24px;
+        gap: 10px;
+    }
+    
+    .dream-btn {
+        padding: 6px 14px;
+        
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+    }
+}
+
+@media (max-width: 320px) {
+    .dream {
+        padding: 50px 12px 50px 12px;
+    }
+    
+    .dream-bg {
+        margin-bottom: 24px;
+        
+        span {
+            font-size: 55px;
+        }
+    }
+    
+    .dream-title {
+        font-size: 20px;
+        margin-bottom: 24px;
+    }
+    
+    .dream-desc {
+        font-size: 11px;
+    }
+}

@@ -10,3 +10,21 @@
         display: block;
     }
 }
+
+// Responsive styles
+@media (max-width: 768px) {
+    .video-section {
+        video {
+            min-height: 200px;
+            object-fit: cover;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .video-section {
+        video {
+            min-height: 150px;
+        }
+    }
+}
