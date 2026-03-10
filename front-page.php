@@ -377,7 +377,7 @@ As a result, I know how to give each celebration a unique individuality that ref
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <div class="dream-slide-content">
-                            <h2 class="dream-title">TURN YOUR DREAM EVENT INTO REALITY — BOOK WITH US TODAY!</h2>
+                            <h2 class="dream-title">Turn Your Dream Event Into Reality – Book With Us Today!</h2>
                             <p class="dream-desc">Don't leave your special day to chance—trust the experts with over 19 years of experience in creating unforgettable weddings, private celebrations, corporate events, and star-studded parties. From concept to execution, we handle every detail with creativity, precision, and passion.</p>
                         </div>
                     </div>

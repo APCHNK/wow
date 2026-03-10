@@ -201,20 +201,16 @@
 
 @media (max-width: 480px) {
     .dream {
-        padding: 40px 12px 30px 12px;
-        display: block;
-    }
-    
-    // Mobile: side-by-side layout for header
-    .dream-header-mobile {
+        padding: 40px 12px 30px 0; // No left padding - text bleeds off
         display: flex;
-        gap: 12px;
-        margin-bottom: 20px;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 0;
     }
     
     .dream-bg {
         position: relative;
-        left: auto;
+        left: -20px; // Bleed off left edge
         top: auto;
         transform: none;
         margin-bottom: 0;
@@ -225,9 +221,9 @@
         }
         
         span {
-            font-size: 48px;
+            font-size: 52px;
             opacity: 1;
-            line-height: 0.9;
+            line-height: 0.85;
             
             &:last-child {
                 margin-left: 0;
@@ -236,20 +232,24 @@
     }
     
     .dream-slider {
-        width: 100%;
-        max-width: 100%;
+        flex: 1;
+        max-width: none;
         margin-left: 0;
+        padding-right: 12px;
+        padding-top: 8px;
     }
     
     .dream-title {
-        font-size: 18px;
-        margin-bottom: 16px;
-        line-height: 1.2;
+        font-size: 16px;
+        margin-bottom: 20px;
+        line-height: 1.25;
+        text-transform: none; // Title Case, not uppercase
+        font-variant: normal;
     }
     
     .dream-desc {
         font-size: 11px;
-        line-height: 1.4;
+        line-height: 1.45;
     }
     
     // Hide slider nav on mobile
@@ -267,18 +267,20 @@
 
 @media (max-width: 320px) {
     .dream {
-        padding: 30px 12px 24px 12px;
+        padding: 30px 12px 24px 0;
     }
     
     .dream-bg {
+        left: -25px; // More bleed on smaller screens
+        
         span {
-            font-size: 42px;
+            font-size: 45px;
         }
     }
     
     .dream-title {
-        font-size: 16px;
-        margin-bottom: 12px;
+        font-size: 14px;
+        margin-bottom: 16px;
     }
     
     .dream-desc {
