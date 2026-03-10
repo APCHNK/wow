@@ -1,0 +1,139 @@
+@use '../variables' as *;
+
+.site-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 44px;
+    z-index: 1001;
+    transition: background 0.3s ease;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.menu-toggle {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+
+    .hamburger {
+        width: 30px;
+        height: 18px;
+        position: relative;
+
+        span {
+            display: block;
+            position: absolute;
+            height: 2px;
+            background: $text-dark;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            left: 0;
+
+            &:nth-child(1) {
+                top: 0;
+                width: 100%;
+            }
+
+            &:nth-child(2) {
+                top: 50%;
+                transform: translateY(-50%);
+                width: 60%;
+                left: 0;
+            }
+
+            &:nth-child(3) {
+                bottom: 0;
+                width: 100%;
+            }
+        }
+    }
+
+    .menu-text {
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        transition: color 0.3s ease;
+        font-family: var(--font-family);
+            font-weight: 300;
+            font-size: 20px;
+            font-variant: all-small-caps;
+            color: #000;
+    }
+
+    // Active state - X icon, white color
+    &.is-active {
+        .hamburger span {
+            background: #fff;
+
+            &:nth-child(1) {
+                top: 50%;
+                transform: translateY(-50%) rotate(45deg);
+            }
+
+            &:nth-child(2) {
+                opacity: 0;
+                width: 0;
+            }
+
+            &:nth-child(3) {
+                bottom: 50%;
+                transform: translateY(50%) rotate(-45deg);
+            }
+        }
+
+        .menu-text {
+            color: #fff;
+
+            &::before {
+                content: 'CLOSE';
+            }
+        }
+
+        .menu-text-default {
+            display: none;
+        }
+    }
+}
+
+.site-logo {
+    margin-top: -2px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
+    max-width: 104px;
+    max-height: 92px;
+
+    a {
+        display: block;
+    }
+
+    img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        transition: filter 0.5s ease;
+    }
+}
+
+// When menu is open - invert logo
+.menu-open .site-logo img {
+    filter: invert(1);
+}
+
+.header-spacer {
+    min-width: 100px;
+}

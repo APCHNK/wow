@@ -1,0 +1,220 @@
+@use '../variables' as *;
+
+@property --border-angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+
+.happen {
+    padding: 120px 80px;
+    overflow: hidden;
+}
+
+.happen-header {
+    display: flex;
+    gap: 63px;
+    margin-bottom: 162px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.happen-title {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+}
+
+.happen-title-text {
+    font-family: var(--third-family);
+    font-weight: 400;
+    font-size: 103px;
+    color: #000;
+    white-space: nowrap;
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.8s ease-out;
+
+    &.animate {
+        opacity: 1;
+    }
+}
+
+.happen-title-border {
+    position: absolute;
+    top: 50%;
+    right: -35px;
+    width: 425px;
+    transform: translateY(-50%);
+    --border-angle: 0deg;
+    mask: conic-gradient(from -90deg at 50% 50%, #000 var(--border-angle), transparent var(--border-angle));
+    -webkit-mask: conic-gradient(from -90deg at 50% 50%, #000 var(--border-angle), transparent var(--border-angle));
+
+    &.animate {
+        animation: revealBorder 2s ease-out forwards;
+    }
+}
+
+@keyframes revealBorder {
+    0% {
+        --border-angle: 0deg;
+    }
+    100% {
+        --border-angle: 360deg;
+    }
+}
+
+.happen-desc {
+    font-family: var(--font-family);
+    font-weight: 300;
+    font-size: 18px;
+    color: #000;
+    max-width: 706px;
+    font-stretch: semi-condensed;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+
+    &.animate {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// .happen-slider {
+//     position: relative;
+//     .swiper-slide-active{
+//         .happen-card{
+//             border-radius: 20px;
+//         }
+//     }
+// }
+
+.happen-swiper {
+    overflow: visible !important;
+
+    .swiper-slide {
+        width: 413px;
+
+        &:nth-child(odd) {
+            transform: translateY(-15px);
+        }
+
+        &:nth-child(even) {
+            transform: translateY(15px);
+        }
+    }
+}
+
+.happen-card {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 413 / 544;
+    transition: all 0.5s ease;
+    border-radius: 20px;
+    img {
+        width: 125%;
+        height: 125%;
+        object-fit: cover;
+        top: -7%;
+        position: absolute;
+        will-change: transform;
+        transition: transform 0.05s ease-out;
+    }
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 100%;
+        max-height: 213px;
+        transition: all 0.5s ease;
+        pointer-events: none;
+    }
+    &::before {
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
+        opacity: 1;
+        z-index: 3;
+    }
+    &::after {
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(45, 0, 78, 0.58) 100%);
+        opacity: 0;
+        z-index: 2;
+    }
+}
+
+.happen-card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 33px 44px;
+    z-index: 4;
+}
+
+.happen-card-country {
+    display: block;
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 12px;
+    color: #fff;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.happen-card-title {
+    font-family: var(--font-family);
+    font-weight: 300;
+    font-size: 24px;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.happen-nav {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 47px;
+}
+
+.happen-btn {
+    padding: 8px 18px;
+    border-radius: 20px;
+    border: 1px solid #000;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+
+    svg {
+        width: 20px;
+        height: 20px;
+        path {
+            transition: all 0.3s ease;
+        }
+    }
+
+    &:hover {
+        background: #d4bbff;
+        border-color: #d4bbff;
+        svg {
+            path {
+                fill: #fff;
+            }
+        }
+    }
+
+    &.swiper-button-disabled {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+}

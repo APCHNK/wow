@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install)",
+      "Bash(npm run build)",
+      "Bash(npm install gsap)",
+      "WebFetch(domain:www.gabrielerizzilab.com)",
+      "Bash(npm install swiper)",
+      "WebFetch(domain:wowevent.apchnk.xyz)",
+      "Bash(npm install lenis)"
+    ]
+  }
+}

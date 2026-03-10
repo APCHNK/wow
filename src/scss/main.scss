@@ -1,0 +1,19 @@
+// Base
+@use 'base';
+
+// Components
+@use 'components/header';
+@use 'components/nav';
+@use 'components/hero';
+@use 'components/specialise';
+@use 'components/about';
+@use 'components/video';
+@use 'components/happen';
+@use 'components/instagram';
+@use 'components/dream';
+@use 'components/footer';
+
+
+#wpadminbar{
+    display: none;
+}

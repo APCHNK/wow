@@ -1,0 +1,104 @@
+@use '../variables' as *;
+
+.instagram {
+    padding: 0 80px 120px 80px;
+    overflow: hidden;
+}
+
+.instagram-header {
+    margin-bottom: 60px;
+}
+
+.instagram-title {
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 75px;
+    color: #000;
+    margin-bottom: 32px;
+    font-stretch: condensed;
+    opacity: 0;
+    transition: opacity 0.8s ease-out;
+
+    &.animate {
+        opacity: 1;
+    }
+}
+
+.instagram-desc {
+    font-family: var(--font-family);
+    font-weight: 300;
+    font-size: 18px;
+    color: #000;
+    font-stretch: semi-condensed;
+    margin-bottom: 50px;
+    max-width: 678px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+
+    &.animate {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.instagram-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 34px 10px 13px;
+    background: #d4bbff;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+
+    svg {
+        width: 40px;
+        height: 40px;
+        color: #000;
+    }
+
+    span {
+        font-family: var(--font-family);
+        font-weight: 700;
+        font-size: 22px;
+        font-variant: all-small-caps;
+        color: #000;
+        font-stretch: semi-condensed;
+        line-height: 1;
+        margin-bottom: 6px;
+    }
+
+    &:hover {
+        background: #c4a8f5;
+    }
+}
+
+.instagram-swiper {
+    overflow: visible !important;
+
+    .swiper-slide {
+        width: 390px;
+    }
+}
+
+.instagram-card {
+    display: block;
+    width: 390px;
+    height: 487px;
+    overflow: hidden;
+    border-radius: 20px;
+    overflow: hidden;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    &:hover {
+        img {
+            transform: scale(1.05);
+        }
+    }
+}

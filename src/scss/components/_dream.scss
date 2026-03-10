@@ -1,0 +1,126 @@
+@use '../variables' as *;
+
+.dream {
+    position: relative;
+    background: #000;
+    padding: 205px 80px 150px 80px;
+    min-height: 640px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    perspective: 1000px;
+}
+
+.dream-bg {
+    position: absolute;
+    left: -51px;
+    top: 44%;
+    display: flex;
+    flex-direction: column;
+    line-height: 0.85;
+    z-index: 1;
+    transform-origin: left bottom;
+    transform: translateY(-50%) rotateZ(-90deg);
+    transition: transform 1.56s cubic-bezier(0.23, 1, 0.32, 1);
+
+    &.animate {
+        transform: translateY(-50%) rotateZ(0deg);
+    }
+
+    span {
+        font-family: var(--font-family);
+        font-weight: 900;
+        font-size: 289px;
+        line-height: 70%;
+        font-variant: all-small-caps;
+        color: #fff;
+        font-stretch: condensed;
+        opacity: 0.19;
+        &:last-child {
+            margin-left: 10px;
+        }
+    }
+}
+
+.dream-slider {
+    position: relative;
+    margin-left: auto;
+    width: 50%;
+    max-width: 600px;
+    clip-path: inset(0 -100vw 0 0);
+}
+
+.dream-swiper {
+    overflow: visible !important;
+
+    .swiper-slide {
+        opacity: 0.2;
+        transition: opacity 0.3s ease;
+
+        &.swiper-slide-active {
+            opacity: 1;
+        }
+    }
+}
+
+// .dream-slide-content {
+//     padding-right: 40px;
+// }
+
+.dream-title {
+    font-family: var(--font-family);
+    font-weight: 300;
+    font-size: 62px;
+    line-height: 100%;
+    font-variant: all-small-caps;
+    color: #fff;
+    font-stretch: condensed;
+    margin-bottom: 90px;
+}
+
+.dream-desc {
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 18px;
+    color: #fff;
+    opacity: 0.8;
+    line-height: 1.4;
+    // font-stretch: semi-condensed;
+}
+
+.dream-nav {
+    display: flex;
+    gap: 12px;
+    margin-top: 40px;
+    justify-content: end;
+}
+
+.dream-btn {
+    padding: 8px 18px;
+    border-radius: 20px;
+    border: 1px solid #fff;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+
+    svg {
+        width: 20px;
+        height: 20px;
+        path {
+            transition: all 0.3s ease;
+        }
+    }
+
+    &:hover {
+        background: #d4bbff;
+        border-color: #d4bbff;
+    }
+
+    &.swiper-button-disabled {
+        opacity: 0.3;
+        pointer-events: none;
+    }
+}
