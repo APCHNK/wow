@@ -142,43 +142,53 @@
     }
     
     .footer-content {
-        flex-direction: column;
-        gap: 40px;
-        margin-bottom: 60px;
+        display: grid;
+        grid-template-areas: 
+            "title"
+            "contacts"
+            "button";
+        gap: 24px;
+        margin-bottom: 24px;
     }
     
     .footer-left {
-        max-width: 100%;
+        display: contents; // Let children participate in grid
     }
     
     .footer-title {
-        font-size: 40px;
-        margin-bottom: 40px;
+        grid-area: title;
+        font-size: 32px;
+        margin-bottom: 0;
+    }
+    
+    .footer-btn {
+        grid-area: button;
+        justify-self: center;
     }
     
     .footer-right {
+        grid-area: contacts;
         gap: 20px;
         margin-top: 0;
     }
     
     .footer-social {
-        justify-content: flex-start;
+        justify-content: center;
     }
 }
 
 @media (max-width: 480px) {
     .site-footer {
-        padding: 40px 16px 30px;
+        padding: 24px 12px 20px;
     }
     
     .footer-content {
-        gap: 30px;
-        margin-bottom: 40px;
+        gap: 16px;
+        margin-bottom: 20px;
     }
     
     .footer-title {
-        font-size: 28px;
-        margin-bottom: 30px;
+        font-size: 20px;
     }
     
     .footer-btn {
@@ -201,7 +211,7 @@
     }
     
     .footer-right {
-        gap: 16px;
+        gap: 14px;
     }
     
     .footer-label {
@@ -217,28 +227,29 @@
     }
     
     .footer-social-link svg {
-        width: 22px;
-        height: 22px;
+        width: 26px;
+        height: 26px;
     }
 }
 
 @media (max-width: 320px) {
     .site-footer {
-        padding: 30px 12px 24px;
+        padding: 24px 12px 20px;
     }
     
     .footer-content {
-        gap: 24px;
-        margin-bottom: 30px;
+        gap: 16px;
+        margin-bottom: 20px;
     }
     
     .footer-title {
-        font-size: 22px;
-        margin-bottom: 24px;
+        font-size: 18px;
+        margin-bottom: 16px;
     }
     
     .footer-btn {
         padding: 2px 20px 2px 4px;
+        margin-top: 16px;
     }
     
     .footer-btn-icon {
@@ -272,7 +283,7 @@
     }
     
     .footer-social-link svg {
-        width: 20px;
-        height: 20px;
+        width: 22px;
+        height: 22px;
     }
 }

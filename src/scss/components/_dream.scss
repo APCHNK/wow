@@ -201,65 +201,87 @@
 
 @media (max-width: 480px) {
     .dream {
-        padding: 60px 16px 60px 16px;
+        padding: 40px 12px 30px 12px;
+        display: block;
+    }
+    
+    // Mobile: side-by-side layout for header
+    .dream-header-mobile {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 20px;
     }
     
     .dream-bg {
-        margin-bottom: 30px;
+        position: relative;
+        left: auto;
+        top: auto;
+        transform: none;
+        margin-bottom: 0;
+        flex-shrink: 0;
+        
+        &.animate {
+            transform: none;
+        }
         
         span {
-            font-size: 65px;
+            font-size: 48px;
+            opacity: 1;
+            line-height: 0.9;
             
             &:last-child {
-                margin-left: 5px;
+                margin-left: 0;
             }
         }
     }
     
+    .dream-slider {
+        width: 100%;
+        max-width: 100%;
+        margin-left: 0;
+    }
+    
     .dream-title {
-        font-size: 24px;
-        margin-bottom: 30px;
+        font-size: 18px;
+        margin-bottom: 16px;
+        line-height: 1.2;
     }
     
     .dream-desc {
-        font-size: 12px;
+        font-size: 11px;
         line-height: 1.4;
     }
     
+    // Hide slider nav on mobile
     .dream-nav {
-        margin-top: 24px;
-        gap: 10px;
+        display: none;
     }
     
-    .dream-btn {
-        padding: 6px 14px;
-        
-        svg {
-            width: 16px;
-            height: 16px;
+    // Hide swiper pagination/arrows on mobile
+    .dream-swiper {
+        .swiper-slide {
+            opacity: 1;
         }
     }
 }
 
 @media (max-width: 320px) {
     .dream {
-        padding: 50px 12px 50px 12px;
+        padding: 30px 12px 24px 12px;
     }
     
     .dream-bg {
-        margin-bottom: 24px;
-        
         span {
-            font-size: 55px;
+            font-size: 42px;
         }
     }
     
     .dream-title {
-        font-size: 20px;
-        margin-bottom: 24px;
+        font-size: 16px;
+        margin-bottom: 12px;
     }
     
     .dream-desc {
-        font-size: 11px;
+        font-size: 10px;
     }
 }
