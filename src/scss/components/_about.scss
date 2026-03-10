@@ -321,12 +321,12 @@
 
 @media (max-width: 480px) {
     .about {
-        padding: 0 0 40px 0;
+        padding: 0 0 30px 0;
     }
     
     .about-title {
-        padding: 0 16px;
-        margin-bottom: 30px;
+        padding: 0 12px;
+        margin-bottom: 20px;
         
         span {
             font-size: 48px;
@@ -340,95 +340,21 @@
     }
     
     .about-marquees {
-        margin-bottom: 30px;
-    }
-    
-    .about-marquee {
-        padding: 10px 0;
-        margin-left: -20px;
-        margin-right: -20px;
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-    
-    .marquee-text {
-        font-size: 16px;
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-    
-    .marquee-separator {
-        top: -14px;
-        right: -8px;
-        
-        i {
-            width: 5px;
-            height: 5px;
-            margin-bottom: 4px;
-        }
-    }
-    
-    .about-slider {
-        padding: 0 16px;
-    }
-    
-    .slide-text {
-        max-width: 100%;
-        
-        .about-text p {
-            font-size: 12px;
-            line-height: 1.4;
-            margin-bottom: 10px;
-        }
-    }
-    
-    .slide-image {
-        max-width: 140px;
-    }
-    
-    .slider-nav {
-        margin-top: 20px;
-        gap: 10px;
-    }
-    
-    .slider-btn {
-        padding: 6px 14px;
-        
-        svg {
-            width: 16px;
-            height: 16px;
-        }
-    }
-}
-
-@media (max-width: 320px) {
-    .about-title {
-        padding: 0 12px;
-        margin-bottom: 24px;
-        
-        span {
-            font-size: 42px;
-            
-            &:nth-child(2) {
-                font-size: 24px;
-                margin-left: 8px;
-                margin-top: -4px;
-            }
-        }
-    }
-    
-    .about-marquees {
-        margin-bottom: 24px;
+        margin-bottom: 20px;
     }
     
     .about-marquee {
         padding: 8px 0;
+        margin-left: -12px;
+        margin-right: -12px;
+        padding-left: 12px;
+        padding-right: 12px;
     }
     
     .marquee-text {
         font-size: 12px;
-        padding-left: 14px;
-        padding-right: 14px;
+        padding-left: 12px;
+        padding-right: 12px;
     }
     
     .marquee-separator {
@@ -447,12 +373,88 @@
     }
     
     .slide-text {
+        max-width: 100%;
+        
+        .about-text p {
+            font-size: 12px;
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+    }
+    
+    .slide-image {
+        width: 134px;
+        max-width: 134px;
+        height: 201px;
+        flex-shrink: 0;
+    }
+    
+    .slider-nav {
+        margin-top: 16px;
+        gap: 8px;
+    }
+    
+    .slider-btn {
+        padding: 6px 12px;
+        
+        svg {
+            width: 14px;
+            height: 14px;
+        }
+    }
+}
+
+@media (max-width: 320px) {
+    .about {
+        padding: 0 0 24px 0;
+    }
+    
+    .about-title {
+        padding: 0 12px;
+        margin-bottom: 16px;
+        
+        span {
+            font-size: 42px;
+            
+            &:nth-child(2) {
+                font-size: 24px;
+                margin-left: 8px;
+                margin-top: -4px;
+            }
+        }
+    }
+    
+    .about-marquees {
+        margin-bottom: 16px;
+    }
+    
+    .about-marquee {
+        padding: 6px 0;
+    }
+    
+    .marquee-text {
+        font-size: 12px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    
+    .about-slider {
+        padding: 0 12px;
+    }
+    
+    .slide-text {
         .about-text p {
             font-size: 11px;
         }
     }
     
     .slide-image {
-        max-width: 120px;
+        width: 134px;
+        max-width: 134px;
+        height: 201px;
+    }
+    
+    .slider-nav {
+        margin-top: 12px;
     }
 }
