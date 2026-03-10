@@ -1,5 +1,5 @@
 import Swiper from 'swiper';
-import { Navigation } from 'swiper/modules';
+import { Navigation, Mousewheel } from 'swiper/modules';
 
 export function initSpecialise() {
     const swiperEl = document.querySelector('.specialise-swiper');
@@ -10,7 +10,7 @@ export function initSpecialise() {
     const offset = (containerWidth - slideWidth) / 2;
 
     new Swiper(swiperEl, {
-        modules: [Navigation],
+        modules: [Navigation, Mousewheel],
         slidesPerView: 'auto',
         spaceBetween: 220,
         centeredSlides: true,
@@ -20,6 +20,9 @@ export function initSpecialise() {
         navigation: {
             prevEl: '.specialise-prev',
             nextEl: '.specialise-next',
+        },
+        mousewheel: {
+            forceToAxis: true,
         },
     });
 

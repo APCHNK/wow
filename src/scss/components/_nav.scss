@@ -49,6 +49,13 @@ $nav-accent: #8b7bb5;
     width: 100%;
     max-width: 1374px;
     margin: 0 auto;
+    @media  screen and (max-width: 1024px) {
+        flex-direction: column;
+        gap: 24px;
+        justify-content: flex-start;
+            padding: 140px 21px 20px;
+    }
+
 }
 
 .nav-column {
@@ -56,6 +63,10 @@ $nav-accent: #8b7bb5;
     display: flex;
     flex-direction: column;
     gap: 38px;
+    @media  screen and (max-width: 1024px) {
+        gap: 24px;
+        flex: unset;
+    }
 }
 
 .nav-item {
@@ -98,6 +109,9 @@ $nav-accent: #8b7bb5;
         width: max-content;
         position: relative;
         z-index: 1;
+        @media screen and (max-width: 1024px) {
+            font-size: 40px;
+        }
         &::after {
             content: '';
             position: absolute;
@@ -142,6 +156,9 @@ $nav-accent: #8b7bb5;
     width: 100%;
     max-width: 1332px;
     margin: 0 21px;
+    @media screen and (max-width: 1400px) {
+        width: calc(100% - 42px);
+    }
 }
 
 .nav-contacts {

@@ -1,4 +1,5 @@
 import Swiper from 'swiper';
+import { Mousewheel } from 'swiper/modules';
 
 export function initInstagram() {
     // Title fade in on scroll
@@ -33,8 +34,12 @@ export function initInstagram() {
     if (!swiperEl) return;
 
     new Swiper(swiperEl, {
+        modules: [Mousewheel],
         slidesPerView: 'auto',
         spaceBetween: 20,
         loop: true,
+        mousewheel: {
+            forceToAxis: true,
+        },
     });
 }

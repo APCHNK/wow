@@ -1,6 +1,6 @@
 import gsap from 'gsap';
 import Swiper from 'swiper';
-import { Navigation } from 'swiper/modules';
+import { Navigation, Mousewheel } from 'swiper/modules';
 import 'swiper/css';
 
 export function initAbout() {
@@ -132,12 +132,15 @@ function initSlider() {
     if (!swiperEl) return;
 
     const swiper = new Swiper('.about-swiper', {
-        modules: [Navigation],
+        modules: [Navigation, Mousewheel],
         slidesPerView: 'auto',
         spaceBetween: 20,
         navigation: {
             nextEl: '.slider-next',
             prevEl: '.slider-prev',
+        },
+        mousewheel: {
+            forceToAxis: true,
         },
     });
 }

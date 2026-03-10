@@ -1,5 +1,5 @@
 import Swiper from 'swiper';
-import { Navigation } from 'swiper/modules';
+import { Navigation, Mousewheel } from 'swiper/modules';
 
 export function initHappen() {
     // Title text fade in on scroll
@@ -48,7 +48,7 @@ export function initHappen() {
     if (!swiperEl) return;
 
     const swiper = new Swiper(swiperEl, {
-        modules: [Navigation],
+        modules: [Navigation, Mousewheel],
         slidesPerView: 'auto',
         spaceBetween: 32,
         speed: 600,
@@ -56,6 +56,9 @@ export function initHappen() {
         navigation: {
             nextEl: '.happen-next',
             prevEl: '.happen-prev',
+        },
+        mousewheel: {
+            forceToAxis: true,
         },
     });
 

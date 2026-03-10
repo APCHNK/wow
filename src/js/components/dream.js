@@ -1,18 +1,21 @@
 import Swiper from 'swiper';
-import { Navigation } from 'swiper/modules';
+import { Navigation, Mousewheel } from 'swiper/modules';
 
 export function initDream() {
     const swiperEl = document.querySelector('.dream-swiper');
     if (!swiperEl) return;
 
     new Swiper(swiperEl, {
-        modules: [Navigation],
+        modules: [Navigation, Mousewheel],
         slidesPerView: 1,
         spaceBetween: 40,
         speed: 500,
         navigation: {
             nextEl: '.dream-next',
             prevEl: '.dream-prev',
+        },
+        mousewheel: {
+            forceToAxis: true,
         },
     });
 
