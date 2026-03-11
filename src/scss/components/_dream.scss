@@ -225,9 +225,13 @@
         }
         
         span {
-            font-size: 52px;
+            font-family: 'Noto Sans', sans-serif;
+            font-size: 65px;
+            font-weight: 700;
+            line-height: 69px;
             opacity: 1;
-            line-height: 0.85;
+            font-variant: normal;
+            text-transform: uppercase;
             
             &:last-child {
                 margin-left: 0;
@@ -251,20 +255,25 @@
     
     .dream-title {
         grid-area: title;
+        font-family: 'Noto Sans', sans-serif;
         font-size: 16px;
+        font-weight: 500;
+        line-height: 22px;
         margin-bottom: 0;
-        line-height: 1.25;
         text-transform: none;
         font-variant: normal;
-        padding-top: 6px;
+        font-stretch: normal;
     }
     
     .dream-desc {
         grid-area: desc;
-        font-size: 11px;
-        line-height: 1.45;
+        font-family: 'Noto Sans', sans-serif;
+        font-size: 12px;
+        font-weight: 300;
+        line-height: 16px;
         margin-top: 24px;
-        padding-left: 12px; // Add left padding since dream bleeds
+        padding-left: 12px;
+        opacity: 1;
     }
     
     // Hide slider nav on mobile
@@ -279,20 +288,24 @@
     }
     
     .dream-bg {
-        left: -25px;
+        left: -30px; // More bleed on 320px per Figma
         
         span {
-            font-size: 42px;
+            font-size: 65px; // Same as Figma
+            line-height: 69px;
         }
     }
     
     .dream-title {
-        font-size: 14px;
-        padding-top: 4px;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 22px;
     }
     
     .dream-desc {
-        font-size: 10px;
+        font-size: 12px;
+        font-weight: 300;
+        line-height: 16px;
         margin-top: 20px;
     }
 }
