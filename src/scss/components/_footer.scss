@@ -188,7 +188,12 @@
     }
     
     .footer-title {
-        font-size: 20px;
+        font-family: 'Noto Sans', sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 22px;
+        font-variant: normal;
+        font-stretch: normal;
     }
     
     .footer-btn {
@@ -243,8 +248,10 @@
     }
     
     .footer-title {
-        font-size: 18px;
-        margin-bottom: 16px;
+        font-family: 'Noto Sans', sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 22px;
     }
     
     .footer-btn {
