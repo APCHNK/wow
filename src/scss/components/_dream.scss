@@ -206,7 +206,7 @@
         grid-template-columns: auto 1fr;
         grid-template-rows: auto auto;
         grid-template-areas:
-            "dreambg slider"
+            "dreambg title"
             "desc desc";
         gap: 0;
         align-items: start;
@@ -218,6 +218,7 @@
         left: -20px;
         top: auto;
         transform: none;
+        margin-bottom: 0;
         
         &.animate {
             transform: none;
@@ -234,45 +235,41 @@
         }
     }
     
-    .dream-slider {
-        grid-area: slider;
-        width: 100%;
-        max-width: none;
-        margin-left: 0;
-        padding-top: 6px;
-        clip-path: none;
+    // Flatten all nested elements to participate in grid
+    .dream-slider,
+    .dream-swiper,
+    .dream-swiper .swiper-wrapper,
+    .dream-swiper .swiper-slide,
+    .dream-slide-content {
+        display: contents !important;
     }
     
-    .dream-swiper {
-        overflow: hidden !important;
-    }
-    
-    // Hide all slides except the first one on mobile (no slider behavior)
-    .dream-swiper .swiper-slide {
+    // Hide second slide completely
+    .dream-swiper .swiper-slide:not(:first-child) {
         display: none !important;
-        
-        &:first-child {
-            display: block !important;
-            opacity: 1;
-        }
     }
     
     .dream-title {
+        grid-area: title;
         font-size: 16px;
-        margin-bottom: 24px;
+        margin-bottom: 0;
         line-height: 1.25;
         text-transform: none;
         font-variant: normal;
+        padding-top: 6px;
     }
     
     .dream-desc {
+        grid-area: desc;
         font-size: 11px;
         line-height: 1.45;
+        margin-top: 24px;
+        padding-left: 12px; // Add left padding since dream bleeds
     }
     
     // Hide slider nav on mobile
     .dream-nav {
-        display: none;
+        display: none !important;
     }
 }
 
@@ -291,10 +288,11 @@
     
     .dream-title {
         font-size: 14px;
-        margin-bottom: 20px;
+        padding-top: 4px;
     }
     
     .dream-desc {
         font-size: 10px;
+        margin-top: 20px;
     }
 }
