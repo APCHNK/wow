@@ -215,7 +215,7 @@
     .dream-bg {
         grid-area: dreambg;
         position: relative;
-        left: -20px;
+        left: -4px;
         top: auto;
         transform: none;
         margin-bottom: 0;
@@ -228,7 +228,7 @@
             font-family: 'Noto Sans', sans-serif;
             font-size: 65px;
             font-weight: 700;
-            line-height: 69px;
+            line-height: 50px;
             opacity: 0.19;
             font-variant: all-small-caps;
             
@@ -261,7 +261,10 @@
         margin-bottom: 0;
         text-transform: none;
         font-variant: normal;
-        font-stretch: normal;
+        font-stretch: condensed;
+        max-width: 134px;
+        margin-left: auto;
+        margin-top: 10px;
     }
     
     .dream-desc {
@@ -287,11 +290,9 @@
     }
     
     .dream-bg {
-        left: -30px; // More bleed on 320px per Figma
         
         span {
             font-size: 65px; // Same as Figma
-            line-height: 69px;
         }
     }
     

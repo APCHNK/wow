@@ -119,6 +119,10 @@
         </div>
 
         <div class="about-slider">
+            <div class="about-text-mobile">
+                <p>We create captivating and unique realities for those who seek more, who want to bring their dreams to life.</br>I realize the luxury of self-expression.</br>I believe that celebrations are more than just the sum of their parts. It’s a living organism that I approach comprehensively.</br>Getting to know my clients, I sense their energy, surround them with care, and give them all my attention.</br>As a result, I know how to give each celebration a unique individuality that reflects the personality.</br>This enables me to conduct unique, vibrant events at the highest level, constantly innovating and leveraging broad know-how acquired over more than 15 years!
+I invite you to the world of celebrations!</p>
+            </div>
             <div class="swiper about-swiper">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide slide-text">

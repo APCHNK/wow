@@ -134,43 +134,59 @@
     .instagram {
         padding: 0 30px 60px 30px;
     }
-    
+
     .instagram-header {
         margin-bottom: 40px;
     }
-    
+
     .instagram-title {
         font-size: 45px;
         margin-bottom: 20px;
     }
-    
+
     .instagram-desc {
         font-size: 14px;
         margin-bottom: 30px;
         max-width: 100%;
     }
-    
+
     .instagram-btn {
         padding: 8px 28px 8px 10px;
-        
+
         svg {
             width: 32px;
             height: 32px;
         }
-        
+
         span {
             font-size: 18px;
         }
     }
-    
-    .instagram-swiper .swiper-slide {
-        width: 260px;
+
+    .instagram-swiper {
+        overflow: hidden !important;
+
+        .swiper-wrapper {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            transform: none !important;
+        }
+
+        .swiper-slide {
+            width: 100% !important;
+
+            &:nth-child(n+5) {
+                display: none;
+            }
+        }
     }
-    
+
     .instagram-card {
-        width: 260px;
-        height: 325px;
-        border-radius: 16px;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+        border-radius: 0;
     }
 }
 
@@ -178,83 +194,72 @@
     .instagram {
         padding: 0 16px 40px 16px;
     }
-    
+
     .instagram-header {
         margin-bottom: 30px;
     }
-    
+
     .instagram-title {
         font-size: 28px;
         margin-bottom: 16px;
     }
-    
+
     .instagram-desc {
         font-size: 12px;
         margin-bottom: 24px;
     }
-    
+
     .instagram-btn {
         padding: 6px 24px 6px 8px;
         gap: 10px;
-        
+
         svg {
             width: 28px;
             height: 28px;
         }
-        
+
         span {
             font-size: 15px;
             margin-bottom: 4px;
         }
     }
-    
-    .instagram-swiper .swiper-slide {
-        width: 200px;
+
+    .instagram-swiper .swiper-wrapper {
+        gap: 8px;
     }
-    
-    .instagram-card {
-        width: 200px;
-        height: 250px;
-        border-radius: 12px;
-    }
+
 }
 
 @media (max-width: 320px) {
     .instagram {
         padding: 0 12px 30px 12px;
     }
-    
+
     .instagram-title {
         font-size: 24px;
         margin-bottom: 12px;
     }
-    
+
     .instagram-desc {
         font-size: 11px;
         margin-bottom: 20px;
     }
-    
+
     .instagram-btn {
         padding: 5px 20px 5px 6px;
         gap: 8px;
-        
+
         svg {
             width: 24px;
             height: 24px;
         }
-        
+
         span {
             font-size: 13px;
         }
     }
-    
-    .instagram-swiper .swiper-slide {
-        width: 160px;
-    }
-    
-    .instagram-card {
-        width: 160px;
-        height: 200px;
-        border-radius: 10px;
+
+    .instagram-swiper .swiper-wrapper {
+        grid-template-columns: 1fr;
     }
 }

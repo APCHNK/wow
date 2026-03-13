@@ -223,7 +223,7 @@ $nav-accent: #8b7bb5;
     }
     
     .nav-column {
-        gap: 18px;
+        gap: 24px;
         width: 100%;
     }
     
@@ -250,11 +250,12 @@ $nav-accent: #8b7bb5;
         flex-direction: column;
         gap: 20px;
         width: 100%;
+        align-items: center;
     }
     
     .contact-item {
         gap: 12px;
-        
+        align-items: center;
         .contact-label {
             font-size: 14px;
         }
@@ -281,10 +282,14 @@ $nav-accent: #8b7bb5;
     }
     
     .nav-column {
-        gap: 14px;
+        gap: 24px;
     }
     
     .nav-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         .nav-title {
             font-size: 26px;
             
@@ -295,6 +300,7 @@ $nav-accent: #8b7bb5;
         
         .nav-desc {
             font-size: 12px;
+            text-align: center;
         }
     }
     
@@ -313,11 +319,11 @@ $nav-accent: #8b7bb5;
         gap: 10px;
         
         .contact-label {
-            font-size: 12px;
+            font-size: 16px;
         }
         
         .contact-value {
-            font-size: 12px;
+            font-size: 14px;
         }
     }
     
@@ -358,20 +364,8 @@ $nav-accent: #8b7bb5;
         width: calc(100% - 20px);
     }
     
-    .nav-contacts {
-        gap: 14px;
-    }
-    
     .contact-item {
         gap: 8px;
-        
-        .contact-label {
-            font-size: 11px;
-        }
-        
-        .contact-value {
-            font-size: 11px;
-        }
     }
     
     .nav-social {

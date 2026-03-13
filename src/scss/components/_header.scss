@@ -172,6 +172,7 @@
     .site-logo {
         max-width: 60px;
         max-height: 52px;
+        margin-top: unset;
     }
     
     .menu-toggle {
@@ -194,12 +195,13 @@
 
 @media (max-width: 480px) {
     .site-header {
-        padding: 16px;
+        padding: 22px 12px;
     }
     
     .site-logo {
         max-width: 50px;
         max-height: 44px;
+        
     }
     
     .menu-toggle {
@@ -207,11 +209,13 @@
         
         .menu-text {
             font-size: 12px;
+                display: none;
+
         }
         
         .hamburger {
-            width: 20px;
-            height: 10px;
+            width: 30px;
+            height: 18px;
         }
     }
     

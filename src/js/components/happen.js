@@ -62,16 +62,20 @@ export function initHappen() {
         },
         breakpoints: {
             0: {
-                spaceBetween: 10,
+                spaceBetween: 8,
+                slidesPerView: 2.2,
             },
             481: {
                 spaceBetween: 14,
+                slidesPerView: 2.5,
             },
             769: {
                 spaceBetween: 20,
+                slidesPerView: 'auto',
             },
             1025: {
                 spaceBetween: 32,
+                slidesPerView: 'auto',
             },
         },
     });

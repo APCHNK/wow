@@ -1,7 +1,7 @@
 <footer class="site-footer">
     <div class="footer-content">
         <div class="footer-left">
-            <h2 class="footer-title">LET'S TURN YOUR IDEA INTO SOMETHING REAL</h2>
+            <h2 class="footer-title">Let’s turn your idea into something real</h2>
             <a href="#contact" class="footer-btn">
                 <span class="footer-btn-icon">
                     <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">

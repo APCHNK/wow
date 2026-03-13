@@ -117,6 +117,20 @@
     }
 }
 
+// Mobile text (hidden on desktop)
+.about-text-mobile {
+    display: none;
+
+    p {
+        font-family: var(--font-family);
+        font-weight: 300;
+        font-size: 12px;
+        color: #000;
+        font-stretch: semi-condensed;
+        line-height: 1.4;
+    }
+}
+
 // Slider
 .about-slider {
     padding: 0 80px;
@@ -256,14 +270,14 @@
     .about {
         padding: 0 0 60px 0;
     }
-    
+
     .about-title {
         padding: 0 30px;
         margin-bottom: 50px;
-        
+
         span {
             font-size: 90px;
-            
+
             &:nth-child(2) {
                 font-size: 55px;
                 margin-left: 18px;
@@ -271,51 +285,66 @@
             }
         }
     }
-    
+
     .about-marquees {
         margin-bottom: 40px;
     }
-    
+
     .about-marquee {
         padding: 14px 0;
     }
-    
+
     .marquee-text {
         font-size: 24px;
         padding-left: 28px;
         padding-right: 28px;
     }
-    
+
     .marquee-separator {
         top: -18px;
         right: -10px;
-        
+
         i {
             width: 8px;
             height: 8px;
             margin-bottom: 5px;
         }
     }
-    
+
     .about-slider {
         padding: 0 30px;
     }
-    
-    .slide-text {
-        max-width: 350px;
-        
-        .about-text p {
+
+    .about-text-mobile {
+        display: block;
+        margin-bottom: 20px;
+
+        p {
             font-size: 14px;
-            margin-bottom: 12px;
+            line-height: 1.5;
         }
     }
-    
-    .slide-image {
-        max-width: 200px;
+
+    .about-swiper .swiper-slide {
+        width: unset;
     }
-    
+
+    .swiper-slide.slide-text {
+        display: none !important;
+    }
+
+    .slide-image {
+        height: 250px;
+
+        img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+    }
+
     .slider-nav {
-        margin-top: 24px;
+        display: none;
     }
 }
 
@@ -323,14 +352,14 @@
     .about {
         padding: 0 0 30px 0;
     }
-    
+
     .about-title {
         padding: 0 12px;
         margin-bottom: 20px;
-        
+
         span {
             font-size: 48px;
-            
+
             &:nth-child(2) {
                 font-size: 28px;
                 margin-left: 10px;
@@ -338,11 +367,11 @@
             }
         }
     }
-    
+
     .about-marquees {
         margin-bottom: 20px;
     }
-    
+
     .about-marquee {
         padding: 8px 0;
         margin-left: -12px;
@@ -350,58 +379,47 @@
         padding-left: 12px;
         padding-right: 12px;
     }
-    
+
     .marquee-text {
         font-size: 12px;
         padding-left: 12px;
         padding-right: 12px;
     }
-    
+
     .marquee-separator {
         top: -10px;
         right: -5px;
-        
+
         i {
             width: 4px;
             height: 4px;
             margin-bottom: 3px;
         }
     }
-    
+
     .about-slider {
         padding: 0 12px;
     }
-    
-    .slide-text {
-        max-width: 100%;
-        
-        .about-text p {
+
+    .about-text-mobile {
+        margin-bottom: 16px;
+
+        p {
             font-size: 12px;
             line-height: 1.4;
-            margin-bottom: 8px;
         }
     }
-    
+
     .slide-image {
-        width: 134px;
-        max-width: 134px;
         height: 201px;
-        flex-shrink: 0;
-    }
-    
-    .slider-nav {
-        margin-top: 16px;
-        gap: 8px;
-    }
-    
-    .slider-btn {
-        padding: 6px 12px;
-        
-        svg {
-            width: 14px;
-            height: 14px;
+
+        img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
         }
     }
+
 }
 
 @media (max-width: 320px) {
@@ -452,9 +470,5 @@
         width: 134px;
         max-width: 134px;
         height: 201px;
-    }
-    
-    .slider-nav {
-        margin-top: 12px;
     }
 }

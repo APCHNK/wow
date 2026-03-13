@@ -68,8 +68,9 @@ function initMarquee() {
 
     if (marqueeTracks.length === 0) return;
 
-    const baseSpeed = 1;
-    const scrollBoost = 0.4;
+    const isMobile = window.innerWidth <= 480;
+    const baseSpeed = isMobile ? 0.5 : 1;
+    const scrollBoost = isMobile ? 0.2 : 0.4;
     let lastScrollY = window.scrollY;
     let scrollDelta = 0;
 
@@ -145,9 +146,11 @@ function initSlider() {
         breakpoints: {
             0: {
                 spaceBetween: 8,
+                slidesPerView: 2.2,
             },
             481: {
-                spaceBetween: 12,
+                spaceBetween: 10,
+                slidesPerView: 2.5,
             },
             769: {
                 spaceBetween: 16,

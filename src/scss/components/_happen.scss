@@ -274,33 +274,36 @@
     }
     
     .happen-swiper .swiper-slide {
-        width: 280px;
-        
+        width: unset;
+
         &:nth-child(odd),
         &:nth-child(even) {
             transform: translateY(0);
         }
     }
-    
+
     .happen-card {
-        border-radius: 16px;
+        border-radius: 8px;
+        width: 100%;
+        height: 300px;
+        aspect-ratio: unset;
     }
-    
+
     .happen-card-content {
         padding: 24px 28px;
     }
-    
+
     .happen-card-title {
         font-size: 20px;
         letter-spacing: 1.5px;
     }
-    
+
     .happen-card-country {
         font-size: 11px;
     }
-    
+
     .happen-nav {
-        margin-top: 30px;
+        display: none;
     }
 }
 
@@ -319,8 +322,8 @@
     }
     
     .happen-title-border {
-        width: 180px;
-        right: -15px;
+        width: 140px;
+        right: -11px;
     }
     
     .happen-desc {
@@ -328,45 +331,25 @@
         max-width: 100%;
     }
     
-    .happen-swiper .swiper-slide {
-        width: 260px;
-        
-        &:nth-child(odd),
-        &:nth-child(even) {
-            transform: translateY(0);
-        }
-    }
-    
     .happen-card {
         border-radius: 10px;
+        width: 100%;
+        height: 240px;
+        aspect-ratio: unset;
     }
-    
+
     .happen-card-content {
         padding: 14px 16px;
     }
-    
+
     .happen-card-title {
         font-size: 14px;
         letter-spacing: 1px;
     }
-    
+
     .happen-card-country {
         font-size: 10px;
         margin-bottom: 4px;
-    }
-    
-    .happen-nav {
-        margin-top: 16px;
-        gap: 8px;
-    }
-    
-    .happen-btn {
-        padding: 6px 12px;
-        
-        svg {
-            width: 14px;
-            height: 14px;
-        }
     }
 }
 
@@ -382,11 +365,6 @@
     
     .happen-title-text {
         font-size: 30px;
-    }
-    
-    .happen-title-border {
-        width: 150px;
-        right: -12px;
     }
     
     .happen-desc {

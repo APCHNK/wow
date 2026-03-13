@@ -41,5 +41,23 @@ export function initInstagram() {
         mousewheel: {
             forceToAxis: true,
         },
+        breakpoints: {
+            0: {
+                spaceBetween: 8,
+                slidesPerView: 2.2,
+            },
+            481: {
+                spaceBetween: 12,
+                slidesPerView: 2.5,
+            },
+            769: {
+                spaceBetween: 16,
+                slidesPerView: 'auto',
+            },
+            1025: {
+                spaceBetween: 20,
+                slidesPerView: 'auto',
+            },
+        },
     });
 }

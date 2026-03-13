@@ -225,13 +225,13 @@
     .specialise {
         padding: 0 30px 60px 30px;
     }
-    
+
     .specialise-title {
         margin-bottom: 40px;
-        
+
         span {
             font-size: 90px;
-            
+
             &:nth-child(2) {
                 font-size: 55px;
                 margin-left: 18px;
@@ -239,35 +239,84 @@
             }
         }
     }
-    
+
     .specialise-desc {
         font-size: 16px;
     }
-    
+
     .specialise-swiper {
-        height: 400px;
+        height: 420px;
     }
-    
+
     .specialise-card {
         width: 320px;
-        
+
         .card-title {
             font-size: 26px;
         }
-        
+
         .card-btn {
             font-size: 11px;
             padding: 10px 18px;
         }
     }
-    
+
     .swiper-slide-active .specialise-card {
         transform: scale(1.4);
     }
-    
+
     .specialise-nav {
         margin-top: 30px;
         padding-right: 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    .specialise {
+        padding: 0 20px 50px 20px;
+    }
+
+    .specialise-title {
+        margin-bottom: 30px;
+
+        span {
+            font-size: 70px;
+
+            &:nth-child(2) {
+                font-size: 42px;
+                margin-left: 14px;
+                margin-top: -8px;
+            }
+        }
+    }
+
+    .specialise-desc {
+        font-size: 15px;
+    }
+
+    .specialise-swiper {
+        height: 380px;
+    }
+
+    .specialise-card {
+        width: 280px;
+
+        .card-title {
+            font-size: 24px;
+        }
+
+        .card-btn {
+            font-size: 10px;
+            padding: 8px 16px;
+        }
+    }
+
+    .swiper-slide-active .specialise-card {
+        transform: scale(1.35);
+    }
+
+    .specialise-nav {
+        margin-top: 24px;
     }
 }
 
@@ -304,7 +353,7 @@
     }
     
     .specialise-card {
-        width: 296px;
+        width: 100%;
         aspect-ratio: 296/189;
         
         .card-content {
