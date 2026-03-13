@@ -33,31 +33,26 @@ export function initInstagram() {
     const swiperEl = document.querySelector('.instagram-swiper');
     if (!swiperEl) return;
 
-    new Swiper(swiperEl, {
-        modules: [Mousewheel],
-        slidesPerView: 'auto',
-        spaceBetween: 20,
-        loop: true,
-        mousewheel: {
-            forceToAxis: true,
-        },
-        breakpoints: {
-            0: {
-                spaceBetween: 8,
-                slidesPerView: 2.2,
+    // Only init swiper on desktop (>768px)
+    if (window.innerWidth > 768) {
+        new Swiper(swiperEl, {
+            modules: [Mousewheel],
+            slidesPerView: 'auto',
+            spaceBetween: 20,
+            loop: true,
+            mousewheel: {
+                forceToAxis: true,
             },
-            481: {
-                spaceBetween: 12,
-                slidesPerView: 2.5,
+            breakpoints: {
+                769: {
+                    spaceBetween: 16,
+                    slidesPerView: 'auto',
+                },
+                1025: {
+                    spaceBetween: 20,
+                    slidesPerView: 'auto',
+                },
             },
-            769: {
-                spaceBetween: 16,
-                slidesPerView: 'auto',
-            },
-            1025: {
-                spaceBetween: 20,
-                slidesPerView: 'auto',
-            },
-        },
-    });
+        });
+    }
 }

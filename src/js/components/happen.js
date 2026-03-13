@@ -82,60 +82,72 @@ export function initHappen() {
 
     // Parallax settings
     const parallaxAmountX = 30; // horizontal pixels (slider)
-    const parallaxAmountY = 0.05; // vertical speed (scroll)
+    const slideParallaxY = window.innerWidth <= 480 ? 0.03 : 0.06; // vertical speed for slides
 
-    let scrollOffsetY = 0;
+    let scrollOffset = 0;
 
-    function setImagesTransition(duration) {
+    function setParallaxTransition(duration) {
         swiper.slides.forEach(slide => {
             const img = slide.querySelector('img');
             if (img) {
-                img.style.transitionDuration = `${duration}ms`;
+                img.style.setProperty('--parallax-duration', `${duration}ms`);
             }
         });
     }
 
     function updateParallax() {
-        swiper.slides.forEach(slide => {
+        swiper.slides.forEach((slide, index) => {
             const img = slide.querySelector('img');
             if (img) {
-                // Horizontal: based on slide progress
+                // Horizontal parallax on images
                 const offsetX = slide.progress * parallaxAmountX;
-                // Vertical: based on scroll position
-                img.style.transform = `translate3d(${offsetX}px, ${scrollOffsetY}px, 0)`;
+                img.style.transform = `translate3d(${offsetX}px, 0, 0)`;
             }
+            // Vertical parallax on slides - odd/even move opposite
+            const direction = index % 2 === 0 ? -1 : 1;
+            const scrollOffsetY = scrollOffset * direction;
+            slide.style.transform = `translateY(${scrollOffsetY}px)`;
         });
     }
 
-    // Scroll parallax
+    // Add hover listeners to cards - use separate scale property
+    document.querySelectorAll('.happen-card').forEach(card => {
+        const img = card.querySelector('img');
+        card.addEventListener('mouseenter', () => {
+            if (img) img.style.scale = '1.1';
+        });
+        card.addEventListener('mouseleave', () => {
+            if (img) img.style.scale = '1';
+        });
+    });
+
+    // Smooth transition when using navigation buttons
+    swiper.on('beforeTransitionStart', () => {
+        setParallaxTransition(swiper.params.speed);
+    });
+
+    swiper.on('transitionEnd', () => {
+        setParallaxTransition(0);
+    });
+
+    // No transition during drag
+    swiper.on('touchStart', () => {
+        setParallaxTransition(0);
+    });
+
+    // Scroll parallax for slides
     function updateScrollParallax() {
         const rect = swiperEl.getBoundingClientRect();
         const windowHeight = window.innerHeight;
-        // Calculate how far the section is from center of viewport
         const sectionCenter = rect.top + rect.height / 2;
         const viewportCenter = windowHeight / 2;
         const distance = sectionCenter - viewportCenter;
-        scrollOffsetY = distance * parallaxAmountY;
+        scrollOffset = distance * slideParallaxY;
         updateParallax();
     }
 
     window.addEventListener('scroll', updateScrollParallax, { passive: true });
     updateScrollParallax();
-
-    // Remove transition during drag for smooth following
-    swiper.on('touchStart', () => {
-        setImagesTransition(0);
-    });
-
-    // Restore transition when drag ends
-    swiper.on('touchEnd', () => {
-        setImagesTransition(swiper.params.speed);
-    });
-
-    // For navigation buttons - set transition before translate
-    swiper.on('beforeTransitionStart', () => {
-        setImagesTransition(swiper.params.speed);
-    });
 
     swiper.on('setTranslate', updateParallax);
     updateParallax();
