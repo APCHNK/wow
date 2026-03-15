@@ -1,0 +1,66 @@
+.wedding-projects-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 40px 144px;
+    font-family: "Noto Sans";
+    font-size: 14px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
+    a, span {
+        opacity: 0;
+        transition: opacity 0.5s ease, color 0.3s ease;
+
+        &.animate {
+            opacity: 1;
+        }
+    }
+
+    a {
+        color: #666;
+        text-decoration: none;
+
+        &:hover {
+            color: #000;
+        }
+    }
+
+    span {
+        color: #000;
+        font-weight: 500;
+    }
+
+    svg {
+        width: 8px;
+        height: auto;
+        flex-shrink: 0;
+        opacity: 0;
+        transform: translateX(-10px);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+
+        &.animate {
+            opacity: 0.8;
+            transform: translateX(0);
+        }
+    }
+    @media screen and (max-width: 1024px) {
+        padding: 32px 80px;
+        
+    }
+    @media screen and (max-width: 768px) {
+        padding: 24px 20px;
+        font-size: 12px;
+    }
+
+    @media screen and (max-width: 480px) {
+        padding: 16px 12px;
+        font-size: 10px;
+        flex-wrap: wrap;
+        gap: 4px;
+        svg {
+            width: 6px;
+        }
+    }
+}

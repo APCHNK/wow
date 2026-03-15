@@ -1,0 +1,173 @@
+.wedding-projects-archive {
+    margin-top: 180px;
+    @media screen and (max-width: 1024px) {
+        margin-top: 100px;
+    }
+    @media screen and (max-width: 768px) {
+        margin-top: 100px;
+    }
+    @media screen and (max-width: 480px) {
+        margin-top: 85px;
+    }
+}
+
+.wedding-projects-hero {
+    position: relative;
+    height: 840px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    @media screen and (max-width: 1024px) {
+        height: 600px;
+    }
+    @media screen and (max-width: 768px) {
+        height: 450px;
+    }
+    @media screen and (max-width: 480px) {
+        height: 200px;
+    }
+}
+
+.wedding-projects-hero-title {
+    color: #FFF;
+    text-align: center;
+    font-family: "Noto Sans";
+    font-size: 7vw;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 2;
+    font-stretch: condensed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media screen and (max-width: 1024px) {
+        font-size: 6vw;
+    }
+
+    span {
+        opacity: 0;
+        transition: opacity 0.8s ease;
+
+        &.animate {
+            opacity: 1;
+        }
+    }
+
+    svg {
+        height: auto;
+        margin: 0 -25px 0 -20px;
+        z-index: 3;
+        transform: rotate(6deg) scale(2);
+        opacity: 0;
+        transition: opacity 0.8s ease, transform 0.8s ease;
+
+        &.animate {
+            opacity: 1;
+            transform: rotate(6deg) scale(1);
+        }
+
+        @media screen and (max-width: 1024px) {
+            width: 110px;
+        }
+        @media screen and (max-width: 768px) {
+            width: 80px;
+            margin: 0 -15px 0 -10px;
+        }
+        @media screen and (max-width: 480px) {
+            width: 60px;
+            margin: 0 -10px 0 -5px;
+        }
+    }
+}
+
+.wedding-projects-hero-subtitle {
+    color: #FFF;
+    font-family: "Noto Sans";
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    text-align: center;
+    font-stretch: condensed;
+    position: absolute;
+    z-index: 2;
+    margin-top: 20px;
+    bottom: 86px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+
+    &.animate {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    @media screen and (max-width: 768px) {
+        font-size: 4vw;
+        bottom: 40px;
+    }
+    @media screen and (max-width: 480px) {
+        bottom: 12px;
+    }
+}
+
+.wedding-projects-hero-img {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%) scale(0.5);
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    padding: 0 80px;
+    overflow: hidden;
+    transition: transform 0.8s ease;
+
+    &.animate {
+        transform: translateX(-50%) scale(1);
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 160px);
+        height: 50%;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.58) 100%);
+        border-radius: 10px;
+        @media screen and (max-width: 768px) {
+            width: calc(100% - 40px);
+        }
+        @media screen and (max-width: 480px) {
+            width: calc(100% - 24px);
+            border-radius: 4px;
+            
+        }
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+        @media screen and (max-width: 480px) {
+            border-radius: 4px;
+        }
+
+    }
+    @media screen and (max-width: 768px) {
+        padding: 0 20px;
+    }
+    @media screen and (max-width: 480px) {
+        padding: 0 12px;
+    }
+}
+

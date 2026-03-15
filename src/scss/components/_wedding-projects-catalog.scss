@@ -1,0 +1,158 @@
+// Catalog section
+.wedding-projects-catalog {
+    padding: 20px 144px 60px 144px;
+
+    @media screen and (max-width: 1024px) {
+        padding: 40px 80px;
+    }
+
+    @media screen and (max-width: 768px) {
+        padding: 30px 20px;
+    }
+
+    @media screen and (max-width: 480px) {
+        padding: 20px 12px;
+        padding-top: 0;
+    }
+}
+
+.wedding-projects-catalog-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.project {
+    display: flex;
+    gap: 120px;
+    align-items: center;
+    @media screen and (max-width: 1024px) {
+        gap: 40px;
+    }
+    @media screen and (max-width: 768px) {
+        gap: 20px;
+    }
+    @media screen and (max-width: 480px) {
+        gap: 12px;
+    }
+}
+
+.project-img {
+    width: 50%;
+    img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+}
+
+.project-info {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 60%;
+    @media screen and (max-width: 1024px) {
+        gap: 16px;
+    }
+    @media screen and (max-width: 768px) {
+        gap: 12px;
+    }
+    @media screen and (max-width: 480px) {
+        gap: 8px;
+    }
+}
+
+.project-title {
+    color: #000;
+    font-family: "Noto Sans";
+    font-size: clamp(18px, 5.4vw, 103px);
+    font-style: normal;
+    font-weight: 500;
+    line-height: 97.087%; /* 97.087% */
+    font-variant: all-small-caps;
+    font-stretch: condensed;
+    opacity: 0;
+    transition: opacity 0.5s ease 0.3s;
+
+    &.animate {
+        opacity: 1;
+    }
+
+    span {
+        display: block;
+    }
+}
+
+.project-title-country {
+    position: relative;
+    display: inline-block;
+    width: max-content;
+
+    .happen-title-border {
+        position: absolute;
+        top: 2.9vw;
+        left: -1.5vw;
+        width: 14vw;
+        height: auto;
+        --border-angle: 0deg;
+        mask: conic-gradient(from -90deg at 50% 50%, #000 var(--border-angle), transparent var(--border-angle));
+        -webkit-mask: conic-gradient(from -90deg at 50% 50%, #000 var(--border-angle), transparent var(--border-angle));
+
+        &.animate {
+            animation: revealBorder 2s ease-out forwards;
+        }
+    }
+}
+
+.project-desc {
+    color: #000;
+    font-family: "Noto Sans";
+    font-size: clamp(12px, 0.94vw, 18px);
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    font-stretch: condensed;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    display: -webkit-box;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    &.animate {
+        opacity: 0.8;
+    }
+}
+
+.project-link {
+    color: #000;
+    font-family: "Noto Sans";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    font-variant: all-small-caps;
+    border-radius: 35px;
+    border: 2px solid #000;
+    background: #FFF;
+    padding: 12px 24px;
+    text-decoration: unset;
+    transition: all 0.5s ease;
+    width: max-content;
+    opacity: 0;
+    transform: translateY(20px);
+
+    &.animate {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    &:hover {
+        background-color: #D4BBFF;
+        border-color: #D4BBFF;
+    }
+    @media screen and (max-width: 768px) {
+        font-size: 14px;
+        padding: 6px 14px;
+    }
+}

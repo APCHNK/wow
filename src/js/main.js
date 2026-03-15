@@ -9,6 +9,7 @@ import { initAbout } from './components/about';
 import { initHappen } from './components/happen';
 import { initInstagram } from './components/instagram';
 import { initDream } from './components/dream';
+import { initWeddingProjects } from './components/wedding-projects';
 
 // Smooth scroll
 const lenis = new Lenis({
@@ -32,4 +33,5 @@ document.addEventListener('DOMContentLoaded', () => {
     initHappen();
     initInstagram();
     initDream();
+    initWeddingProjects();
 });

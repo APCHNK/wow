@@ -106,3 +106,49 @@ function wow_admin_bar_instagram_cache($wp_admin_bar) {
     ]);
 }
 add_action('admin_bar_menu', 'wow_admin_bar_instagram_cache', 100);
+
+// Register Wedding Projects custom post type
+function wow_register_wedding_projects() {
+    $labels = [
+        'name'                  => 'WEDDING PROJECTS',
+        'singular_name'         => 'Wedding Project',
+        'menu_name'             => 'WEDDING PROJECTS',
+        'name_admin_bar'        => 'Wedding Project',
+        'add_new'               => 'Add New',
+        'add_new_item'          => 'Add New Wedding Project',
+        'new_item'              => 'New Wedding Project',
+        'edit_item'             => 'Edit Wedding Project',
+        'view_item'             => 'View Wedding Project',
+        'all_items'             => 'All Wedding Projects',
+        'search_items'          => 'Search Wedding Projects',
+        'not_found'             => 'No wedding projects found.',
+        'not_found_in_trash'    => 'No wedding projects found in Trash.',
+        'featured_image'        => 'Featured Image',
+        'set_featured_image'    => 'Set featured image',
+        'remove_featured_image' => 'Remove featured image',
+        'use_featured_image'    => 'Use as featured image',
+    ];
+
+    $args = [
+        'labels'             => $labels,
+        'public'             => true,
+        'publicly_queryable' => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'query_var'          => true,
+        'rewrite'            => ['slug' => 'wedding-projects'],
+        'capability_type'    => 'post',
+        'has_archive'        => true,
+        'hierarchical'       => false,
+        'menu_position'      => 5,
+        'menu_icon'          => 'dashicons-heart',
+        'supports'           => ['title', 'editor', 'thumbnail', 'excerpt'],
+        'show_in_rest'       => true,
+    ];
+
+    register_post_type('wedding_project', $args);
+}
+add_action('init', 'wow_register_wedding_projects');
+
+// Disable admin bar on frontend
+add_filter('show_admin_bar', '__return_false');

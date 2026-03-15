@@ -12,8 +12,6 @@
 @use 'components/instagram';
 @use 'components/dream';
 @use 'components/footer';
-
-
-#wpadminbar{
-    display: none;
-}
+@use 'components/wedding-projects';
+@use 'components/wedding-projects-catalog';
+@use 'components/breadcrumb';
