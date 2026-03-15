@@ -7,9 +7,11 @@ import { initHero } from './components/hero';
 import { initSpecialise } from './components/specialise';
 import { initAbout } from './components/about';
 import { initHappen } from './components/happen';
+import { initOurProjects } from './components/our-projects';
 import { initInstagram } from './components/instagram';
 import { initDream } from './components/dream';
 import { initWeddingProjects } from './components/wedding-projects';
+import { initFaq } from './components/faq';
 
 // Smooth scroll
 const lenis = new Lenis({
@@ -31,7 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initSpecialise();
     initAbout();
     initHappen();
+    initOurProjects();
     initInstagram();
     initDream();
     initWeddingProjects();
+    initFaq();
 });

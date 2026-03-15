@@ -6508,6 +6508,57 @@ function initDream() {
 
 /***/ },
 
+/***/ "./src/js/components/faq.js"
+/*!**********************************!*\
+  !*** ./src/js/components/faq.js ***!
+  \**********************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   initFaq: () => (/* binding */ initFaq)
+/* harmony export */ });
+function initFaq() {
+    const faqItems = document.querySelectorAll('.faq-item');
+    if (!faqItems.length) return;
+
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        const answer = item.querySelector('.faq-answer');
+
+        question.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+
+            // Close all
+            faqItems.forEach(i => {
+                const a = i.querySelector('.faq-answer');
+                i.classList.remove('active');
+                a.style.maxHeight = null;
+            });
+
+            // Open clicked if it wasn't active
+            if (!isActive) {
+                item.classList.add('active');
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+            }
+        });
+    });
+
+    // Animate breadcrumb
+    const breadcrumb = document.querySelector('.faq-hero .wedding-projects-breadcrumb');
+    if (breadcrumb) {
+        const items = breadcrumb.querySelectorAll('a, span, svg');
+        items.forEach((item, index) => {
+            setTimeout(() => {
+                item.classList.add('animate');
+            }, index * 150);
+        });
+    }
+}
+
+
+/***/ },
+
 /***/ "./src/js/components/happen.js"
 /*!*************************************!*\
   !*** ./src/js/components/happen.js ***!
@@ -6859,6 +6910,50 @@ function initInstagram() {
 
 /***/ },
 
+/***/ "./src/js/components/our-projects.js"
+/*!*******************************************!*\
+  !*** ./src/js/components/our-projects.js ***!
+  \*******************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   initOurProjects: () => (/* binding */ initOurProjects)
+/* harmony export */ });
+/* harmony import */ var swiper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! swiper */ "./node_modules/swiper/swiper.mjs");
+/* harmony import */ var swiper_modules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! swiper/modules */ "./node_modules/swiper/modules/index.mjs");
+
+
+
+function initOurProjects() {
+    const swiperEl = document.querySelector('.our-projects-swiper');
+    if (!swiperEl) return;
+
+    new swiper__WEBPACK_IMPORTED_MODULE_0__["default"]('.our-projects-swiper', {
+        modules: [swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Navigation, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Mousewheel],
+        slidesPerView: 'auto',
+        spaceBetween: 20,
+        breakpoints: {
+            0: {
+                spaceBetween: 8,
+            },
+            481: {
+                spaceBetween: 20,
+            },
+        },
+        navigation: {
+            nextEl: '.our-projects-next',
+            prevEl: '.our-projects-prev',
+        },
+        mousewheel: {
+            forceToAxis: true,
+        },
+    });
+}
+
+
+/***/ },
+
 /***/ "./src/js/components/specialise.js"
 /*!*****************************************!*\
   !*** ./src/js/components/specialise.js ***!
@@ -6990,6 +7085,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   initWeddingProjects: () => (/* binding */ initWeddingProjects)
 /* harmony export */ });
+/* harmony import */ var swiper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! swiper */ "./node_modules/swiper/swiper.mjs");
+/* harmony import */ var swiper_modules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! swiper/modules */ "./node_modules/swiper/modules/index.mjs");
+/* harmony import */ var swiper_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! swiper/css */ "./node_modules/swiper/swiper.css");
+
+
+
+
 function initWeddingProjects() {
     // Animate hero title spans, svg, hero image and subtitle
     const heroTitle = document.querySelector('.wedding-projects-hero-title');
@@ -7095,6 +7197,141 @@ function initWeddingProjects() {
             observer.observe(project);
         });
     }
+
+    // Read More button - reveal content
+    const readMoreBtn = document.querySelector('.wedding-project-single-readmore');
+    const singleContent = document.querySelector('.wedding-project-single-content');
+
+    if (readMoreBtn && singleContent) {
+        readMoreBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            singleContent.classList.add('active');
+
+            setTimeout(() => {
+                singleContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        });
+    }
+
+    // Gallery slider with Swiper
+    initGallerySwiper();
+
+    // Single page animations
+    initSingleAnimations();
+}
+
+function initSingleAnimations() {
+    // Hero section: image (left), title (right), desc (bottom)
+    const heroSection = document.querySelector('.wedding-project-single-hero');
+    if (heroSection) {
+        const img = document.querySelector('.wedding-project-single-img');
+        const title = document.querySelector('.wedding-project-single-title');
+        const desc = document.querySelector('.wedding-project-single-desc');
+
+        const heroObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (img) img.classList.add('animate');
+                    setTimeout(() => {
+                        if (title) title.classList.add('animate');
+                    }, 300);
+                    setTimeout(() => {
+                        if (desc) desc.classList.add('animate');
+                    }, 600);
+                    heroObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        heroObserver.observe(heroSection);
+    }
+
+    // Gallery section: title (left), desc (fade), footer-btn (bottom)
+    const gallerySection = document.querySelector('.wedding-project-gallery');
+    if (gallerySection) {
+        const galleryTitle = document.querySelector('.wedding-project-gallery-title');
+        const galleryDesc = document.querySelector('.wedding-project-gallery-desc');
+        const footerBtn = gallerySection.querySelector('.wedding-project-gallery-info .footer-btn');
+
+        const galleryObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (galleryTitle) galleryTitle.classList.add('animate');
+                    setTimeout(() => {
+                        if (galleryDesc) galleryDesc.classList.add('animate');
+                    }, 300);
+                    setTimeout(() => {
+                        if (footerBtn) footerBtn.classList.add('animate');
+                    }, 600);
+                    galleryObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        galleryObserver.observe(gallerySection);
+    }
+
+    // Gallery slides: bottom to top, staggered
+    const gallerySlider = document.querySelector('.wedding-project-gallery-slider');
+    if (gallerySlider) {
+        const slides = gallerySlider.querySelectorAll('.swiper-slide');
+
+        const slidesObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    slides.forEach((slide, index) => {
+                        setTimeout(() => {
+                            slide.classList.add('animate');
+                        }, 100 * (index + 1));
+                    });
+                    slidesObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        slidesObserver.observe(gallerySlider);
+    }
+
+    // Our Projects section: title (left) + cards (bottom, staggered)
+    const ourProjectsSection = document.querySelector('.our-projects');
+    if (ourProjectsSection) {
+        const opTitle = ourProjectsSection.querySelector('.our-projects-title');
+        const opCards = ourProjectsSection.querySelectorAll('.our-projects-card');
+
+        const opObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (opTitle) opTitle.classList.add('animate');
+                    opCards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.classList.add('animate');
+                        }, 100 * (index + 1));
+                    });
+                    opObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        opObserver.observe(ourProjectsSection);
+    }
+}
+
+function initGallerySwiper() {
+    const swiperEl = document.querySelector('.wedding-project-swiper');
+    if (!swiperEl) return;
+
+    new swiper__WEBPACK_IMPORTED_MODULE_0__["default"]('.wedding-project-swiper', {
+        modules: [swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Navigation, swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Mousewheel],
+        slidesPerView: 'auto',
+        spaceBetween: 20,
+        navigation: {
+            nextEl: '.wedding-project-gallery-next',
+            prevEl: '.wedding-project-gallery-prev',
+        },
+        mousewheel: {
+            forceToAxis: true,
+        },
+    });
 }
 
 
@@ -18858,13 +19095,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_specialise__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/specialise */ "./src/js/components/specialise.js");
 /* harmony import */ var _components_about__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/about */ "./src/js/components/about.js");
 /* harmony import */ var _components_happen__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/happen */ "./src/js/components/happen.js");
-/* harmony import */ var _components_instagram__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/instagram */ "./src/js/components/instagram.js");
-/* harmony import */ var _components_dream__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/dream */ "./src/js/components/dream.js");
-/* harmony import */ var _components_wedding_projects__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/wedding-projects */ "./src/js/components/wedding-projects.js");
+/* harmony import */ var _components_our_projects__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/our-projects */ "./src/js/components/our-projects.js");
+/* harmony import */ var _components_instagram__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/instagram */ "./src/js/components/instagram.js");
+/* harmony import */ var _components_dream__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/dream */ "./src/js/components/dream.js");
+/* harmony import */ var _components_wedding_projects__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/wedding-projects */ "./src/js/components/wedding-projects.js");
+/* harmony import */ var _components_faq__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/faq */ "./src/js/components/faq.js");
 
 
 
 // Components
+
+
 
 
 
@@ -18894,9 +19135,11 @@ document.addEventListener('DOMContentLoaded', () => {
     (0,_components_specialise__WEBPACK_IMPORTED_MODULE_4__.initSpecialise)();
     (0,_components_about__WEBPACK_IMPORTED_MODULE_5__.initAbout)();
     (0,_components_happen__WEBPACK_IMPORTED_MODULE_6__.initHappen)();
-    (0,_components_instagram__WEBPACK_IMPORTED_MODULE_7__.initInstagram)();
-    (0,_components_dream__WEBPACK_IMPORTED_MODULE_8__.initDream)();
-    (0,_components_wedding_projects__WEBPACK_IMPORTED_MODULE_9__.initWeddingProjects)();
+    (0,_components_our_projects__WEBPACK_IMPORTED_MODULE_7__.initOurProjects)();
+    (0,_components_instagram__WEBPACK_IMPORTED_MODULE_8__.initInstagram)();
+    (0,_components_dream__WEBPACK_IMPORTED_MODULE_9__.initDream)();
+    (0,_components_wedding_projects__WEBPACK_IMPORTED_MODULE_10__.initWeddingProjects)();
+    (0,_components_faq__WEBPACK_IMPORTED_MODULE_11__.initFaq)();
 });
 
 })();

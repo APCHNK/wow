@@ -1,0 +1,234 @@
+.our-projects {
+    padding: 80px 80px 60px;
+    overflow: hidden;
+
+    @media screen and (max-width: 1024px) {
+        padding: 60px 50px 50px;
+    }
+
+    @media screen and (max-width: 768px) {
+        padding: 40px 30px;
+    }
+
+    @media screen and (max-width: 480px) {
+        padding: 30px 12px;
+    }
+}
+
+.our-projects-title {
+    font-family: "Noto Sans";
+    font-weight: 500;
+    font-size: clamp(32px, 5vw, 80px);
+    color: #000;
+    line-height: 1;
+    font-stretch: condensed;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    opacity: 0;
+    transform: translateX(-60px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+
+    &.animate {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    @media screen and (max-width: 768px) {
+        margin-bottom: 24px;
+    }
+
+    @media screen and (max-width: 480px) {
+        text-align: center;
+    }
+}
+
+.our-projects-slider {
+    position: relative;
+}
+
+.our-projects-swiper {
+    overflow: visible !important;
+
+    @media screen and (max-width: 768px) {
+        overflow: hidden;
+    }
+}
+
+.our-projects-swiper .swiper-slide {
+    width: auto;
+    height: auto;
+}
+
+.our-projects-card {
+    display: block;
+    position: relative;
+    width: 330px;
+    aspect-ratio: 330 / 495;
+    border-radius: 0px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: all 0.5s ease;
+    opacity: 0;
+    transform: translateY(60px);
+
+    &.animate {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    @media screen and (max-width: 1024px) {
+        width: 240px;
+    }
+
+    @media screen and (max-width: 768px) {
+        width: 200px;
+    }
+
+    @media screen and (max-width: 480px) {
+        width: 160px;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+    &::after {
+        content: '';
+        position: absolute;
+        height: 70%;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(180deg, rgba(45, 0, 78, 0.00) 0.09%, rgba(45, 0, 78, 0.58) 63.73%);
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+
+    &:hover {
+        border-radius: 20px;
+        transform: translateY(-20px);
+        img {
+            transform: scale(1.05);
+        }
+        &::after {
+            opacity: 1;
+        }
+        @media screen and (max-width: 480px) {
+            border-radius: 5px;
+        }
+    }
+
+    &--last {
+        .our-projects-card-hover {
+            opacity: 1;
+        }
+    }
+}
+
+.our-projects-card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 100%);
+    z-index: 1;
+
+    @media screen and (max-width: 480px) {
+        padding: 12px;
+    }
+}
+
+.our-projects-card-title {
+    font-family: "Noto Sans";
+    font-weight: 300;
+    font-size: clamp(12px, 1.2vw, 18px);
+    color: #fff;
+    text-transform: uppercase;
+    font-stretch: condensed;
+    line-height: 1.2;
+}
+
+.our-projects-card-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.our-projects-card-btn {
+    color: #fff;
+    font-family: "Noto Sans";
+    font-weight: 500;
+    font-size: 14px;
+    padding: 12px 24px;
+    border-radius: 30px;
+    border-radius: 17.854px;
+border: 0.47px solid #FFF;
+background: rgba(0, 0, 0, 0.40);
+backdrop-filter: blur(0.9396824836730957px);
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background: #D4BBFF;
+    }
+
+    @media screen and (max-width: 480px) {
+        font-size: 12px;
+        padding: 10px 20px;
+    }
+}
+
+.our-projects-nav {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 30px;
+
+    @media screen and (max-width: 768px) {
+        display: none;
+    }
+}
+
+.our-projects-btn {
+    padding: 8px 18px;
+    border-radius: 20px;
+    border: 1px solid #000;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+
+    svg {
+        width: 20px;
+        height: 20px;
+
+        path {
+            transition: all 0.3s ease;
+        }
+    }
+
+    &:hover {
+        background: #d4bbff;
+        border-color: #d4bbff;
+
+        svg path {
+            fill: #fff;
+        }
+    }
+
+    &.swiper-button-disabled {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+}

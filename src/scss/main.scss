@@ -1,6 +1,5 @@
 // Base
 @use 'base';
-
 // Components
 @use 'components/header';
 @use 'components/nav';
@@ -9,9 +8,12 @@
 @use 'components/about';
 @use 'components/video';
 @use 'components/happen';
+@use 'components/our-projects';
 @use 'components/instagram';
 @use 'components/dream';
 @use 'components/footer';
 @use 'components/wedding-projects';
 @use 'components/wedding-projects-catalog';
+@use 'components/wedding-project-single';
 @use 'components/breadcrumb';
+@use 'components/faq';

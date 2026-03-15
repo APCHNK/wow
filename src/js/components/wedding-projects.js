@@ -1,3 +1,7 @@
+import Swiper from 'swiper';
+import { Navigation, Mousewheel } from 'swiper/modules';
+import 'swiper/css';
+
 export function initWeddingProjects() {
     // Animate hero title spans, svg, hero image and subtitle
     const heroTitle = document.querySelector('.wedding-projects-hero-title');
@@ -103,4 +107,139 @@ export function initWeddingProjects() {
             observer.observe(project);
         });
     }
+
+    // Read More button - reveal content
+    const readMoreBtn = document.querySelector('.wedding-project-single-readmore');
+    const singleContent = document.querySelector('.wedding-project-single-content');
+
+    if (readMoreBtn && singleContent) {
+        readMoreBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            singleContent.classList.add('active');
+
+            setTimeout(() => {
+                singleContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        });
+    }
+
+    // Gallery slider with Swiper
+    initGallerySwiper();
+
+    // Single page animations
+    initSingleAnimations();
+}
+
+function initSingleAnimations() {
+    // Hero section: image (left), title (right), desc (bottom)
+    const heroSection = document.querySelector('.wedding-project-single-hero');
+    if (heroSection) {
+        const img = document.querySelector('.wedding-project-single-img');
+        const title = document.querySelector('.wedding-project-single-title');
+        const desc = document.querySelector('.wedding-project-single-desc');
+
+        const heroObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (img) img.classList.add('animate');
+                    setTimeout(() => {
+                        if (title) title.classList.add('animate');
+                    }, 300);
+                    setTimeout(() => {
+                        if (desc) desc.classList.add('animate');
+                    }, 600);
+                    heroObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        heroObserver.observe(heroSection);
+    }
+
+    // Gallery section: title (left), desc (fade), footer-btn (bottom)
+    const gallerySection = document.querySelector('.wedding-project-gallery');
+    if (gallerySection) {
+        const galleryTitle = document.querySelector('.wedding-project-gallery-title');
+        const galleryDesc = document.querySelector('.wedding-project-gallery-desc');
+        const footerBtn = gallerySection.querySelector('.wedding-project-gallery-info .footer-btn');
+
+        const galleryObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (galleryTitle) galleryTitle.classList.add('animate');
+                    setTimeout(() => {
+                        if (galleryDesc) galleryDesc.classList.add('animate');
+                    }, 300);
+                    setTimeout(() => {
+                        if (footerBtn) footerBtn.classList.add('animate');
+                    }, 600);
+                    galleryObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        galleryObserver.observe(gallerySection);
+    }
+
+    // Gallery slides: bottom to top, staggered
+    const gallerySlider = document.querySelector('.wedding-project-gallery-slider');
+    if (gallerySlider) {
+        const slides = gallerySlider.querySelectorAll('.swiper-slide');
+
+        const slidesObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    slides.forEach((slide, index) => {
+                        setTimeout(() => {
+                            slide.classList.add('animate');
+                        }, 100 * (index + 1));
+                    });
+                    slidesObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        slidesObserver.observe(gallerySlider);
+    }
+
+    // Our Projects section: title (left) + cards (bottom, staggered)
+    const ourProjectsSection = document.querySelector('.our-projects');
+    if (ourProjectsSection) {
+        const opTitle = ourProjectsSection.querySelector('.our-projects-title');
+        const opCards = ourProjectsSection.querySelectorAll('.our-projects-card');
+
+        const opObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (opTitle) opTitle.classList.add('animate');
+                    opCards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.classList.add('animate');
+                        }, 100 * (index + 1));
+                    });
+                    opObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        opObserver.observe(ourProjectsSection);
+    }
+}
+
+function initGallerySwiper() {
+    const swiperEl = document.querySelector('.wedding-project-swiper');
+    if (!swiperEl) return;
+
+    new Swiper('.wedding-project-swiper', {
+        modules: [Navigation, Mousewheel],
+        slidesPerView: 'auto',
+        spaceBetween: 20,
+        navigation: {
+            nextEl: '.wedding-project-gallery-next',
+            prevEl: '.wedding-project-gallery-prev',
+        },
+        mousewheel: {
+            forceToAxis: true,
+        },
+    });
 }

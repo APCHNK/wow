@@ -17,6 +17,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html.lenis, html.lenis body {
   height: auto;
 }
@@ -1851,6 +1855,242 @@ body {
     margin-top: 12px;
   }
 }
+.our-projects {
+  padding: 80px 80px 60px;
+  overflow: hidden;
+}
+@media screen and (max-width: 1024px) {
+  .our-projects {
+    padding: 60px 50px 50px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .our-projects {
+    padding: 40px 30px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .our-projects {
+    padding: 30px 12px;
+  }
+}
+
+.our-projects-title {
+  font-family: "Noto Sans";
+  font-weight: 500;
+  font-size: clamp(32px, 5vw, 80px);
+  color: #000;
+  line-height: 1;
+  font-stretch: condensed;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.our-projects-title.animate {
+  opacity: 1;
+  transform: translateX(0);
+}
+@media screen and (max-width: 768px) {
+  .our-projects-title {
+    margin-bottom: 24px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .our-projects-title {
+    text-align: center;
+  }
+}
+
+.our-projects-slider {
+  position: relative;
+}
+
+.our-projects-swiper {
+  overflow: visible !important;
+}
+@media screen and (max-width: 768px) {
+  .our-projects-swiper {
+    overflow: hidden;
+  }
+}
+
+.our-projects-swiper .swiper-slide {
+  width: auto;
+  height: auto;
+}
+
+.our-projects-card {
+  display: block;
+  position: relative;
+  width: 330px;
+  aspect-ratio: 330/495;
+  border-radius: 0px;
+  overflow: hidden;
+  text-decoration: none;
+  transition: all 0.5s ease;
+  opacity: 0;
+  transform: translateY(60px);
+}
+.our-projects-card.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media screen and (max-width: 1024px) {
+  .our-projects-card {
+    width: 240px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .our-projects-card {
+    width: 200px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .our-projects-card {
+    width: 160px;
+  }
+}
+.our-projects-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.our-projects-card::after {
+  content: "";
+  position: absolute;
+  height: 70%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(45, 0, 78, 0) 0.09%, rgba(45, 0, 78, 0.58) 63.73%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.our-projects-card:hover {
+  border-radius: 20px;
+  transform: translateY(-20px);
+}
+.our-projects-card:hover img {
+  transform: scale(1.05);
+}
+.our-projects-card:hover::after {
+  opacity: 1;
+}
+@media screen and (max-width: 480px) {
+  .our-projects-card:hover {
+    border-radius: 5px;
+  }
+}
+.our-projects-card--last .our-projects-card-hover {
+  opacity: 1;
+}
+
+.our-projects-card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 100%);
+  z-index: 1;
+}
+@media screen and (max-width: 480px) {
+  .our-projects-card-content {
+    padding: 12px;
+  }
+}
+
+.our-projects-card-title {
+  font-family: "Noto Sans";
+  font-weight: 300;
+  font-size: clamp(12px, 1.2vw, 18px);
+  color: #fff;
+  text-transform: uppercase;
+  font-stretch: condensed;
+  line-height: 1.2;
+}
+
+.our-projects-card-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.our-projects-card-btn {
+  color: #fff;
+  font-family: "Noto Sans";
+  font-weight: 500;
+  font-size: 14px;
+  padding: 12px 24px;
+  border-radius: 30px;
+  border-radius: 17.854px;
+  border: 0.47px solid #FFF;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(0.9396824837px);
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+.our-projects-card-btn:hover {
+  background: #D4BBFF;
+}
+@media screen and (max-width: 480px) {
+  .our-projects-card-btn {
+    font-size: 12px;
+    padding: 10px 20px;
+  }
+}
+
+.our-projects-nav {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 30px;
+}
+@media screen and (max-width: 768px) {
+  .our-projects-nav {
+    display: none;
+  }
+}
+
+.our-projects-btn {
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: 1px solid #000;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+.our-projects-btn svg {
+  width: 20px;
+  height: 20px;
+}
+.our-projects-btn svg path {
+  transition: all 0.3s ease;
+}
+.our-projects-btn:hover {
+  background: #d4bbff;
+  border-color: #d4bbff;
+}
+.our-projects-btn:hover svg path {
+  fill: #fff;
+}
+.our-projects-btn.swiper-button-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 .instagram {
   padding: 0 80px 120px 80px;
   overflow: hidden;
@@ -2947,6 +3187,466 @@ body {
   }
 }
 
+.wedding-project-single {
+  margin-top: 20px;
+}
+
+.wedding-project-single-hero {
+  display: flex;
+  gap: 0;
+}
+@media screen and (max-width: 600px) {
+  .wedding-project-single-hero {
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+    margin-top: 100px;
+  }
+}
+
+.wedding-project-single-img {
+  width: 32%;
+  flex-shrink: 0;
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.wedding-project-single-img.animate {
+  opacity: 1;
+  transform: translateX(0);
+}
+@media screen and (max-width: 600px) {
+  .wedding-project-single-img {
+    width: calc(100% - 120px);
+    margin: 0 auto;
+  }
+}
+.wedding-project-single-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.wedding-project-single-info {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 40px 144px 40px 80px;
+  justify-content: end;
+  position: relative;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 100px;
+}
+@media screen and (max-width: 1024px) {
+  .wedding-project-single-info {
+    padding: 40px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .wedding-project-single-info {
+    padding: 20px 40px;
+  }
+}
+@media screen and (max-width: 600px) {
+  .wedding-project-single-info {
+    padding: 20px;
+    position: unset;
+    padding-bottom: 0;
+  }
+}
+@media screen and (max-width: 480px) {
+  .wedding-project-single-info {
+    padding: 12px;
+    padding-bottom: 0;
+  }
+}
+
+.wedding-project-single-title {
+  color: #000;
+  font-family: "Noto Sans";
+  font-size: clamp(28px, 5.4vw, 103px);
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  font-variant: all-small-caps;
+  text-transform: uppercase;
+  font-stretch: condensed;
+  position: absolute;
+  top: 160px;
+  left: -40px;
+  opacity: 0;
+  transform: translateX(60px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.wedding-project-single-title.animate {
+  opacity: 1;
+  transform: translateX(0);
+}
+@media screen and (max-width: 1024px) {
+  .wedding-project-single-title {
+    top: 40px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .wedding-project-single-title {
+    top: 10px;
+    left: -20px;
+  }
+}
+@media screen and (max-width: 600px) {
+  .wedding-project-single-title {
+    top: -25px;
+    left: unset;
+  }
+}
+
+.wedding-project-single-desc {
+  color: #000;
+  font-family: "Noto Sans";
+  font-size: clamp(12px, 0.94vw, 18px);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.6;
+  font-stretch: condensed;
+  opacity: 0;
+  max-width: 483px;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.wedding-project-single-desc.animate {
+  opacity: 0.8;
+  transform: translateY(0);
+}
+@media screen and (max-width: 600px) {
+  .wedding-project-single-desc {
+    max-width: 100%;
+  }
+}
+
+.wedding-project-single-readmore {
+  color: #000;
+  font-family: "Noto Sans";
+  font-size: clamp(12px, 0.94vw, 18px);
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+.wedding-project-single-readmore:hover {
+  opacity: 0.7;
+}
+.wedding-project-single-readmore svg {
+  width: clamp(12px, 0.94vw, 18px);
+  height: auto;
+}
+
+.wedding-project-single-contact {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #D4BBFF;
+  border: none;
+  border-radius: 35px;
+  padding: 14px 28px;
+  color: #000;
+  font-family: "Noto Sans";
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: uppercase;
+  text-decoration: none;
+  width: max-content;
+  transition: all 0.3s ease;
+}
+.wedding-project-single-contact svg {
+  width: 20px;
+  height: auto;
+}
+.wedding-project-single-contact:hover {
+  background-color: #c4a8f0;
+}
+
+.wedding-project-single-content {
+  padding: 0 144px;
+  color: #000;
+  font-family: "Noto Sans";
+  font-size: clamp(12px, 0.94vw, 18px);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.6;
+  font-stretch: condensed;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: max-height 0.8s ease, opacity 0.6s ease, transform 0.6s ease;
+}
+.wedding-project-single-content.active {
+  max-height: 2000px;
+  opacity: 0.8;
+  transform: translateY(0);
+}
+.wedding-project-single-content p {
+  margin-bottom: 20px;
+}
+.wedding-project-single-content h2, .wedding-project-single-content h3, .wedding-project-single-content h4 {
+  margin: 30px 0 15px;
+  font-weight: 500;
+}
+.wedding-project-single-content img {
+  max-width: 100%;
+  height: auto;
+  margin: 20px 0;
+}
+@media screen and (max-width: 1024px) {
+  .wedding-project-single-content {
+    padding: 0 40px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .wedding-project-single-content {
+    padding: 0 20px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .wedding-project-single-content {
+    padding: 0px 12px;
+  }
+}
+
+.wedding-projects-breadcrumb.single {
+  padding-left: 44px;
+  padding-right: 44px;
+}
+@media screen and (max-width: 600px) {
+  .wedding-projects-breadcrumb.single {
+    display: none;
+  }
+}
+
+.wedding-project-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  padding: 0px 0px 40px 80px;
+  padding-top: 0;
+}
+@media screen and (max-width: 768px) {
+  .wedding-project-gallery {
+    padding: 0 12px 40px 12px;
+    gap: 20px;
+  }
+}
+@media screen and (max-width: 600px) {
+  .wedding-project-gallery {
+    padding-top: 20px;
+  }
+}
+
+.wedding-project-gallery-top {
+  max-width: 1000px;
+}
+
+.wedding-project-gallery-bottom {
+  display: flex;
+  gap: 24px;
+}
+@media screen and (max-width: 768px) {
+  .wedding-project-gallery-bottom {
+    flex-direction: column;
+  }
+}
+
+.wedding-project-gallery-info {
+  width: 35%;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: end;
+  gap: 24px;
+  padding-bottom: 70px;
+}
+@media screen and (max-width: 768px) {
+  .wedding-project-gallery-info {
+    display: none;
+  }
+}
+
+.wedding-project-gallery-title {
+  color: #000;
+  font-family: "Noto Sans";
+  font-size: clamp(28px, 5.4vw, 103px);
+  font-style: normal;
+  font-weight: 500;
+  line-height: 0.8;
+  font-variant: all-small-caps;
+  text-transform: uppercase;
+  font-stretch: condensed;
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.wedding-project-gallery-title.animate {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.wedding-project-gallery-desc {
+  color: #000;
+  font-family: "Noto Sans";
+  font-size: clamp(12px, 0.94vw, 18px);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.6;
+  font-stretch: condensed;
+  opacity: 0;
+  max-width: 483px;
+  transition: opacity 0.8s ease;
+}
+.wedding-project-gallery-desc.animate {
+  opacity: 0.8;
+}
+
+.wedding-project-gallery-slider {
+  flex: 1;
+  position: relative;
+}
+@media screen and (max-width: 768px) {
+  .wedding-project-gallery-slider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.wedding-project-swiper {
+  overflow: visible;
+}
+@media screen and (max-width: 768px) {
+  .wedding-project-swiper {
+    overflow: hidden;
+    width: 100%;
+  }
+  .wedding-project-swiper .swiper-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    transform: none !important;
+  }
+}
+
+.wedding-project-swiper .swiper-slide {
+  width: auto;
+  max-width: 304px;
+  height: auto;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.wedding-project-swiper .swiper-slide.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+.wedding-project-swiper .swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+@media screen and (max-width: 1024px) {
+  .wedding-project-swiper .swiper-slide {
+    max-width: 250px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .wedding-project-swiper .swiper-slide {
+    max-width: unset;
+    width: 100% !important;
+    aspect-ratio: 134/201;
+    height: auto;
+  }
+  .wedding-project-swiper .swiper-slide img {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.wedding-project-gallery-mobile-btn {
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .wedding-project-gallery-mobile-btn {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+  }
+}
+
+.wedding-project-gallery-nav {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 30px;
+  padding-right: 44px;
+}
+@media screen and (max-width: 768px) {
+  .wedding-project-gallery-nav {
+    display: none;
+  }
+}
+
+.wedding-project-gallery-prev,
+.wedding-project-gallery-next {
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: 1px solid #000;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+.wedding-project-gallery-prev svg,
+.wedding-project-gallery-next svg {
+  width: 20px;
+  height: 20px;
+}
+.wedding-project-gallery-prev svg path,
+.wedding-project-gallery-next svg path {
+  transition: all 0.3s ease;
+}
+.wedding-project-gallery-prev:hover,
+.wedding-project-gallery-next:hover {
+  background: #d4bbff;
+  border-color: #d4bbff;
+}
+.wedding-project-gallery-prev:hover svg path,
+.wedding-project-gallery-next:hover svg path {
+  fill: #fff;
+}
+.wedding-project-gallery-prev.swiper-button-disabled,
+.wedding-project-gallery-next.swiper-button-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.wedding-project-gallery-info .footer-btn {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease, background-color 0.3s ease;
+}
+.wedding-project-gallery-info .footer-btn.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .wedding-projects-breadcrumb {
   display: flex;
   align-items: center;
@@ -3009,6 +3709,128 @@ body {
   .wedding-projects-breadcrumb svg {
     width: 6px;
   }
+}
+
+.faq-page {
+  min-height: 100vh;
+}
+
+.faq-hero {
+  padding: 120px 144px 0;
+  text-align: center;
+}
+@media screen and (max-width: 1024px) {
+  .faq-hero {
+    padding: 100px 80px 0;
+  }
+}
+@media screen and (max-width: 768px) {
+  .faq-hero {
+    padding: 80px 20px 0;
+  }
+}
+@media screen and (max-width: 480px) {
+  .faq-hero {
+    padding: 70px 12px 0;
+  }
+}
+
+.faq-hero-title {
+  color: #000;
+  font-family: "Noto Sans";
+  font-size: clamp(28px, 5.4vw, 103px);
+  font-style: normal;
+  font-weight: 500;
+  line-height: 0.8;
+  font-variant: all-small-caps;
+  text-transform: uppercase;
+  font-stretch: condensed;
+  margin-bottom: 20px;
+}
+
+.faq-hero .wedding-projects-breadcrumb {
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.faq-list {
+  padding: 40px 144px 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+@media screen and (max-width: 1024px) {
+  .faq-list {
+    padding: 40px 80px 60px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .faq-list {
+    padding: 30px 20px 50px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .faq-list {
+    padding: 20px 12px 40px;
+  }
+}
+
+.faq-item {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.faq-question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 17px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  color: #000;
+  font-family: "Noto Sans";
+  font-size: clamp(16px, 2vw, 38px);
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  font-variant: all-small-caps;
+  font-stretch: condensed;
+  transition: opacity 0.3s ease;
+}
+.faq-question:hover {
+  opacity: 0.6;
+}
+@media screen and (max-width: 480px) {
+  .faq-question {
+    padding: 14px 0;
+  }
+}
+
+.faq-arrow {
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+.faq-item.active .faq-arrow {
+  transform: rotate(90deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, padding 0.5s ease;
+  padding: 0;
+}
+.faq-answer p {
+  font-family: "Noto Sans";
+  font-weight: 400;
+  font-size: clamp(12px, 0.94vw, 16px);
+  color: #000;
+  line-height: 1.6;
+  font-stretch: condensed;
+  opacity: 0.8;
+  padding-bottom: 24px;
 }
 /*!**********************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/swiper/swiper.css ***!
