@@ -124,6 +124,28 @@
         .our-projects-card-hover {
             opacity: 1;
         }
+
+        .our-projects-card-btn {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        &:hover {
+            transform: none;
+            border-radius: inherit;
+
+            img {
+                transform: none;
+            }
+
+            &::after {
+                opacity: 0;
+            }
+
+            .our-projects-card-btn {
+                opacity: 1;
+            }
+        }
     }
 }
 

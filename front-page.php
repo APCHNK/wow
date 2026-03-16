@@ -33,6 +33,34 @@
         <div class="specialise-slider">
             <div class="swiper specialise-swiper">
                 <div class="swiper-wrapper">
+                    <?php
+                    $categories = get_terms([
+                        'taxonomy' => 'project_category',
+                        'hide_empty' => false,
+                        'orderby' => 'menu_order',
+                    ]);
+
+                    if (!empty($categories) && !is_wp_error($categories)) :
+                        foreach ($categories as $cat) :
+                            $cat_image = get_field('category_image', 'project_category_' . $cat->term_id);
+                            $cat_link = get_term_link($cat);
+                    ?>
+                    <div class="swiper-slide">
+                        <div class="specialise-card">
+                            <?php if ($cat_image) : ?>
+                                <img src="<?php echo esc_url($cat_image); ?>" alt="<?php echo esc_attr($cat->name); ?>">
+                            <?php endif; ?>
+                            <div class="card-content">
+                                <h3 class="card-title"><?php echo esc_html($cat->name); ?></h3>
+                                <a href="<?php echo esc_url($cat_link); ?>" class="card-btn">SHOW MORE</a>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                        endforeach;
+                    else :
+                    ?>
+                    <!-- Fallback if no categories -->
                     <div class="swiper-slide">
                         <div class="specialise-card">
                             <img src="<?php echo get_template_directory_uri(); ?>/assets/images/w1.jpg" alt="Weddings">
@@ -42,42 +70,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="swiper-slide">
-                        <div class="specialise-card">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/w2.jpg" alt="Corporate">
-                            <div class="card-content">
-                                <h3 class="card-title">CORPORATE EVENTS &<br>BUSINESS GATHERINGS</h3>
-                                <a href="#" class="card-btn">SHOW MORE</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="specialise-card">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/w3.jpg" alt="Family">
-                            <div class="card-content">
-                                <h3 class="card-title">FAMILY & TRADITIONAL<br>CELEBRATIONS</h3>
-                                <a href="#" class="card-btn">SHOW MORE</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="specialise-card">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/w4.jpg" alt="Private">
-                            <div class="card-content">
-                                <h3 class="card-title">PRIVATE PARTIES &<br>SOCIAL EVENTS</h3>
-                                <a href="#" class="card-btn">SHOW MORE</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="specialise-card">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/w5.jpg" alt="Private">
-                            <div class="card-content">
-                                <h3 class="card-title">ARTISTS & CELEBRITY BOOKING</h3>
-                                <a href="#" class="card-btn">SHOW MORE</a>
-                            </div>
-                        </div>
-                    </div>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="specialise-nav">

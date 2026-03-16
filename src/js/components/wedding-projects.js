@@ -1,5 +1,5 @@
 import Swiper from 'swiper';
-import { Navigation, Mousewheel, Autoplay } from 'swiper/modules';
+import { Navigation, Mousewheel } from 'swiper/modules';
 import 'swiper/css';
 
 export function initWeddingProjects() {
@@ -116,6 +116,7 @@ export function initWeddingProjects() {
         readMoreBtn.addEventListener('click', (e) => {
             e.preventDefault();
             singleContent.classList.add('active');
+            readMoreBtn.style.display = 'none';
 
             setTimeout(() => {
                 singleContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -139,13 +140,8 @@ function initDescSwipers() {
 
     descSwipers.forEach(el => {
         new Swiper(el, {
-            modules: [Autoplay],
             slidesPerView: 1,
             loop: true,
-            autoplay: {
-                delay: 3000,
-                disableOnInteraction: false,
-            },
             speed: 800,
         });
     });
