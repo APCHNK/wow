@@ -70,7 +70,13 @@ get_header();
                         </span>
                     </div>
                     <div class="project-desc">
-                        <p>Our Audio-Visual Production service offers a complete package for events, ensuring a memorable experience Our Audio-Visual Production service offers a complete package for events, ensuring a memorable experience Our Audio-Visual Production service offers a complete package for events, ensuring a memorable experience Our Audio-Visual Production service offers a complete package for events, ensuring a memorable experience Our Audio-Visual Production service offers a complete package for events, ensuring a memorable experience</p>
+                        <div class="swiper project-desc-swiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">Our Audio-Visual Production service offers a complete package for events, ensuring a memorable experience for both guests and hosts.</div>
+                                <div class="swiper-slide">We provide expert sound systems tailored to your venue's size and requirements, high-quality lighting setups that set the right mood.</div>
+                                <div class="swiper-slide">Whether it's a corporate event, wedding, concert, or conference, we use cutting-edge technology and professional expertise.</div>
+                            </div>
+                        </div>
                     </div>
                     <a href="#" class="project-link">Show more</a>
                 </div>
@@ -89,7 +95,13 @@ get_header();
                         </span>
                     </div>
                     <div class="project-desc">
-                        <p>Our Audio-Visual Production service offers a complete package for events, ensuring a memorable experience Our Audio-Visual Production service offers a complete package for events, ensuring a memorable experience Our Audio-Visual Production service offers a complete package for events, ensuring a memorable experience Our Audio-Visual Production service offers a complete package for events, ensuring a memorable experience Our Audio-Visual Production service offers a complete package for events, ensuring a memorable experience</p>
+                        <div class="swiper project-desc-swiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">Our Audio-Visual Production service offers a complete package for events, ensuring a memorable experience for both guests and hosts.</div>
+                                <div class="swiper-slide">We provide expert sound systems tailored to your venue's size and requirements, high-quality lighting setups that set the right mood.</div>
+                                <div class="swiper-slide">Whether it's a corporate event, wedding, concert, or conference, we use cutting-edge technology and professional expertise.</div>
+                            </div>
+                        </div>
                     </div>
                     <a href="#" class="project-link">Show more</a>
                 </div>
@@ -108,7 +120,13 @@ get_header();
                         </span>
                     </div>
                     <div class="project-desc">
-                        <p>Our Audio-Visual Production service offers a complete package for events, ensuring a memorable experience Our Audio-Visual Production service offers a complete package for events, ensuring a memorable experience Our Audio-Visual Production service offers a complete package for events, ensuring a memorable experience Our Audio-Visual Production service offers a complete package for events, ensuring a memorable experience Our Audio-Visual Production service offers a complete package for events, ensuring a memorable experience</p>
+                        <div class="swiper project-desc-swiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">Our Audio-Visual Production service offers a complete package for events, ensuring a memorable experience for both guests and hosts.</div>
+                                <div class="swiper-slide">We provide expert sound systems tailored to your venue's size and requirements, high-quality lighting setups that set the right mood.</div>
+                                <div class="swiper-slide">Whether it's a corporate event, wedding, concert, or conference, we use cutting-edge technology and professional expertise.</div>
+                            </div>
+                        </div>
                     </div>
                     <a href="#" class="project-link">Show more</a>
                 </div>

@@ -7216,8 +7216,29 @@ function initWeddingProjects() {
     // Gallery slider with Swiper
     initGallerySwiper();
 
+    // Project description text sliders
+    initDescSwipers();
+
     // Single page animations
     initSingleAnimations();
+}
+
+function initDescSwipers() {
+    const descSwipers = document.querySelectorAll('.project-desc-swiper');
+    if (!descSwipers.length) return;
+
+    descSwipers.forEach(el => {
+        new swiper__WEBPACK_IMPORTED_MODULE_0__["default"](el, {
+            modules: [swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Autoplay],
+            slidesPerView: 1,
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            speed: 800,
+        });
+    });
 }
 
 function initSingleAnimations() {

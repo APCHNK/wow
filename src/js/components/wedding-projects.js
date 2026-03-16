@@ -1,5 +1,5 @@
 import Swiper from 'swiper';
-import { Navigation, Mousewheel } from 'swiper/modules';
+import { Navigation, Mousewheel, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 
 export function initWeddingProjects() {
@@ -126,8 +126,29 @@ export function initWeddingProjects() {
     // Gallery slider with Swiper
     initGallerySwiper();
 
+    // Project description text sliders
+    initDescSwipers();
+
     // Single page animations
     initSingleAnimations();
+}
+
+function initDescSwipers() {
+    const descSwipers = document.querySelectorAll('.project-desc-swiper');
+    if (!descSwipers.length) return;
+
+    descSwipers.forEach(el => {
+        new Swiper(el, {
+            modules: [Autoplay],
+            slidesPerView: 1,
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            speed: 800,
+        });
+    });
 }
 
 function initSingleAnimations() {

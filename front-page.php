@@ -1,15 +1,22 @@
 <?php get_header(); ?>
 
 <main class="site-main">
+    <?php
+        $hero_subtitle_top = get_field('hero_subtitle_top') ?: 'WE CREATE';
+        $hero_title = get_field('hero_title') ?: 'WOW EVENT';
+        $hero_subtitle_bottom = get_field('hero_subtitle_bottom') ?: 'IN THE WORLD';
+        $hero_video = get_field('hero_video');
+        $hero_video_url = $hero_video ?: get_template_directory_uri() . '/assets/video/v1.mp4';
+    ?>
     <section class="hero">
         <div class="hero-content">
-            <span class="hero-subtitle">WE CREATE</span>
-            <h1 class="hero-title">WOW EVENT</h1>
-            <span class="hero-subtitle">IN THE WORLD</span>
+            <span class="hero-subtitle"><?php echo esc_html($hero_subtitle_top); ?></span>
+            <h1 class="hero-title"><?php echo esc_html($hero_title); ?></h1>
+            <span class="hero-subtitle"><?php echo esc_html($hero_subtitle_bottom); ?></span>
         </div>
         <div class="hero-video">
             <video autoplay muted loop playsinline>
-                <source src="<?php echo get_template_directory_uri(); ?>/assets/video/v1.mp4" type="video/mp4">
+                <source src="<?php echo esc_url($hero_video_url); ?>" type="video/mp4">
             </video>
         </div>
     </section>

@@ -152,3 +152,56 @@ add_action('init', 'wow_register_wedding_projects');
 
 // Disable admin bar on frontend
 add_filter('show_admin_bar', '__return_false');
+
+// Register ACF fields
+function wow_register_acf_fields() {
+    if (!function_exists('acf_add_local_field_group')) return;
+
+    // Hero section
+    acf_add_local_field_group([
+        'key' => 'group_hero',
+        'title' => 'Hero Section',
+        'fields' => [
+            [
+                'key' => 'field_hero_subtitle_top',
+                'label' => 'Subtitle Top',
+                'name' => 'hero_subtitle_top',
+                'type' => 'text',
+                'default_value' => 'WE CREATE',
+            ],
+            [
+                'key' => 'field_hero_title',
+                'label' => 'Title',
+                'name' => 'hero_title',
+                'type' => 'text',
+                'default_value' => 'WOW EVENT',
+            ],
+            [
+                'key' => 'field_hero_subtitle_bottom',
+                'label' => 'Subtitle Bottom',
+                'name' => 'hero_subtitle_bottom',
+                'type' => 'text',
+                'default_value' => 'IN THE WORLD',
+            ],
+            [
+                'key' => 'field_hero_video',
+                'label' => 'Video',
+                'name' => 'hero_video',
+                'type' => 'file',
+                'return_format' => 'url',
+                'mime_types' => 'mp4,webm',
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_type',
+                    'operator' => '==',
+                    'value' => 'front_page',
+                ],
+            ],
+        ],
+        'menu_order' => 0,
+    ]);
+}
+add_action('acf/init', 'wow_register_acf_fields');

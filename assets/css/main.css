@@ -3136,22 +3136,26 @@ body {
 }
 
 .project-desc {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  height: 7.5em;
+  position: relative;
+}
+.project-desc.animate {
+  opacity: 0.8;
+}
+.project-desc .swiper {
+  height: 100%;
+}
+.project-desc .swiper-slide {
+  height: auto !important;
   color: #000;
   font-family: "Noto Sans";
   font-size: clamp(12px, 0.94vw, 18px);
   font-style: normal;
   font-weight: 400;
-  line-height: normal;
+  line-height: 1.6;
   font-stretch: condensed;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  display: -webkit-box;
-  -webkit-line-clamp: 7;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.project-desc.animate {
-  opacity: 0.8;
 }
 
 .project-link {
