@@ -176,6 +176,8 @@ $nav-accent: #8b7bb5;
         font-weight: 500;
         font-size: 18px;
         color: #fff;
+    text-decoration: none;
+
         opacity: 0.8;
     }
 
@@ -277,7 +279,7 @@ $nav-accent: #8b7bb5;
 
 @media (max-width: 480px) {
     .nav-content {
-        padding: 100px 12px 16px;
+        padding: 60px 12px 16px;
         gap: 16px;
     }
     
@@ -306,17 +308,17 @@ $nav-accent: #8b7bb5;
     
     .nav-footer {
         gap: 20px;
-        padding: 24px 0 20px 0;
+        padding: 16px 0 20px 0;
         margin: 0 12px;
         width: calc(100% - 24px);
     }
     
     .nav-contacts {
-        gap: 16px;
+        gap: 12px;
     }
     
     .contact-item {
-        gap: 10px;
+        gap: 4px;
         
         .contact-label {
             font-size: 16px;

@@ -679,6 +679,54 @@ function wow_register_acf_fields() {
         ],
         'menu_order' => 6,
     ]);
+    // FAQ page
+    acf_add_local_field_group([
+        'key' => 'group_faq',
+        'title' => 'FAQ Settings',
+        'fields' => [
+            [
+                'key' => 'field_faq_title',
+                'label' => 'Page Title',
+                'name' => 'faq_title',
+                'type' => 'text',
+                'default_value' => 'FREQUENTLY ASKED QUESTIONS',
+            ],
+            [
+                'key' => 'field_faq_items',
+                'label' => 'FAQ Items',
+                'name' => 'faq_items',
+                'type' => 'repeater',
+                'layout' => 'block',
+                'button_label' => 'Add Question',
+                'sub_fields' => [
+                    [
+                        'key' => 'field_faq_question',
+                        'label' => 'Question',
+                        'name' => 'question',
+                        'type' => 'text',
+                    ],
+                    [
+                        'key' => 'field_faq_answer',
+                        'label' => 'Answer',
+                        'name' => 'answer',
+                        'type' => 'wysiwyg',
+                        'tabs' => 'all',
+                        'toolbar' => 'basic',
+                        'media_upload' => 0,
+                    ],
+                ],
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page',
+                    'operator' => '==',
+                    'value' => '11',
+                ],
+            ],
+        ],
+    ]);
 }
 add_action('acf/init', 'wow_register_acf_fields');
 

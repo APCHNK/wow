@@ -22,7 +22,9 @@
       "Read(//e/work/wamp/logs/**)",
       "Bash(xxd \"e:/work/wamp/www/wow/wp-content/themes/wow/front-page.php\")",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"http://localhost/wow/\")",
-      "Bash(python3 -c \":*)"
+      "Bash(python3 -c \":*)",
+      "Bash(claude auth:*)",
+      "Bash(\"e:/work/wamp/bin/php/php8.3.14/php.exe\" -l \"e:/work/wamp/www/wow/wp-content/themes/wow/page-faq.php\")"
     ]
   }
 }

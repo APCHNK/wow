@@ -23,7 +23,7 @@
                 <a href="mailto:event@golden5here.com" class="footer-link">event@golden5here.com</a>
             </div>
             <div class="footer-contact">
-                <a heref="/faq" class="footer-label">FAQ</a>
+                <a href="/faq" class="footer-label">FAQ</a>
             </div>
         </div>
     </div>

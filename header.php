@@ -66,6 +66,9 @@
                 <span class="contact-label">E-mail</span>
                 <a href="mailto:event@golden5here.com" class="contact-value">event@golden5here.com</a>
             </div>
+            <div class="contact-item">
+                <a href="/faq" class="contact-label">FAQ</a>
+            </div>
         </div>
         <div class="nav-social">
             <a href="#" class="social-link" aria-label="Instagram">
