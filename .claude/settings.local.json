@@ -7,7 +7,22 @@
       "WebFetch(domain:www.gabrielerizzilab.com)",
       "Bash(npm install swiper)",
       "WebFetch(domain:wowevent.apchnk.xyz)",
-      "Bash(npm install lenis)"
+      "Bash(npm install lenis)",
+      "Read(//e/work/wamp/www/wow/**)",
+      "Bash(php -r \":*)",
+      "Bash(where php:*)",
+      "Bash(ls /c/wamp*/bin/php/*/php.exe)",
+      "Read(//e/work/wamp/bin/php/**)",
+      "Bash(\"e:/work/wamp/bin/php/php8.3.14/php.exe\" -r \":*)",
+      "Bash(\"e:/work/wamp/bin/php/php8.3.14/php.exe\" -l \"e:/work/wamp/www/wow/wp-content/themes/wow/front-page.php\")",
+      "Bash(\"e:/work/wamp/bin/php/php8.3.14/php.exe\" -l \"e:/work/wamp/www/wow/wp-content/themes/wow/functions.php\")",
+      "Bash(\"e:/work/wamp/bin/php/php8.3.14/php.exe\" -l \"e:/work/wamp/www/wow/wp-content/themes/wow/header.php\")",
+      "Bash(\"e:/work/wamp/bin/php/php8.3.14/php.exe\" -l \"e:/work/wamp/www/wow/wp-content/themes/wow/footer.php\")",
+      "Bash(curl -s \"http://localhost/wow/\")",
+      "Read(//e/work/wamp/logs/**)",
+      "Bash(xxd \"e:/work/wamp/www/wow/wp-content/themes/wow/front-page.php\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"http://localhost/wow/\")",
+      "Bash(python3 -c \":*)"
     ]
   }
 }

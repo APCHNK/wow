@@ -385,6 +385,300 @@ function wow_register_acf_fields() {
         ],
         'menu_order' => 0,
     ]);
+
+    // Specialise section
+    acf_add_local_field_group([
+        'key' => 'group_specialise',
+        'title' => 'Specialise Section',
+        'fields' => [
+            [
+                'key' => 'field_specialise_title_1',
+                'label' => 'Title Line 1',
+                'name' => 'specialise_title_1',
+                'type' => 'text',
+                'default_value' => 'What',
+            ],
+            [
+                'key' => 'field_specialise_title_2',
+                'label' => 'Title Line 2',
+                'name' => 'specialise_title_2',
+                'type' => 'text',
+                'default_value' => 'We Specialise in',
+            ],
+            [
+                'key' => 'field_specialise_desc',
+                'label' => 'Description',
+                'name' => 'specialise_desc',
+                'type' => 'textarea',
+                'rows' => 2,
+                'default_value' => 'From concept to execution — we deliver experiences without compromise.',
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_type',
+                    'operator' => '==',
+                    'value' => 'front_page',
+                ],
+            ],
+        ],
+        'menu_order' => 1,
+    ]);
+
+    // About section
+    acf_add_local_field_group([
+        'key' => 'group_about',
+        'title' => 'About Section',
+        'fields' => [
+            [
+                'key' => 'field_about_title_1',
+                'label' => 'Title Line 1',
+                'name' => 'about_title_1',
+                'type' => 'text',
+                'default_value' => 'Who',
+            ],
+            [
+                'key' => 'field_about_title_2',
+                'label' => 'Title Line 2',
+                'name' => 'about_title_2',
+                'type' => 'text',
+                'default_value' => 'We Are',
+            ],
+            [
+                'key' => 'field_about_marquee_top',
+                'label' => 'Marquee Top Text',
+                'name' => 'about_marquee_top',
+                'type' => 'text',
+                'default_value' => 'We provide a full range of services',
+            ],
+            [
+                'key' => 'field_about_marquee_bottom',
+                'label' => 'Marquee Bottom Text',
+                'name' => 'about_marquee_bottom',
+                'type' => 'text',
+                'default_value' => 'Weddings Birthdays Bar & Bat Mitzvahs Corporate',
+            ],
+            [
+                'key' => 'field_about_text',
+                'label' => 'About Text',
+                'name' => 'about_text',
+                'type' => 'wysiwyg',
+                'tabs' => 'all',
+                'toolbar' => 'basic',
+                'media_upload' => 0,
+            ],
+            [
+                'key' => 'field_about_gallery',
+                'label' => 'Slider Images',
+                'name' => 'about_gallery',
+                'type' => 'gallery',
+                'return_format' => 'array',
+                'preview_size' => 'medium',
+                'min' => 0,
+                'max' => 20,
+            ],
+            [
+                'key' => 'field_about_bg',
+                'label' => 'Background Image',
+                'name' => 'about_bg',
+                'type' => 'image',
+                'return_format' => 'url',
+                'preview_size' => 'medium',
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_type',
+                    'operator' => '==',
+                    'value' => 'front_page',
+                ],
+            ],
+        ],
+        'menu_order' => 2,
+    ]);
+
+    // Video section
+    acf_add_local_field_group([
+        'key' => 'group_video_section',
+        'title' => 'Video Section',
+        'fields' => [
+            [
+                'key' => 'field_video_section_file',
+                'label' => 'Video',
+                'name' => 'video_section_file',
+                'type' => 'file',
+                'return_format' => 'url',
+                'mime_types' => 'mp4,webm',
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_type',
+                    'operator' => '==',
+                    'value' => 'front_page',
+                ],
+            ],
+        ],
+        'menu_order' => 3,
+    ]);
+
+    // Happen section
+    acf_add_local_field_group([
+        'key' => 'group_happen',
+        'title' => 'Happen Section',
+        'fields' => [
+            [
+                'key' => 'field_happen_title',
+                'label' => 'Title',
+                'name' => 'happen_title',
+                'type' => 'text',
+                'default_value' => 'Make it Happen!',
+            ],
+            [
+                'key' => 'field_happen_desc',
+                'label' => 'Description',
+                'name' => 'happen_desc',
+                'type' => 'textarea',
+                'rows' => 3,
+            ],
+            [
+                'key' => 'field_happen_slides',
+                'label' => 'Slides',
+                'name' => 'happen_slides',
+                'type' => 'repeater',
+                'layout' => 'block',
+                'button_label' => 'Add Slide',
+                'sub_fields' => [
+                    [
+                        'key' => 'field_happen_slide_image',
+                        'label' => 'Image',
+                        'name' => 'image',
+                        'type' => 'image',
+                        'return_format' => 'array',
+                        'preview_size' => 'medium',
+                    ],
+                    [
+                        'key' => 'field_happen_slide_country',
+                        'label' => 'Country',
+                        'name' => 'country',
+                        'type' => 'text',
+                    ],
+                    [
+                        'key' => 'field_happen_slide_title',
+                        'label' => 'Title',
+                        'name' => 'title',
+                        'type' => 'text',
+                    ],
+                ],
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_type',
+                    'operator' => '==',
+                    'value' => 'front_page',
+                ],
+            ],
+        ],
+        'menu_order' => 4,
+    ]);
+
+    // Instagram section
+    acf_add_local_field_group([
+        'key' => 'group_instagram',
+        'title' => 'Instagram Section',
+        'fields' => [
+            [
+                'key' => 'field_instagram_title',
+                'label' => 'Title',
+                'name' => 'instagram_title',
+                'type' => 'text',
+                'default_value' => 'Follow us on Instagram',
+            ],
+            [
+                'key' => 'field_instagram_desc',
+                'label' => 'Description',
+                'name' => 'instagram_desc',
+                'type' => 'textarea',
+                'rows' => 2,
+            ],
+            [
+                'key' => 'field_instagram_link',
+                'label' => 'Instagram URL',
+                'name' => 'instagram_link',
+                'type' => 'url',
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_type',
+                    'operator' => '==',
+                    'value' => 'front_page',
+                ],
+            ],
+        ],
+        'menu_order' => 5,
+    ]);
+
+    // Dream section
+    acf_add_local_field_group([
+        'key' => 'group_dream',
+        'title' => 'Dream Section',
+        'fields' => [
+            [
+                'key' => 'field_dream_bg_line1',
+                'label' => 'Background Text Line 1',
+                'name' => 'dream_bg_line1',
+                'type' => 'text',
+                'default_value' => 'DREAM',
+            ],
+            [
+                'key' => 'field_dream_bg_line2',
+                'label' => 'Background Text Line 2',
+                'name' => 'dream_bg_line2',
+                'type' => 'text',
+                'default_value' => 'EVENT',
+            ],
+            [
+                'key' => 'field_dream_slides',
+                'label' => 'Slides',
+                'name' => 'dream_slides',
+                'type' => 'repeater',
+                'layout' => 'block',
+                'button_label' => 'Add Slide',
+                'sub_fields' => [
+                    [
+                        'key' => 'field_dream_slide_title',
+                        'label' => 'Title',
+                        'name' => 'title',
+                        'type' => 'text',
+                    ],
+                    [
+                        'key' => 'field_dream_slide_desc',
+                        'label' => 'Description',
+                        'name' => 'description',
+                        'type' => 'textarea',
+                        'rows' => 4,
+                    ],
+                ],
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'page_type',
+                    'operator' => '==',
+                    'value' => 'front_page',
+                ],
+            ],
+        ],
+        'menu_order' => 6,
+    ]);
 }
 add_action('acf/init', 'wow_register_acf_fields');
 
