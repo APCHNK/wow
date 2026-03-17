@@ -100,7 +100,7 @@ get_header();
                 <div class="swiper-wrapper">
                     <?php foreach ($gallery as $image) : ?>
                     <div class="swiper-slide">
-                        <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>">
+                        <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" loading="lazy" decoding="async">
                     </div>
                     <?php endforeach; ?>
                 </div>
@@ -166,7 +166,7 @@ get_header();
                             <?php if (has_post_thumbnail()) : ?>
                                 <?php the_post_thumbnail('large'); ?>
                             <?php else : ?>
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/a1.png" alt="<?php the_title_attribute(); ?>">
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/a1.png" alt="<?php the_title_attribute(); ?>" loading="lazy" decoding="async">
                             <?php endif; ?>
                             <div class="our-projects-card-content">
                                 <h3 class="our-projects-card-title"><?php the_title(); ?></h3>
@@ -176,7 +176,7 @@ get_header();
                     <?php endwhile; ?>
                     <div class="swiper-slide">
                         <a href="<?php echo esc_url(get_post_type_archive_link('wedding_project')); ?>" class="our-projects-card our-projects-card--last">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/aa.jpg" alt="Show more">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/aa.jpg" alt="Show more" loading="lazy" decoding="async">
                             <div class="our-projects-card-hover">
                                 <span class="our-projects-card-btn">SHOW MORE</span>
                             </div>

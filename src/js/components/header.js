@@ -19,5 +19,14 @@ export function initHeader() {
                 body.style.overflow = 'hidden';
             }
         });
+
+        mainNav.querySelectorAll('.nav-item a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('is-active');
+                mainNav.classList.remove('is-open');
+                body.classList.remove('menu-open');
+                body.style.overflow = '';
+            });
+        });
     }
 }

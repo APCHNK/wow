@@ -8,7 +8,7 @@
         $hero_video = get_field('hero_video');
         $hero_video_url = $hero_video ?: get_template_directory_uri() . '/assets/video/v1.mp4';
     ?>
-    <section class="hero">
+    <section class="hero" id="hero">
         <div class="hero-content">
             <span class="hero-subtitle"><?php echo esc_html($hero_subtitle_top); ?></span>
             <h1 class="hero-title"><?php echo esc_html($hero_title); ?></h1>
@@ -26,7 +26,7 @@
         $specialise_title_2 = get_field('specialise_title_2') ?: 'We Specialise in';
         $specialise_desc = get_field('specialise_desc') ?: 'From concept to execution — we deliver experiences without compromise.';
     ?>
-    <section class="specialise">
+    <section class="specialise" id="specialise">
         <div class="specialise-header">
             <h2 class="specialise-title">
                 <span><?php echo esc_html($specialise_title_1); ?></span>
@@ -53,7 +53,7 @@
                     <div class="swiper-slide">
                         <div class="specialise-card">
                             <?php if ($cat_image) : ?>
-                                <img src="<?php echo esc_url($cat_image); ?>" alt="<?php echo esc_attr($cat->name); ?>">
+                                <img src="<?php echo esc_url($cat_image); ?>" alt="<?php echo esc_attr($cat->name); ?>" loading="lazy" decoding="async">
                             <?php endif; ?>
                             <div class="card-content">
                                 <h3 class="card-title"><?php echo esc_html($cat->name); ?></h3>
@@ -68,7 +68,7 @@
                     <!-- Fallback if no categories -->
                     <div class="swiper-slide">
                         <div class="specialise-card">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/w1.jpg" alt="Weddings">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/w1.jpg" alt="Weddings" loading="lazy" decoding="async">
                             <div class="card-content">
                                 <h3 class="card-title">WEDDINGS & LOVE STORIES</h3>
                                 <a href="#" class="card-btn">SHOW MORE</a>
@@ -103,7 +103,7 @@
         $about_bg = get_field('about_bg') ?: get_template_directory_uri() . '/assets/images/BG.png';
         $separator = '<span class="marquee-separator"><i></i><i></i><i></i><i></i><i></i></span>';
     ?>
-    <section class="about" style="background-image: url('<?php echo esc_url($about_bg); ?>')">
+    <section class="about" style="background-image: url('<?php echo esc_url($about_bg); ?>')" id="about">
         <h2 class="about-title">
             <span><?php echo esc_html($about_title_1); ?></span>
             <span><?php echo esc_html($about_title_2); ?></span>
@@ -148,7 +148,7 @@
                     <?php if (!empty($about_gallery)) : ?>
                         <?php foreach ($about_gallery as $image) : ?>
                     <div class="swiper-slide slide-image">
-                        <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>">
+                        <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" loading="lazy" decoding="async">
                     </div>
                         <?php endforeach; ?>
                     <?php else : ?>
@@ -156,7 +156,7 @@
                         $fallback_images = ['a1.png', 'a2.png', 'a3.png', 'a1.png', 'a2.png', 'a3.png', 'a1.png', 'a2.png', 'a3.png'];
                         foreach ($fallback_images as $img) : ?>
                     <div class="swiper-slide slide-image">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/<?php echo $img; ?>" alt="About">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/<?php echo $img; ?>" alt="About" loading="lazy" decoding="async">
                     </div>
                         <?php endforeach; ?>
                     <?php endif; ?>
@@ -178,7 +178,7 @@
     </section>
 
     <?php $video_section_url = get_field('video_section_file') ?: get_template_directory_uri() . '/assets/video/v2.mp4'; ?>
-    <section class="video-section">
+    <section class="video-section" id="video-section">
         <video autoplay muted loop playsinline>
             <source src="<?php echo esc_url($video_section_url); ?>" type="video/mp4">
         </video>
@@ -189,7 +189,7 @@
         $happen_desc = get_field('happen_desc') ?: 'One of the key advantages of working with us is our direct partnership with an international artist booking agency. This means we can provide our clients with exclusive access to world-renowned artists, celebrities, musicians, and performers for weddings, private parties, corporate events, and special occasions.';
         $happen_slides = get_field('happen_slides');
     ?>
-    <section class="happen">
+    <section class="happen" id="happen">
         <div class="happen-header">
             <h2 class="happen-title">
                 <span class="happen-title-text"><?php echo esc_html($happen_title); ?></span>
@@ -208,7 +208,7 @@
                         <?php foreach ($happen_slides as $slide) : ?>
                     <div class="swiper-slide">
                         <div class="happen-card">
-                            <img src="<?php echo esc_url($slide['image']['url']); ?>" alt="<?php echo esc_attr($slide['title']); ?>">
+                            <img src="<?php echo esc_url($slide['image']['url']); ?>" alt="<?php echo esc_attr($slide['title']); ?>" loading="lazy" decoding="async">
                             <div class="happen-card-content">
                                 <span class="happen-card-country"><?php echo esc_html($slide['country']); ?></span>
                                 <h3 class="happen-card-title"><?php echo esc_html($slide['title']); ?></h3>
@@ -227,7 +227,7 @@
                             foreach ($fallback_happen as $item) : ?>
                     <div class="swiper-slide">
                         <div class="happen-card">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/<?php echo $item['img']; ?>" alt="<?php echo $item['title']; ?>">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/<?php echo $item['img']; ?>" alt="<?php echo $item['title']; ?>" loading="lazy" decoding="async">
                             <div class="happen-card-content">
                                 <span class="happen-card-country"><?php echo $item['country']; ?></span>
                                 <h3 class="happen-card-title"><?php echo $item['title']; ?></h3>
@@ -260,7 +260,7 @@
         $instagram_desc = get_field('instagram_desc') ?: 'One of the key advantages of working with us is our direct partnership with an international artist booking agency.';
         $instagram_link = get_field('instagram_link') ?: '#';
     ?>
-    <section class="instagram">
+    <section class="instagram" id="instagram">
         <div class="instagram-header">
             <h2 class="instagram-title"><?php echo esc_html($instagram_title); ?></h2>
             <p class="instagram-desc"><?php echo esc_html($instagram_desc); ?></p>
@@ -296,7 +296,7 @@
                     ?>
                     <div class="swiper-slide">
                         <a href="#" class="instagram-card">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/i<?php echo $i; ?>.jpg" alt="Instagram">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/i<?php echo $i; ?>.jpg" alt="Instagram" loading="lazy" decoding="async">
                         </a>
                     </div>
                     <?php
@@ -313,7 +313,7 @@
         $dream_bg2 = get_field('dream_bg_line2') ?: 'EVENT';
         $dream_slides = get_field('dream_slides');
     ?>
-    <section class="dream">
+    <section class="dream" id="dream">
         <div class="dream-bg">
             <span><?php echo esc_html($dream_bg1); ?></span>
             <span><?php echo esc_html($dream_bg2); ?></span>

@@ -88,7 +88,7 @@ if ($is_taxonomy) {
                         <?php if (has_post_thumbnail()) : ?>
                             <?php the_post_thumbnail('large'); ?>
                         <?php else : ?>
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/p1.jpg" alt="">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/p1.jpg" alt="" loading="lazy" decoding="async">
                         <?php endif; ?>
                     </div>
                     <div class="project-info">
