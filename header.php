@@ -11,6 +11,15 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
+<?php
+    $header_logo = get_field('header_logo', 'option') ?: get_template_directory_uri() . '/assets/images/logo.svg';
+    $header_nav_items = get_field('header_nav_items', 'option');
+    $header_phone = get_field('header_phone', 'option') ?: '+48571286783';
+    $header_email = get_field('header_email', 'option') ?: 'event@golden5here.com';
+    $header_instagram = get_field('header_instagram', 'option') ?: '#';
+    $header_facebook = get_field('header_facebook', 'option') ?: '#';
+?>
+
 <header class="site-header">
     <div class="header-container">
         <button class="menu-toggle" id="menu-toggle">
@@ -24,7 +33,7 @@
 
         <div class="site-logo">
             <a href="<?php echo home_url(); ?>">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.svg" alt="<?php bloginfo('name'); ?>" width="104" height="93">
+                <img src="<?php echo esc_url($header_logo); ?>" alt="<?php bloginfo('name'); ?>" width="104" height="93">
             </a>
         </div>
 
@@ -34,6 +43,28 @@
 
 <nav class="main-nav" id="main-nav">
     <div class="nav-content">
+        <?php if (!empty($header_nav_items)) : ?>
+            <?php
+            $columns = array_chunk($header_nav_items, 2);
+            foreach ($columns as $column) : ?>
+            <div class="nav-column">
+                <?php foreach ($column as $item) : ?>
+                <div class="nav-item">
+                    <?php if (!empty($item['link'])) : ?>
+                    <a href="<?php echo esc_url($item['link']); ?>">
+                        <h3 class="nav-title"><?php echo esc_html($item['title']); ?></h3>
+                    </a>
+                    <?php else : ?>
+                    <h3 class="nav-title"><?php echo esc_html($item['title']); ?></h3>
+                    <?php endif; ?>
+                    <?php if (!empty($item['description'])) : ?>
+                    <p class="nav-desc"><?php echo esc_html($item['description']); ?></p>
+                    <?php endif; ?>
+                </div>
+                <?php endforeach; ?>
+            </div>
+            <?php endforeach; ?>
+        <?php else : ?>
         <div class="nav-column">
             <div class="nav-item">
                 <h3 class="nav-title">WHAT WE SPECIALISE IN</h3>
@@ -54,24 +85,25 @@
                 <p class="nav-desc">Corporate parties, team buildings, presentations, conference after-parties, and client receptions — professionally organized with the right atmosphere and flow.</p>
             </div>
         </div>
+        <?php endif; ?>
     </div>
 
     <div class="nav-footer">
         <div class="nav-contacts">
             <div class="contact-item">
                 <span class="contact-label">Contacts</span>
-                <a href="tel:+48571286783" class="contact-value">+48571286783</a>
+                <a href="tel:<?php echo esc_attr($header_phone); ?>" class="contact-value"><?php echo esc_html($header_phone); ?></a>
             </div>
             <div class="contact-item">
                 <span class="contact-label">E-mail</span>
-                <a href="mailto:event@golden5here.com" class="contact-value">event@golden5here.com</a>
+                <a href="mailto:<?php echo esc_attr($header_email); ?>" class="contact-value"><?php echo esc_html($header_email); ?></a>
             </div>
             <div class="contact-item">
                 <a href="/faq" class="contact-label">FAQ</a>
             </div>
         </div>
         <div class="nav-social">
-            <a href="#" class="social-link" aria-label="Instagram">
+            <a href="<?php echo esc_url($header_instagram); ?>" class="social-link" aria-label="Instagram">
                 <svg width="78" height="78" viewBox="0 0 78 78" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="inst" opacity="0.801386">
 <path id="Shape" fill-rule="evenodd" clip-rule="evenodd" d="M24.375 0H53.625C67.0849 0 78 10.9151 78 24.375V53.625C78 67.0849 67.0849 78 53.625 78H24.375C10.9151 78 0 67.0849 0 53.625V24.375C0 10.9151 10.9151 0 24.375 0ZM53.625 70.6875C63.0337 70.6875 70.6875 63.0337 70.6875 53.625V24.375C70.6875 14.9662 63.0337 7.3125 53.625 7.3125H24.375C14.9662 7.3125 7.3125 14.9662 7.3125 24.375V53.625C7.3125 63.0337 14.9662 70.6875 24.375 70.6875H53.625Z" fill="white"/>
@@ -81,7 +113,7 @@
 </svg>
 
             </a>
-            <a href="#" class="social-link" aria-label="TikTok">
+            <a href="<?php echo esc_url($header_facebook); ?>" class="social-link" aria-label="Facebook">
                 <svg width="78" height="78" viewBox="0 0 78 78" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="face" opacity="0.801386">
 <path id="Shape" fill-rule="evenodd" clip-rule="evenodd" d="M0 39C0 17.46 17.46 0 39 0C60.54 0 78 17.46 78 39C78 60.54 60.54 78 39 78C17.46 78 0 60.54 0 39ZM6.09375 39C6.09375 57.1742 20.8258 71.9062 39 71.9062C57.1742 71.9062 71.9062 57.1742 71.9062 39C71.9062 20.8258 57.1742 6.09375 39 6.09375C20.8258 6.09375 6.09375 20.8258 6.09375 39Z" fill="white"/>

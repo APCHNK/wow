@@ -3,6 +3,13 @@
  * Theme functions
  */
 
+// Allow SVG uploads
+function wow_allow_svg($mimes) {
+    $mimes['svg'] = 'image/svg+xml';
+    return $mimes;
+}
+add_filter('upload_mimes', 'wow_allow_svg');
+
 // Enqueue scripts and styles
 function wow_enqueue_assets() {
     $theme_version = wp_get_theme()->get('Version');
@@ -178,6 +185,30 @@ add_action('init', 'wow_register_project_category');
 
 // Disable admin bar on frontend
 add_filter('show_admin_bar', '__return_false');
+
+// Register ACF Options pages
+function wow_register_acf_options() {
+    if (!function_exists('acf_add_options_page')) return;
+
+    acf_add_options_page([
+        'page_title' => 'Header Settings',
+        'menu_title' => 'Header',
+        'menu_slug' => 'header-settings',
+        'capability' => 'edit_posts',
+        'icon_url' => 'dashicons-arrow-up-alt',
+        'position' => 60,
+    ]);
+
+    acf_add_options_page([
+        'page_title' => 'Footer Settings',
+        'menu_title' => 'Footer',
+        'menu_slug' => 'footer-settings',
+        'capability' => 'edit_posts',
+        'icon_url' => 'dashicons-arrow-down-alt',
+        'position' => 61,
+    ]);
+}
+add_action('acf/init', 'wow_register_acf_options');
 
 // Register ACF fields
 function wow_register_acf_fields() {
@@ -679,6 +710,149 @@ function wow_register_acf_fields() {
         ],
         'menu_order' => 6,
     ]);
+    // Header settings
+    acf_add_local_field_group([
+        'key' => 'group_header',
+        'title' => 'Header',
+        'fields' => [
+            [
+                'key' => 'field_header_logo',
+                'label' => 'Logo',
+                'name' => 'header_logo',
+                'type' => 'image',
+                'return_format' => 'url',
+                'preview_size' => 'medium',
+            ],
+            [
+                'key' => 'field_header_nav_items',
+                'label' => 'Navigation Items',
+                'name' => 'header_nav_items',
+                'type' => 'repeater',
+                'layout' => 'block',
+                'button_label' => 'Add Nav Item',
+                'sub_fields' => [
+                    [
+                        'key' => 'field_header_nav_title',
+                        'label' => 'Title',
+                        'name' => 'title',
+                        'type' => 'text',
+                    ],
+                    [
+                        'key' => 'field_header_nav_desc',
+                        'label' => 'Description',
+                        'name' => 'description',
+                        'type' => 'textarea',
+                        'rows' => 2,
+                    ],
+                    [
+                        'key' => 'field_header_nav_link',
+                        'label' => 'Link',
+                        'name' => 'link',
+                        'type' => 'text',
+                    ],
+                ],
+            ],
+            [
+                'key' => 'field_header_phone',
+                'label' => 'Phone',
+                'name' => 'header_phone',
+                'type' => 'text',
+                'default_value' => '+48571286783',
+            ],
+            [
+                'key' => 'field_header_email',
+                'label' => 'Email',
+                'name' => 'header_email',
+                'type' => 'text',
+                'default_value' => 'event@golden5here.com',
+            ],
+            [
+                'key' => 'field_header_instagram',
+                'label' => 'Instagram URL',
+                'name' => 'header_instagram',
+                'type' => 'url',
+            ],
+            [
+                'key' => 'field_header_facebook',
+                'label' => 'Facebook URL',
+                'name' => 'header_facebook',
+                'type' => 'url',
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'options_page',
+                    'operator' => '==',
+                    'value' => 'header-settings',
+                ],
+            ],
+        ],
+    ]);
+
+    // Footer settings
+    acf_add_local_field_group([
+        'key' => 'group_footer',
+        'title' => 'Footer',
+        'fields' => [
+            [
+                'key' => 'field_footer_title',
+                'label' => 'Title',
+                'name' => 'footer_title',
+                'type' => 'text',
+                'default_value' => "Let's turn your idea into something real",
+            ],
+            [
+                'key' => 'field_footer_btn_text',
+                'label' => 'Button Text',
+                'name' => 'footer_btn_text',
+                'type' => 'text',
+                'default_value' => 'CONTACT US',
+            ],
+            [
+                'key' => 'field_footer_btn_link',
+                'label' => 'Button Link',
+                'name' => 'footer_btn_link',
+                'type' => 'url',
+            ],
+            [
+                'key' => 'field_footer_phone',
+                'label' => 'Phone',
+                'name' => 'footer_phone',
+                'type' => 'text',
+                'default_value' => '+48571286783',
+            ],
+            [
+                'key' => 'field_footer_email',
+                'label' => 'Email',
+                'name' => 'footer_email',
+                'type' => 'text',
+                'default_value' => 'event@golden5here.com',
+            ],
+            [
+                'key' => 'field_footer_instagram',
+                'label' => 'Instagram URL',
+                'name' => 'footer_instagram',
+                'type' => 'url',
+            ],
+            [
+                'key' => 'field_footer_facebook',
+                'label' => 'Facebook URL',
+                'name' => 'footer_facebook',
+                'type' => 'url',
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'options_page',
+                    'operator' => '==',
+                    'value' => 'footer-settings',
+                ],
+            ],
+        ],
+    ]);
+
     // FAQ page
     acf_add_local_field_group([
         'key' => 'group_faq',

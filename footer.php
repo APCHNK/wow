@@ -1,8 +1,17 @@
+<?php
+    $footer_title = get_field('footer_title', 'option') ?: "Let's turn your idea into something real";
+    $footer_btn_text = get_field('footer_btn_text', 'option') ?: 'CONTACT US';
+    $footer_btn_link = get_field('footer_btn_link', 'option') ?: '#contact';
+    $footer_phone = get_field('footer_phone', 'option') ?: '+48571286783';
+    $footer_email = get_field('footer_email', 'option') ?: 'event@golden5here.com';
+    $footer_instagram = get_field('footer_instagram', 'option') ?: '#';
+    $footer_facebook = get_field('footer_facebook', 'option') ?: '#';
+?>
 <footer class="site-footer">
     <div class="footer-content">
         <div class="footer-left">
-            <h2 class="footer-title">Let’s turn your idea into something real</h2>
-            <a href="#contact" class="footer-btn">
+            <h2 class="footer-title"><?php echo esc_html($footer_title); ?></h2>
+            <a href="<?php echo esc_url($footer_btn_link); ?>" class="footer-btn">
                 <span class="footer-btn-icon">
                     <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M23.041 3.66051C24.5639 1.77659 27.4361 1.77659 28.959 3.66051L30.4696 5.52917C31.4158 6.69968 32.963 7.20242 34.4165 6.81161L36.7369 6.18771C39.0763 5.55872 41.4 7.24698 41.5247 9.66623L41.6484 12.0659C41.7259 13.569 42.6821 14.8852 44.0877 15.4234L46.3317 16.2825C48.594 17.1487 49.4816 19.8804 48.1605 21.9109L46.8501 23.925C46.0293 25.1866 46.0293 26.8134 46.8501 28.075L48.1605 30.0891C49.4816 32.1196 48.594 34.8513 46.3317 35.7175L44.0877 36.5766C42.6821 37.1148 41.7259 38.431 41.6484 39.9341L41.5247 42.3338C41.4 44.753 39.0763 46.4413 36.7369 45.8123L34.4165 45.1884C32.963 44.7976 31.4158 45.3003 30.4696 46.4708L28.959 48.3395C27.4361 50.2234 24.5639 50.2234 23.041 48.3395L21.5304 46.4708C20.5842 45.3003 19.037 44.7976 17.5835 45.1884L15.2631 45.8123C12.9237 46.4413 10.6 44.753 10.4753 42.3338L10.3516 39.9341C10.2741 38.431 9.31787 37.1148 7.91225 36.5766L5.66827 35.7175C3.40596 34.8513 2.51838 32.1196 3.8395 30.0891L5.14992 28.075C5.97075 26.8134 5.97075 25.1866 5.14992 23.925L3.8395 21.9109C2.51838 19.8804 3.40596 17.1487 5.66827 16.2825L7.91225 15.4234C9.31787 14.8852 10.2741 13.569 10.3516 12.0659L10.4753 9.66623C10.6 7.24698 12.9237 5.55872 15.2631 6.18771L17.5835 6.81161C19.037 7.20242 20.5842 6.69968 21.5304 5.52917L23.041 3.66051Z" fill="#D090FF"/>
@@ -10,17 +19,17 @@
                     </svg>
 
                 </span>
-                <span>CONTACT US</span>
+                <span><?php echo esc_html($footer_btn_text); ?></span>
             </a>
         </div>
         <div class="footer-right">
             <div class="footer-contact">
                 <span class="footer-label">Contacts</span>
-                <a href="tel:+48571286783" class="footer-link">+48571286783</a>
+                <a href="tel:<?php echo esc_attr($footer_phone); ?>" class="footer-link"><?php echo esc_html($footer_phone); ?></a>
             </div>
             <div class="footer-contact">
                 <span class="footer-label">E-mail</span>
-                <a href="mailto:event@golden5here.com" class="footer-link">event@golden5here.com</a>
+                <a href="mailto:<?php echo esc_attr($footer_email); ?>" class="footer-link"><?php echo esc_html($footer_email); ?></a>
             </div>
             <div class="footer-contact">
                 <a href="/faq" class="footer-label">FAQ</a>
@@ -28,7 +37,7 @@
         </div>
     </div>
     <div class="footer-social">
-        <a href="#" class="footer-social-link" aria-label="Instagram">
+        <a href="<?php echo esc_url($footer_instagram); ?>" class="footer-social-link" aria-label="Instagram">
             <svg width="78" height="78" viewBox="0 0 78 78" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="inst" opacity="0.801386">
             <path id="Shape" fill-rule="evenodd" clip-rule="evenodd" d="M24.375 0H53.625C67.0849 0 78 10.9151 78 24.375V53.625C78 67.0849 67.0849 78 53.625 78H24.375C10.9151 78 0 67.0849 0 53.625V24.375C0 10.9151 10.9151 0 24.375 0ZM53.625 70.6875C63.0337 70.6875 70.6875 63.0337 70.6875 53.625V24.375C70.6875 14.9662 63.0337 7.3125 53.625 7.3125H24.375C14.9662 7.3125 7.3125 14.9662 7.3125 24.375V53.625C7.3125 63.0337 14.9662 70.6875 24.375 70.6875H53.625Z" fill="white"/>
@@ -37,7 +46,7 @@
             </g>
             </svg>
         </a>
-        <a href="#" class="footer-social-link" aria-label="Facebook">
+        <a href="<?php echo esc_url($footer_facebook); ?>" class="footer-social-link" aria-label="Facebook">
             <svg width="78" height="78" viewBox="0 0 78 78" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g id="face" opacity="0.801386">
                 <path id="Shape" fill-rule="evenodd" clip-rule="evenodd" d="M0 39C0 17.46 17.46 0 39 0C60.54 0 78 17.46 78 39C78 60.54 60.54 78 39 78C17.46 78 0 60.54 0 39ZM6.09375 39C6.09375 57.1742 20.8258 71.9062 39 71.9062C57.1742 71.9062 71.9062 57.1742 71.9062 39C71.9062 20.8258 57.1742 6.09375 39 6.09375C20.8258 6.09375 6.09375 20.8258 6.09375 39Z" fill="white"/>

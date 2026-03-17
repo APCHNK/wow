@@ -78,7 +78,9 @@ $nav-accent: #8b7bb5;
         opacity: 1;
         transform: translateY(0);
     }
-
+    a{
+        text-decoration: none;
+    }
     // Stagger animation for each item
     &:nth-child(1) {
         transition-delay: 0.15s;
@@ -176,8 +178,7 @@ $nav-accent: #8b7bb5;
         font-weight: 500;
         font-size: 18px;
         color: #fff;
-    text-decoration: none;
-
+        text-decoration: none;
         opacity: 0.8;
     }
 
