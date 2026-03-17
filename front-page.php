@@ -10,7 +10,7 @@
     ?>
     <section class="hero" id="hero">
         <div class="hero-content">
-            <span class="hero-subtitle"><?php echo esc_html($hero_subtitle_top); ?>sadasddas</span>
+            <span class="hero-subtitle"><?php echo esc_html($hero_subtitle_top); ?></span>
             <h1 class="hero-title"><?php echo esc_html($hero_title); ?></h1>
             <span class="hero-subtitle"><?php echo esc_html($hero_subtitle_bottom); ?></span>
         </div>
