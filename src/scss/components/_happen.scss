@@ -54,7 +54,7 @@
     -webkit-mask: conic-gradient(from -90deg at 50% 50%, #000 var(--border-angle), transparent var(--border-angle));
 
     &.animate {
-        animation: revealBorder 2s ease-out forwards;
+        animation: revealBorder 1s ease-out forwards;
     }
 }
 

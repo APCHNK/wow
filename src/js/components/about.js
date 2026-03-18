@@ -69,7 +69,7 @@ function initMarquee() {
     if (marqueeTracks.length === 0) return;
 
     const isMobile = window.innerWidth <= 480;
-    const baseSpeed = isMobile ? 0.5 : 1;
+    const baseSpeed = isMobile ? 0.25 : 0.5;
     const scrollBoost = isMobile ? 0.2 : 0.4;
     let lastScrollY = window.scrollY;
     let scrollDelta = 0;

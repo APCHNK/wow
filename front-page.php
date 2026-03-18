@@ -53,7 +53,7 @@
                     <div class="swiper-slide">
                         <div class="specialise-card">
                             <?php if ($cat_image) : ?>
-                                <img src="<?php echo esc_url($cat_image); ?>" alt="<?php echo esc_attr($cat->name); ?>" loading="lazy" decoding="async">
+                                <img src="<?php echo esc_url($cat_image); ?>" alt="<?php echo esc_attr($cat->name); ?>">
                             <?php endif; ?>
                             <div class="card-content">
                                 <h3 class="card-title"><?php echo esc_html($cat->name); ?></h3>
@@ -68,7 +68,7 @@
                     <!-- Fallback if no categories -->
                     <div class="swiper-slide">
                         <div class="specialise-card">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/w1.jpg" alt="Weddings" loading="lazy" decoding="async">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/w1.jpg" alt="Weddings">
                             <div class="card-content">
                                 <h3 class="card-title">WEDDINGS & LOVE STORIES</h3>
                                 <a href="#" class="card-btn">SHOW MORE</a>
