@@ -221,7 +221,7 @@ function wow_register_acf_fields() {
         'fields' => [
             [
                 'key' => 'field_category_image',
-                'label' => 'Category Image',
+                'label' => 'Catalog Image',
                 'name' => 'category_image',
                 'type' => 'image',
                 'return_format' => 'url',
@@ -230,17 +230,17 @@ function wow_register_acf_fields() {
             ],
             [
                 'key' => 'field_category_archive_title',
-                'label' => 'Archive Page Title',
+                'label' => 'Catalog Page Title',
                 'name' => 'category_archive_title',
                 'type' => 'text',
-                'instructions' => 'Title displayed on the archive page hero section',
+                'instructions' => 'Title displayed on the Catalog page hero section, to paste image use [wow_diamond] shortcode',
             ],
             [
                 'key' => 'field_category_archive_subtitle',
-                'label' => 'Archive Page Subtitle',
+                'label' => 'Catalog Page Subtitle',
                 'name' => 'category_archive_subtitle',
                 'type' => 'text',
-                'instructions' => 'Subtitle displayed on the archive page hero section',
+                'instructions' => 'Subtitle displayed on the Catalog page hero section',
             ],
         ],
         'location' => [
