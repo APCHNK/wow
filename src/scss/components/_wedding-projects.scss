@@ -45,9 +45,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    max-width: 85%;
 
     @media screen and (max-width: 1024px) {
         font-size: 6vw;
+        max-width: 80%;
+    }
+    @media screen and (max-width: 768px) {
+        max-width: 90%;
+    }
+    @media screen and (max-width: 480px) {
+        max-width: 100%;
     }
 
     span {
@@ -107,13 +115,18 @@
         opacity: 1;
         transform: translateY(0);
     }
-
+    @media screen and (max-width: 1024px) {
+        font-size: 3vw;
+        
+    }
     @media screen and (max-width: 768px) {
-        font-size: 4vw;
+        font-size: 3vw;
         bottom: 40px;
     }
     @media screen and (max-width: 480px) {
         bottom: 12px;
+        font-size: 3vw;
+
     }
 }
 

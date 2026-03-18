@@ -2913,10 +2913,22 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  max-width: 85%;
 }
 @media screen and (max-width: 1024px) {
   .wedding-projects-hero-title {
     font-size: 6vw;
+    max-width: 80%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .wedding-projects-hero-title {
+    max-width: 90%;
+  }
+}
+@media screen and (max-width: 480px) {
+  .wedding-projects-hero-title {
+    max-width: 100%;
   }
 }
 .wedding-projects-hero-title span {
@@ -2977,15 +2989,21 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+@media screen and (max-width: 1024px) {
+  .wedding-projects-hero-subtitle {
+    font-size: 3vw;
+  }
+}
 @media screen and (max-width: 768px) {
   .wedding-projects-hero-subtitle {
-    font-size: 4vw;
+    font-size: 3vw;
     bottom: 40px;
   }
 }
 @media screen and (max-width: 480px) {
   .wedding-projects-hero-subtitle {
     bottom: 12px;
+    font-size: 3vw;
   }
 }
 
