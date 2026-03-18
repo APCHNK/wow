@@ -144,6 +144,12 @@
         width: clamp(12px, 0.94vw, 18px);
         height: auto;
     }
+    
+    &.less{
+        gap: 6px;
+        text-transform: unset;
+        align-items: unset;
+    }
 }
 
 .wedding-project-single-contact {
@@ -174,7 +180,7 @@
 }
 
 .wedding-project-single-content {
-    padding: 0 144px ;
+    padding: 0 80px ;
     color: #000;
     font-family: "Noto Sans";
     font-size: clamp(12px, 0.94vw, 18px);
@@ -187,6 +193,7 @@
     opacity: 0;
     transform: translateY(30px);
     transition: max-height 0.8s ease, opacity 0.6s ease, transform 0.6s ease;
+    padding-bottom: 20px;
 
     &.active {
         max-height: 2000px;
@@ -210,6 +217,7 @@
     }
     @media screen and (max-width: 1024px) {
         padding: 0 40px;
+        padding-bottom: 20px;
     }
     @media screen and (max-width: 768px) {
         padding: 0 20px;
@@ -234,7 +242,11 @@
     gap: 60px;
     padding: 0px 0px 40px 80px;
     padding-top: 0;
+    @media screen and (max-width: 1024px) {
+        gap: 40px;
+        padding: 0px 0px 40px 40px;
 
+    }
     @media screen and (max-width: 768px) {
         padding: 0 12px 40px 12px;
         gap: 20px;
@@ -265,7 +277,9 @@
     justify-content: end;
     gap: 24px;
     padding-bottom: 70px;
-
+    @media screen and (max-width: 1024px) {
+        justify-content: start;
+    }
     @media screen and (max-width: 768px) {
         display: none;
     }

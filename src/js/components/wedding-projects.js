@@ -27,7 +27,7 @@ export function initWeddingProjects() {
                         if (svg) {
                             setTimeout(() => {
                                 svg.classList.add('animate');
-                            }, 300);
+                            }, 100);
                         }
 
                         if (heroSubtitle) {

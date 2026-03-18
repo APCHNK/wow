@@ -2603,7 +2603,7 @@ body {
 }
 .site-footer {
   background: #000;
-  padding: 80px 80px 60px;
+  padding: 80px 190px 60px;
 }
 
 .footer-content {
@@ -2932,7 +2932,7 @@ body {
   z-index: 3;
   transform: rotate(6deg) scale(2);
   opacity: 0;
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 .wedding-projects-hero-title svg.animate {
   opacity: 1;
@@ -3378,6 +3378,11 @@ body {
   width: clamp(12px, 0.94vw, 18px);
   height: auto;
 }
+.wedding-project-single-readmore.less {
+  gap: 6px;
+  text-transform: unset;
+  align-items: unset;
+}
 
 .wedding-project-single-contact {
   display: inline-flex;
@@ -3405,7 +3410,7 @@ body {
 }
 
 .wedding-project-single-content {
-  padding: 0 144px;
+  padding: 0 80px;
   color: #000;
   font-family: "Noto Sans";
   font-size: clamp(12px, 0.94vw, 18px);
@@ -3418,6 +3423,7 @@ body {
   opacity: 0;
   transform: translateY(30px);
   transition: max-height 0.8s ease, opacity 0.6s ease, transform 0.6s ease;
+  padding-bottom: 20px;
 }
 .wedding-project-single-content.active {
   max-height: 2000px;
@@ -3439,6 +3445,7 @@ body {
 @media screen and (max-width: 1024px) {
   .wedding-project-single-content {
     padding: 0 40px;
+    padding-bottom: 20px;
   }
 }
 @media screen and (max-width: 768px) {
@@ -3468,6 +3475,12 @@ body {
   gap: 60px;
   padding: 0px 0px 40px 80px;
   padding-top: 0;
+}
+@media screen and (max-width: 1024px) {
+  .wedding-project-gallery {
+    gap: 40px;
+    padding: 0px 0px 40px 40px;
+  }
 }
 @media screen and (max-width: 768px) {
   .wedding-project-gallery {
@@ -3504,6 +3517,11 @@ body {
   justify-content: end;
   gap: 24px;
   padding-bottom: 70px;
+}
+@media screen and (max-width: 1024px) {
+  .wedding-project-gallery-info {
+    justify-content: start;
+  }
 }
 @media screen and (max-width: 768px) {
   .wedding-project-gallery-info {
