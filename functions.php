@@ -12,11 +12,12 @@ add_filter('upload_mimes', 'wow_allow_svg');
 
 // Enqueue scripts and styles
 function wow_enqueue_assets() {
-    $theme_version = wp_get_theme()->get('Version');
+    $css_ver = file_exists(get_template_directory() . '/assets/css/main.css') ? filemtime(get_template_directory() . '/assets/css/main.css') : time();
+    $js_ver = file_exists(get_template_directory() . '/assets/js/main.js') ? filemtime(get_template_directory() . '/assets/js/main.js') : time();
 
-    wp_enqueue_style('wow-style', get_stylesheet_uri(), [], $theme_version);
-    wp_enqueue_style('wow-main', get_template_directory_uri() . '/assets/css/main.css', [], $theme_version);
-    wp_enqueue_script('wow-main', get_template_directory_uri() . '/assets/js/main.js', [], $theme_version, true);
+    wp_enqueue_style('wow-style', get_stylesheet_uri(), [], $css_ver);
+    wp_enqueue_style('wow-main', get_template_directory_uri() . '/assets/css/main.css', [], $css_ver);
+    wp_enqueue_script('wow-main', get_template_directory_uri() . '/assets/js/main.js', [], $js_ver, true);
 }
 add_action('wp_enqueue_scripts', 'wow_enqueue_assets');
 
