@@ -3505,32 +3505,30 @@ body {
 }
 
 .wedding-project-gallery-bottom {
-  display: flex;
-  gap: 24px;
-}
-@media screen and (max-width: 768px) {
-  .wedding-project-gallery-bottom {
-    flex-direction: column;
-  }
+  display: block;
 }
 
 .wedding-project-gallery-info {
-  width: 35%;
-  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: end;
   gap: 24px;
-  padding-bottom: 70px;
+  height: 100%;
 }
 @media screen and (max-width: 1024px) {
   .wedding-project-gallery-info {
     justify-content: start;
   }
 }
+
+.wedding-project-swiper .swiper-slide.slide-info {
+  width: 40% !important;
+  max-width: none;
+  overflow: visible;
+}
 @media screen and (max-width: 768px) {
-  .wedding-project-gallery-info {
+  .wedding-project-swiper .swiper-slide.slide-info {
     display: none;
   }
 }
@@ -3571,7 +3569,6 @@ body {
 }
 
 .wedding-project-gallery-slider {
-  flex: 1;
   position: relative;
 }
 @media screen and (max-width: 768px) {
@@ -3809,6 +3806,11 @@ body {
   justify-content: center;
   padding: 20px 0;
 }
+@media screen and (max-width: 480px) {
+  .faq-hero .wedding-projects-breadcrumb {
+    padding-top: 8px;
+  }
+}
 
 .faq-list {
   padding: 40px 144px 80px;
@@ -3828,6 +3830,7 @@ body {
 @media screen and (max-width: 480px) {
   .faq-list {
     padding: 20px 12px 40px;
+    padding-top: 0;
   }
 }
 
@@ -3855,13 +3858,20 @@ body {
   font-variant: all-small-caps;
   font-stretch: condensed;
   transition: opacity 0.3s ease;
+  padding-top: 48px;
+  padding-bottom: 16px;
 }
 .faq-question:hover {
   opacity: 0.6;
 }
+@media screen and (max-width: 1024px) {
+  .faq-question {
+    padding-top: 32px;
+  }
+}
 @media screen and (max-width: 480px) {
   .faq-question {
-    padding: 14px 0;
+    padding-bottom: 14px;
   }
 }
 

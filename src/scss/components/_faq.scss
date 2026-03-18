@@ -35,6 +35,9 @@ color: #000;
 .faq-hero .wedding-projects-breadcrumb {
     justify-content: center;
     padding: 20px 0;
+    @media screen and (max-width: 480px) {
+        padding-top: 8px;
+    }
 }
 
 .faq-list {
@@ -52,6 +55,7 @@ color: #000;
 
     @media screen and (max-width: 480px) {
         padding: 20px 12px 40px;
+        padding-top: 0;
     }
 }
 
@@ -79,13 +83,17 @@ color: #000;
     font-variant: all-small-caps;
     font-stretch: condensed;
     transition: opacity 0.3s ease;
-
+    padding-top: 48px;
+    padding-bottom: 16px;
     &:hover {
         opacity: 0.6;
     }
-
+    @media screen and (max-width: 1024px) {
+        padding-top: 32px;
+        
+    }
     @media screen and (max-width: 480px) {
-        padding: 14px 0;
+        padding-bottom: 14px;
     }
 }
 
