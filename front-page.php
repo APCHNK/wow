@@ -39,11 +39,24 @@
             <div class="swiper specialise-swiper">
                 <div class="swiper-wrapper">
                     <?php
-                    $categories = get_terms([
-                        'taxonomy' => 'project_category',
-                        'hide_empty' => false,
-                        'orderby' => 'menu_order',
-                    ]);
+                    $selected_cat_ids = get_field('specialise_categories');
+                    if (!empty($selected_cat_ids)) {
+                        // Use manually selected & ordered categories
+                        $categories = [];
+                        foreach ($selected_cat_ids as $cat_id) {
+                            $term = get_term($cat_id, 'project_category');
+                            if ($term && !is_wp_error($term)) {
+                                $categories[] = $term;
+                            }
+                        }
+                    } else {
+                        // Fallback: all top-level categories
+                        $categories = get_terms([
+                            'taxonomy' => 'project_category',
+                            'hide_empty' => false,
+                            'parent' => 0,
+                        ]);
+                    }
 
                     if (!empty($categories) && !is_wp_error($categories)) :
                         foreach ($categories as $cat) :

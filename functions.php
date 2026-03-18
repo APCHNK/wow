@@ -242,6 +242,38 @@ function wow_register_acf_fields() {
                 'type' => 'text',
                 'instructions' => 'Subtitle displayed on the Catalog page hero section',
             ],
+            [
+                'key' => 'field_category_title_top',
+                'label' => 'Title Top (for parent catalog)',
+                'name' => 'category_title_top',
+                'type' => 'text',
+                'instructions' => 'Top line of the title on parent category page (e.g. "A WEDDING IN")',
+            ],
+            [
+                'key' => 'field_category_country',
+                'label' => 'Country (for parent catalog)',
+                'name' => 'category_country',
+                'type' => 'text',
+                'instructions' => 'Country name with decorative circle (e.g. "ITALY")',
+            ],
+            [
+                'key' => 'field_category_desc_slider',
+                'label' => 'Description Slider (for parent catalog)',
+                'name' => 'category_desc_slider',
+                'type' => 'repeater',
+                'instructions' => 'Animated text slides shown on parent category page',
+                'layout' => 'block',
+                'button_label' => 'Add Slide',
+                'sub_fields' => [
+                    [
+                        'key' => 'field_category_desc_slide_text',
+                        'label' => 'Text',
+                        'name' => 'text',
+                        'type' => 'textarea',
+                        'rows' => 2,
+                    ],
+                ],
+            ],
         ],
         'location' => [
             [
@@ -443,6 +475,17 @@ function wow_register_acf_fields() {
                 'type' => 'textarea',
                 'rows' => 2,
                 'default_value' => 'From concept to execution — we deliver experiences without compromise.',
+            ],
+            [
+                'key' => 'field_specialise_categories',
+                'label' => 'Slider Categories',
+                'name' => 'specialise_categories',
+                'type' => 'taxonomy',
+                'taxonomy' => 'project_category',
+                'field_type' => 'multi_select',
+                'allow_null' => 1,
+                'return_format' => 'id',
+                'instructions' => 'Select and order categories for the slider. Drag to reorder. Leave empty to show all top-level categories.',
             ],
         ],
         'location' => [
