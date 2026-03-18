@@ -2,6 +2,12 @@ export function initFaq() {
     const faqItems = document.querySelectorAll('.faq-item');
     if (!faqItems.length) return;
 
+    // Open first item by default
+    const firstItem = faqItems[0];
+    const firstAnswer = firstItem.querySelector('.faq-answer');
+    firstItem.classList.add('active');
+    firstAnswer.style.maxHeight = firstAnswer.scrollHeight + 'px';
+
     faqItems.forEach(item => {
         const question = item.querySelector('.faq-question');
         const answer = item.querySelector('.faq-answer');
