@@ -187,6 +187,33 @@ if ($is_taxonomy) {
         </div>
     </section>
     <?php endif; ?>
+
+    <?php if ($is_taxonomy && $term) :
+        $category_faq = get_field('category_faq', 'project_category_' . $term->term_id);
+        if (!empty($category_faq)) : ?>
+    <section class="faq-list">
+        <?php foreach ($category_faq as $faq) : ?>
+        <div class="faq-item">
+            <button class="faq-question">
+                <span><?php echo esc_html($faq['question']); ?></span>
+                <svg class="faq-arrow" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_689_157)">
+                        <path d="M24.1904 13.1582L15.8408 21.5078L15.0361 20.7031L21.0205 14.708L21.9951 13.7314L1.57226 13.7314L1.57226 12.5869L21.9951 12.5869L21.0205 11.6094L15.0361 5.61426L15.8408 4.8086L24.1904 13.1582Z" fill="black" stroke="black" stroke-width="1.14488"/>
+                    </g>
+                    <defs>
+                        <clipPath id="clip0_689_157">
+                            <rect width="26" height="26" fill="white"/>
+                        </clipPath>
+                    </defs>
+                </svg>
+            </button>
+            <div class="faq-answer">
+                <?php echo $faq['answer']; ?>
+            </div>
+        </div>
+        <?php endforeach; ?>
+    </section>
+    <?php endif; endif; ?>
 </main>
 
 <?php

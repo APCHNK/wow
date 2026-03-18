@@ -274,6 +274,31 @@ function wow_register_acf_fields() {
                     ],
                 ],
             ],
+            [
+                'key' => 'field_category_faq',
+                'label' => 'FAQ Accordion',
+                'name' => 'category_faq',
+                'type' => 'repeater',
+                'layout' => 'block',
+                'button_label' => 'Add Question',
+                'instructions' => 'FAQ accordion displayed at the bottom of the category page',
+                'sub_fields' => [
+                    [
+                        'key' => 'field_category_faq_question',
+                        'label' => 'Question',
+                        'name' => 'question',
+                        'type' => 'text',
+                    ],
+                    [
+                        'key' => 'field_category_faq_answer',
+                        'label' => 'Answer',
+                        'name' => 'answer',
+                        'type' => 'wysiwyg',
+                        'toolbar' => 'basic',
+                        'media_upload' => 0,
+                    ],
+                ],
+            ],
         ],
         'location' => [
             [
