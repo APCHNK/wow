@@ -2905,14 +2905,12 @@ body {
   font-size: 7vw;
   font-style: normal;
   font-weight: 500;
-  line-height: normal;
+  line-height: 0.8;
   text-transform: uppercase;
   position: relative;
   z-index: 2;
   font-stretch: condensed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: block;
   max-width: 85%;
 }
 @media screen and (max-width: 1024px) {
@@ -2939,6 +2937,8 @@ body {
   opacity: 1;
 }
 .wedding-projects-hero-title svg {
+  display: inline-block;
+  vertical-align: middle;
   height: auto;
   margin: 0 -25px 0 -20px;
   z-index: 3;
