@@ -2375,8 +2375,7 @@ body {
 
 .dream-slider {
   position: relative;
-  margin-left: auto;
-  margin-right: 10%;
+  margin-left: 700px;
   width: 50%;
   max-width: 600px;
   clip-path: inset(0 -100vw 0 0);
@@ -2449,7 +2448,7 @@ body {
 
 @media screen and (max-width: 1440px) {
   .dream-slider {
-    margin-right: 5%;
+    margin-left: 530px;
   }
 }
 @media (max-width: 1024px) {
@@ -2466,7 +2465,7 @@ body {
   .dream-slider {
     width: 55%;
     max-width: 500px;
-    margin-right: unset;
+    margin-left: 380px;
   }
   .dream-title {
     font-size: 50px;
