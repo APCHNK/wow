@@ -3383,6 +3383,12 @@ body {
   text-transform: unset;
   align-items: unset;
 }
+@media screen and (max-width: 600px) {
+  .wedding-project-single-readmore.less {
+    gap: 4px;
+    font-weight: 600;
+  }
+}
 
 .wedding-project-single-contact {
   display: inline-flex;

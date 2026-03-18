@@ -149,6 +149,10 @@
         gap: 6px;
         text-transform: unset;
         align-items: unset;
+        @media screen and (max-width: 600px) {
+            gap: 4px;
+            font-weight: 600;
+        }
     }
 }
 

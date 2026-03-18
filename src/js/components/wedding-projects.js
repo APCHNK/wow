@@ -113,6 +113,8 @@ export function initWeddingProjects() {
     const singleContent = document.querySelector('.wedding-project-single-content');
 
     if (readMoreBtn && singleContent) {
+        const readLessBtn = singleContent.querySelector('.wedding-project-single-readmore.less');
+
         readMoreBtn.addEventListener('click', (e) => {
             e.preventDefault();
             singleContent.classList.add('active');
@@ -122,6 +124,18 @@ export function initWeddingProjects() {
                 singleContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 100);
         });
+
+        if (readLessBtn) {
+            readLessBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                singleContent.classList.remove('active');
+                readMoreBtn.style.display = '';
+
+                setTimeout(() => {
+                    readMoreBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            });
+        }
     }
 
     // Gallery slider with Swiper
