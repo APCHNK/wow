@@ -112,10 +112,9 @@
         $about_marquee_bottom = get_field('about_marquee_bottom') ?: 'Weddings Birthdays Bar & Bat Mitzvahs Corporate';
         $about_text = get_field('about_text') ?: '<p>We create captivating and unique realities for those who seek more, who want to bring their dreams to life.<br>I realize the luxury of self-expression.<br>I believe that celebrations are more than just the sum of their parts. It\'s a living organism that I approach comprehensively.<br>Getting to know my clients, I sense their energy, surround them with care, and give them all my attention.<br>As a result, I know how to give each celebration a unique individuality that reflects the personality.<br>This enables me to conduct unique, vibrant events at the highest level, constantly innovating and leveraging broad know-how acquired over more than 15 years!<br>I invite you to the world of celebrations!</p>';
         $about_gallery = get_field('about_gallery');
-        $about_bg = get_field('about_bg') ?: get_template_directory_uri() . '/assets/images/BG.png';
         $separator = '<span class="marquee-separator"><i></i><i></i><i></i><i></i><i></i></span>';
     ?>
-    <section class="about" style="background-image: url('<?php echo esc_url($about_bg); ?>')" id="about">
+    <section class="about" id="about">
         <h2 class="about-title">
             <span><?php echo esc_html($about_title_1); ?></span>
             <span><?php echo esc_html($about_title_2); ?></span>
