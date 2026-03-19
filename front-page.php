@@ -15,7 +15,7 @@
         </div>
         <div class="hero-video">
             <?php if ($hero_video) : ?>
-                <mux-player playback-id="<?php echo esc_attr($hero_video); ?>" autoplay muted loop stream-type="on-demand" default-hidden-captions playback-rates="" no-hot-keys></mux-player>
+                <mux-player playback-id="<?php echo esc_attr($hero_video); ?>" autoplay muted loop stream-type="on-demand" default-hidden-captions playback-rates="" no-hot-keys preload="auto" prefer-playback="mse" min-resolution="720p" max-resolution="1080p"></mux-player>
             <?php endif; ?>
         </div>
     </section>

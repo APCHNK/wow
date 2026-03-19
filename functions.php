@@ -21,11 +21,15 @@ function wow_enqueue_assets() {
 
     wp_enqueue_style('wow-style', get_stylesheet_uri(), [], $css_ver);
     wp_enqueue_style('wow-main', get_template_directory_uri() . '/assets/css/main.css', [], $css_ver);
-    wp_enqueue_script('mux-player', 'https://cdn.jsdelivr.net/npm/@mux/mux-player@3/dist/mux-player.mjs', [], null, true);
-    wp_script_add_data('mux-player', 'type', 'module');
     wp_enqueue_script('wow-main', get_template_directory_uri() . '/assets/js/main.js', [], $js_ver, true);
 }
 add_action('wp_enqueue_scripts', 'wow_enqueue_assets');
+
+// Add Mux Player as module script
+function wow_add_mux_player() {
+    echo '<script type="module" src="https://cdn.jsdelivr.net/npm/@mux/mux-player@3/dist/mux-player.mjs"></script>' . "\n";
+}
+add_action('wp_head', 'wow_add_mux_player');
 
 // Theme setup
 function wow_setup() {
