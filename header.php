@@ -13,6 +13,59 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
+<div class="site-loader" id="site-loader">
+    <style>
+        .site-loader {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            transition: transform 0.45s cubic-bezier(0.25, 0, 0.15, 1);
+        }
+        .site-loader.is-hidden {
+            transform: translateY(-100%);
+            pointer-events: none;
+        }
+        .site-loader svg {
+            width: 80px;
+            height: auto;
+        }
+        .loader-bar {
+            width: 120px;
+            height: 2px;
+            background: rgba(0,0,0,0.08);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+        .loader-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -40%;
+            width: 40%;
+            height: 100%;
+            background: #1a1a1a;
+            border-radius: 2px;
+            animation: loader-slide 1s ease-in-out infinite;
+        }
+        @keyframes loader-slide {
+            0% { left: -40%; }
+            100% { left: 100%; }
+        }
+    </style>
+    <?php
+        $loader_logo = get_field('header_logo', 'option') ?: get_template_directory_uri() . '/assets/images/logo.svg';
+    ?>
+    <img src="<?php echo esc_url($loader_logo); ?>" alt="Loading..." width="80" height="72">
+    <div class="loader-bar"></div>
+</div>
+
 <?php
     $header_logo = get_field('header_logo', 'option') ?: get_template_directory_uri() . '/assets/images/logo.svg';
     $header_nav_items = get_field('header_nav_items', 'option');
