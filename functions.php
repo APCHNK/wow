@@ -21,6 +21,8 @@ function wow_enqueue_assets() {
 
     wp_enqueue_style('wow-style', get_stylesheet_uri(), [], $css_ver);
     wp_enqueue_style('wow-main', get_template_directory_uri() . '/assets/css/main.css', [], $css_ver);
+    wp_enqueue_script('mux-player', 'https://cdn.jsdelivr.net/npm/@mux/mux-player@3/dist/mux-player.mjs', [], null, true);
+    wp_script_add_data('mux-player', 'type', 'module');
     wp_enqueue_script('wow-main', get_template_directory_uri() . '/assets/js/main.js', [], $js_ver, true);
 }
 add_action('wp_enqueue_scripts', 'wow_enqueue_assets');
@@ -460,11 +462,10 @@ function wow_register_acf_fields() {
             ],
             [
                 'key' => 'field_hero_video',
-                'label' => 'Video',
+                'label' => 'Mux Playback ID',
                 'name' => 'hero_video',
-                'type' => 'file',
-                'return_format' => 'url',
-                'mime_types' => 'mp4,webm',
+                'type' => 'text',
+                'instructions' => 'Paste Mux Playback ID from dashboard.mux.com',
             ],
         ],
         'location' => [
@@ -610,11 +611,10 @@ function wow_register_acf_fields() {
         'fields' => [
             [
                 'key' => 'field_video_section_file',
-                'label' => 'Video',
+                'label' => 'Mux Playback ID',
                 'name' => 'video_section_file',
-                'type' => 'file',
-                'return_format' => 'url',
-                'mime_types' => 'mp4,webm',
+                'type' => 'text',
+                'instructions' => 'Paste Mux Playback ID from dashboard.mux.com',
             ],
         ],
         'location' => [

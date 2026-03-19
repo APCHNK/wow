@@ -6,7 +6,6 @@
         $hero_title = get_field('hero_title') ?: 'WOW EVENT';
         $hero_subtitle_bottom = get_field('hero_subtitle_bottom') ?: 'IN THE WORLD';
         $hero_video = get_field('hero_video');
-        $hero_video_url = $hero_video ?: get_template_directory_uri() . '/assets/video/v1.mp4';
     ?>
     <section class="hero" id="hero">
         <div class="hero-content">
@@ -15,9 +14,9 @@
             <span class="hero-subtitle"><?php echo esc_html($hero_subtitle_bottom); ?></span>
         </div>
         <div class="hero-video">
-            <video autoplay muted loop playsinline>
-                <source src="<?php echo esc_url($hero_video_url); ?>" type="video/mp4">
-            </video>
+            <?php if ($hero_video) : ?>
+                <mux-player playback-id="<?php echo esc_attr($hero_video); ?>" autoplay muted loop stream-type="on-demand" default-hidden-captions playback-rates="" no-hot-keys></mux-player>
+            <?php endif; ?>
         </div>
     </section>
 
@@ -190,11 +189,11 @@
         </div>
     </section>
 
-    <?php $video_section_url = get_field('video_section_file') ?: get_template_directory_uri() . '/assets/video/v2.mp4'; ?>
+    <?php $video_section_id = get_field('video_section_file'); ?>
     <section class="video-section" id="video-section">
-        <video autoplay muted loop playsinline>
-            <source src="<?php echo esc_url($video_section_url); ?>" type="video/mp4">
-        </video>
+        <?php if ($video_section_id) : ?>
+            <mux-player playback-id="<?php echo esc_attr($video_section_id); ?>" autoplay muted loop stream-type="on-demand" default-hidden-captions playback-rates="" no-hot-keys></mux-player>
+        <?php endif; ?>
     </section>
 
     <?php

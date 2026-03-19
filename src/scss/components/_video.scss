@@ -4,17 +4,19 @@
     width: 100%;
     overflow: hidden;
 
-    video {
+    video, mux-player {
         width: 100%;
         height: auto;
         display: block;
+        --controls: none;
+        --media-object-fit: cover;
     }
 }
 
 // Responsive styles
 @media (max-width: 768px) {
     .video-section {
-        video {
+        video, mux-player {
             min-height: 200px;
             object-fit: cover;
         }
@@ -23,7 +25,7 @@
 
 @media (max-width: 480px) {
     .video-section {
-        video {
+        video, mux-player {
             min-height: 150px;
         }
     }

@@ -24,7 +24,8 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"http://localhost/wow/\")",
       "Bash(python3 -c \":*)",
       "Bash(claude auth:*)",
-      "Bash(\"e:/work/wamp/bin/php/php8.3.14/php.exe\" -l \"e:/work/wamp/www/wow/wp-content/themes/wow/page-faq.php\")"
+      "Bash(\"e:/work/wamp/bin/php/php8.3.14/php.exe\" -l \"e:/work/wamp/www/wow/wp-content/themes/wow/page-faq.php\")",
+      "WebFetch(domain:www.mux.com)"
     ]
   }
 }
