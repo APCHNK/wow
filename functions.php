@@ -3,6 +3,10 @@
  * Theme functions
  */
 
+@ini_set('upload_max_filesize', '256M');
+@ini_set('post_max_size', '256M');
+add_filter('upload_size_limit', function() { return 256 * 1024 * 1024; });
+
 // Allow SVG uploads
 function wow_allow_svg($mimes) {
     $mimes['svg'] = 'image/svg+xml';
