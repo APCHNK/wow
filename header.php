@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html <?php language_attributes(); ?>>
+<html <?php language_attributes(); ?> class="is-loading">
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,6 +15,10 @@
 
 <div class="site-loader" id="site-loader">
     <style>
+        html.is-loading,
+        html.menu-open {
+            overflow: hidden;
+        }
         .site-loader {
             position: fixed;
             inset: 0;

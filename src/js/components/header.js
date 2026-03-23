@@ -2,6 +2,7 @@ export function initHeader() {
     const menuToggle = document.getElementById('menu-toggle');
     const mainNav = document.getElementById('main-nav');
     const body = document.body;
+    const html = document.documentElement;
 
     if (menuToggle && mainNav) {
         menuToggle.addEventListener('click', () => {
@@ -11,12 +12,14 @@ export function initHeader() {
                 menuToggle.classList.remove('is-active');
                 mainNav.classList.remove('is-open');
                 body.classList.remove('menu-open');
-                body.style.overflow = '';
+                html.classList.remove('menu-open');
+                if (window.lenis) window.lenis.start();
             } else {
                 menuToggle.classList.add('is-active');
                 mainNav.classList.add('is-open');
                 body.classList.add('menu-open');
-                body.style.overflow = 'hidden';
+                html.classList.add('menu-open');
+                if (window.lenis) window.lenis.stop();
             }
         });
 
@@ -25,7 +28,8 @@ export function initHeader() {
                 menuToggle.classList.remove('is-active');
                 mainNav.classList.remove('is-open');
                 body.classList.remove('menu-open');
-                body.style.overflow = '';
+                html.classList.remove('menu-open');
+                if (window.lenis) window.lenis.start();
             });
         });
     }

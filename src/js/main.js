@@ -21,6 +21,11 @@ const lenis = new Lenis({
     smoothWheel: true,
 });
 
+// Stop lenis while loader is visible
+lenis.stop();
+
+window.lenis = lenis;
+
 function raf(time) {
     lenis.raf(time);
     requestAnimationFrame(raf);
@@ -44,6 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (loader) {
         window.addEventListener('load', () => {
             loader.classList.add('is-hidden');
+            document.documentElement.classList.remove('is-loading');
+            lenis.start();
             setTimeout(() => loader.remove(), 600);
         });
     }
