@@ -133,10 +133,23 @@
 
 .about-swiper {
     overflow: visible;
-}
+    height: auto;
 
-.about-swiper .swiper-slide {
-    width: auto;
+    .swiper-wrapper {
+        align-items: stretch;
+    }
+
+    .swiper-slide {
+        height: auto;
+
+        &.slide-image {
+            width: 304px;
+        }
+
+        &.slide-text {
+            width: 483px;
+        }
+    }
 }
 
 .slide-text {
@@ -161,14 +174,13 @@
 }
 
 .slide-image {
-    max-width: 304px;
-    height: auto;
     overflow: hidden;
 
     img {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        max-height: 456px;
     }
 }
 
