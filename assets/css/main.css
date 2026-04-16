@@ -3267,6 +3267,7 @@ body {
   opacity: 0;
   transform: translateX(-60px);
   transition: opacity 0.8s ease, transform 0.8s ease;
+  aspect-ratio: 610/919;
 }
 .wedding-project-single-img.animate {
   opacity: 1;
