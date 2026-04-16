@@ -24,6 +24,15 @@ get_header();
         $gallery = get_field('project_gallery');
         $categories = get_the_terms(get_the_ID(), 'project_category');
         $category = !empty($categories) ? $categories[0] : null;
+        // Find parent category for "SHOW MORE" link
+        $parent_category = null;
+        if ($category) {
+            if ($category->parent) {
+                $parent_category = get_term($category->parent, 'project_category');
+            } else {
+                $parent_category = $category;
+            }
+        }
     ?>
 
     <section class="wedding-project-single-hero">
@@ -183,7 +192,7 @@ get_header();
                     </div>
                     <?php endwhile; ?>
                     <div class="swiper-slide">
-                        <a href="<?php echo $category ? esc_url(get_term_link($category)) : esc_url(get_post_type_archive_link('wedding_project')); ?>" class="our-projects-card our-projects-card--last">
+                        <a href="<?php echo $parent_category ? esc_url(get_term_link($parent_category)) : esc_url(get_post_type_archive_link('wedding_project')); ?>" class="our-projects-card our-projects-card--last">
                             <img src="<?php echo get_template_directory_uri(); ?>/assets/images/aa.jpg" alt="Show more" loading="lazy" decoding="async">
                             <div class="our-projects-card-hover">
                                 <span class="our-projects-card-btn">SHOW MORE</span>
