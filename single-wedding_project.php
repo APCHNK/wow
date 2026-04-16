@@ -183,7 +183,7 @@ get_header();
                     </div>
                     <?php endwhile; ?>
                     <div class="swiper-slide">
-                        <a href="<?php echo esc_url(get_post_type_archive_link('wedding_project')); ?>" class="our-projects-card our-projects-card--last">
+                        <a href="<?php echo $category ? esc_url(get_term_link($category)) : esc_url(get_post_type_archive_link('wedding_project')); ?>" class="our-projects-card our-projects-card--last">
                             <img src="<?php echo get_template_directory_uri(); ?>/assets/images/aa.jpg" alt="Show more" loading="lazy" decoding="async">
                             <div class="our-projects-card-hover">
                                 <span class="our-projects-card-btn">SHOW MORE</span>
