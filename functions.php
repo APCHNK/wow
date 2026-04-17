@@ -170,6 +170,48 @@ function wow_register_wedding_projects() {
 }
 add_action('init', 'wow_register_wedding_projects');
 
+// Register Project Catalog CPT — replaces the project_category taxonomy in the admin UI
+// so editing a catalog feels like editing a page (title + page-attributes + sidebar).
+// Uses a temporary rewrite slug ('catalog') during the migration to avoid colliding
+// with the taxonomy's still-active 'project-category' rewrite. Will be switched to
+// 'project-category' in the final cleanup step.
+function wow_register_project_catalog() {
+    $labels = [
+        'name'                  => 'Catalogs',
+        'singular_name'         => 'Catalog',
+        'menu_name'             => 'Catalogs',
+        'name_admin_bar'        => 'Catalog',
+        'add_new'               => 'Add New',
+        'add_new_item'          => 'Add New Catalog',
+        'new_item'              => 'New Catalog',
+        'edit_item'             => 'Edit Catalog',
+        'view_item'             => 'View Catalog',
+        'all_items'             => 'All Catalogs',
+        'search_items'          => 'Search Catalogs',
+        'parent_item_colon'     => 'Parent Catalog:',
+        'not_found'             => 'No catalogs found.',
+        'not_found_in_trash'    => 'No catalogs found in Trash.',
+    ];
+
+    register_post_type('project_catalog', [
+        'labels'             => $labels,
+        'public'             => true,
+        'publicly_queryable' => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'query_var'          => true,
+        'rewrite'            => ['slug' => 'catalog', 'with_front' => false],
+        'capability_type'    => 'post',
+        'has_archive'        => false,
+        'hierarchical'       => true,
+        'menu_position'      => 6,
+        'menu_icon'          => 'dashicons-book-alt',
+        'supports'           => ['title', 'page-attributes', 'thumbnail'],
+        'show_in_rest'       => true,
+    ]);
+}
+add_action('init', 'wow_register_project_catalog');
+
 // Register Project Category taxonomy (UI-exposed as "Catalogs").
 function wow_register_project_category() {
     $labels = [
