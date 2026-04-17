@@ -1,3 +1,5 @@
 node_modules/
 *.map
 assets/video/
+.backups/
+migrate-flexible.php
