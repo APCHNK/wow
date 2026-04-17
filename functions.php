@@ -204,7 +204,7 @@ add_filter('manage_edit-project_category_columns', function ($columns) {
 add_action('admin_head', function () {
     $screen = get_current_screen();
     if (!$screen || $screen->taxonomy !== 'project_category') return;
-    echo '<style>.term-description-wrap,.form-field.term-description-wrap{display:none !important;}</style>';
+    echo '<style>.term-description-wrap,.form-field.term-description-wrap{display:none !important;}#edittag{max-width:none !important;}</style>';
 });
 
 // Disable admin bar on frontend
