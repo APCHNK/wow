@@ -296,61 +296,6 @@ function wow_register_acf_fields() {
         ],
     ]);
 
-    // Project fields
-    acf_add_local_field_group([
-        'key' => 'group_project',
-        'title' => 'Project Settings',
-        'fields' => [
-            [
-                'key' => 'field_project_tab_title',
-                'label' => 'Settings for archive',
-                'name' => '',
-                'type' => 'tab',
-            ],
-            [
-                'key' => 'field_project_title_top',
-                'label' => 'Title Top',
-                'name' => 'project_title_top',
-                'type' => 'text',
-                'instructions' => 'Top line of the project title (e.g. "A WEDDING IN")',
-            ],
-            [
-                'key' => 'field_project_country',
-                'label' => 'Country',
-                'name' => 'project_country',
-                'type' => 'text',
-                'instructions' => 'Country name displayed with decorative circle (e.g. "ROME")',
-            ],
-            [
-                'key' => 'field_project_desc_slider',
-                'label' => 'Slider with description',
-                'name' => 'project_desc_slider',
-                'type' => 'repeater',
-                'instructions' => 'Slides for the description slider on archive page',
-                'layout' => 'block',
-                'button_label' => 'Add Slide',
-                'sub_fields' => [
-                    [
-                        'key' => 'field_project_desc_slide_text',
-                        'label' => 'Text',
-                        'name' => 'text',
-                        'type' => 'textarea',
-                        'rows' => 3,
-                    ],
-                ],
-            ],
-        ],
-        'location' => [
-            [
-                [
-                    'param' => 'post_type',
-                    'operator' => '==',
-                    'value' => 'wedding_project',
-                ],
-            ],
-        ],
-    ]);
-
     // Header settings
     acf_add_local_field_group([
         'key' => 'group_header',

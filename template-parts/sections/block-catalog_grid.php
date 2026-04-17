@@ -63,11 +63,7 @@ $country_svg = '<svg class="happen-title-border" width="422" height="201" viewBo
         </div>
     <?php endforeach; else :
         // leaf category OR generic CPT archive — render projects
-        if (have_posts()) : while (have_posts()) : the_post();
-            $project_title_top = get_field('project_title_top');
-            $project_country = get_field('project_country');
-            $desc_slides = get_field('project_desc_slider');
-    ?>
+        if (have_posts()) : while (have_posts()) : the_post(); ?>
         <div class="project">
             <div class="project-img">
                 <?php if (has_post_thumbnail()) : the_post_thumbnail('large'); else : ?>
@@ -76,22 +72,8 @@ $country_svg = '<svg class="happen-title-border" width="422" height="201" viewBo
             </div>
             <div class="project-info">
                 <div class="project-title">
-                    <span><?php echo esc_html($project_title_top ?: get_the_title()); ?></span>
-                    <?php if ($project_country) : ?>
-                    <span class="project-title-country"><?php echo esc_html($project_country); ?><?php echo $country_svg; ?></span>
-                    <?php endif; ?>
+                    <span><?php the_title(); ?></span>
                 </div>
-                <?php if ($desc_slides) : ?>
-                <div class="project-desc">
-                    <div class="swiper project-desc-swiper">
-                        <div class="swiper-wrapper">
-                            <?php foreach ($desc_slides as $slide) : ?>
-                                <div class="swiper-slide"><?php echo esc_html($slide['text']); ?></div>
-                            <?php endforeach; ?>
-                        </div>
-                    </div>
-                </div>
-                <?php endif; ?>
                 <a href="<?php echo esc_url(get_permalink()); ?>" class="project-link">Show more</a>
             </div>
         </div>
