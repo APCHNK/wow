@@ -15,15 +15,6 @@ get_header();
 $is_taxonomy = is_tax('project_category');
 $term = $is_taxonomy ? get_queried_object() : null;
 $parent_term = ($term && $term->parent) ? get_term($term->parent, 'project_category') : null;
-$has_children = false;
-if ($term) {
-    $children = get_terms([
-        'taxonomy' => 'project_category',
-        'parent' => $term->term_id,
-        'hide_empty' => false,
-    ]);
-    $has_children = !empty($children) && !is_wp_error($children);
-}
 ?>
 
 <main class="wedding-projects-archive">
@@ -48,17 +39,13 @@ if ($term) {
                     <svg xmlns="http://www.w3.org/2000/svg" width="10" height="16" viewBox="0 0 10 16" fill="none">
                         <path d="M0.707031 0.707092L7.70703 7.70709L0.707031 14.7071" stroke="black" stroke-width="2"/>
                     </svg>
-                    <?php if ($has_children) : ?>
-                        <span><?php echo esc_html($term->name); ?></span>
-                    <?php else : ?>
-                        <?php if ($parent_term) : ?>
-                            <a href="<?php echo esc_url(get_term_link($parent_term)); ?>"><?php echo esc_html($parent_term->name); ?></a>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="16" viewBox="0 0 10 16" fill="none">
-                                <path d="M0.707031 0.707092L7.70703 7.70709L0.707031 14.7071" stroke="black" stroke-width="2"/>
-                            </svg>
-                        <?php endif; ?>
-                        <span><?php echo esc_html($term->name); ?></span>
+                    <?php if ($parent_term) : ?>
+                        <a href="<?php echo esc_url(get_term_link($parent_term)); ?>"><?php echo esc_html($parent_term->name); ?></a>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="16" viewBox="0 0 10 16" fill="none">
+                            <path d="M0.707031 0.707092L7.70703 7.70709L0.707031 14.7071" stroke="black" stroke-width="2"/>
+                        </svg>
                     <?php endif; ?>
+                    <span><?php echo esc_html($term->name); ?></span>
                 </section>
                 <?php
             endif;

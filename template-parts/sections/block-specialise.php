@@ -19,22 +19,21 @@ $specialise_desc = get_sub_field('specialise_desc') ?: 'From concept to executio
                 $cards = get_sub_field('specialise_cards');
                 if (!empty($cards)) :
                     foreach ($cards as $card) :
-                        $tid = (int) ($card['category'] ?? 0);
-                        if (!$tid) continue;
-                        $term = get_term($tid, 'project_category');
-                        if (!$term || is_wp_error($term)) continue;
+                        $link = (string) ($card['link'] ?? '');
+                        if (!$link) continue;
                         $image = (string) ($card['image'] ?? '');
                         $title = (string) ($card['title'] ?? '');
-                        $link = get_term_link($term);
+                        $btn = (string) ($card['button_text'] ?? '');
+                        if ($btn === '') $btn = 'Show more';
                 ?>
                 <div class="swiper-slide">
                     <div class="specialise-card">
                         <?php if ($image) : ?>
-                            <img src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr($term->name); ?>">
+                            <img src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr($title); ?>">
                         <?php endif; ?>
                         <div class="card-content">
-                            <h3 class="card-title"><?php echo esc_html($title !== '' ? $title : $term->name); ?></h3>
-                            <a href="<?php echo esc_url($link); ?>" class="card-btn">SHOW MORE</a>
+                            <h3 class="card-title"><?php echo esc_html($title); ?></h3>
+                            <a href="<?php echo esc_url($link); ?>" class="card-btn"><?php echo esc_html($btn); ?></a>
                         </div>
                     </div>
                 </div>
