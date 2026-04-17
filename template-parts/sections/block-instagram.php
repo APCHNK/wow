@@ -1,7 +1,7 @@
 <?php
-$instagram_title = get_sub_field('instagram_title') ?: 'Follow us on Instagram';
-$instagram_desc = get_sub_field('instagram_desc') ?: 'One of the key advantages of working with us is our direct partnership with an international artist booking agency.';
-$instagram_link = get_sub_field('instagram_link') ?: '#';
+$instagram_title = wow_field('instagram_title') ?: 'Follow us on Instagram';
+$instagram_desc = wow_field('instagram_desc') ?: 'One of the key advantages of working with us is our direct partnership with an international artist booking agency.';
+$instagram_link = wow_field('instagram_link') ?: '#';
 ?>
 <section class="instagram" id="instagram">
     <div class="instagram-header">

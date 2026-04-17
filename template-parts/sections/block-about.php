@@ -1,10 +1,10 @@
 <?php
-$about_title_1 = get_sub_field('about_title_1') ?: 'Who';
-$about_title_2 = get_sub_field('about_title_2') ?: 'We Are';
-$about_marquee_top = get_sub_field('about_marquee_top') ?: 'We provide a full range of services';
-$about_marquee_bottom = get_sub_field('about_marquee_bottom') ?: 'Weddings Birthdays Bar & Bat Mitzvahs Corporate';
-$about_text = get_sub_field('about_text') ?: '<p>We create captivating and unique realities for those who seek more, who want to bring their dreams to life.<br>I realize the luxury of self-expression.<br>I believe that celebrations are more than just the sum of their parts. It\'s a living organism that I approach comprehensively.<br>Getting to know my clients, I sense their energy, surround them with care, and give them all my attention.<br>As a result, I know how to give each celebration a unique individuality that reflects the personality.<br>This enables me to conduct unique, vibrant events at the highest level, constantly innovating and leveraging broad know-how acquired over more than 15 years!<br>I invite you to the world of celebrations!</p>';
-$about_gallery = get_sub_field('about_gallery');
+$about_title_1 = wow_field('about_title_1') ?: 'Who';
+$about_title_2 = wow_field('about_title_2') ?: 'We Are';
+$about_marquee_top = wow_field('about_marquee_top') ?: 'We provide a full range of services';
+$about_marquee_bottom = wow_field('about_marquee_bottom') ?: 'Weddings Birthdays Bar & Bat Mitzvahs Corporate';
+$about_text = wow_field('about_text') ?: '<p>We create captivating and unique realities for those who seek more, who want to bring their dreams to life.<br>I realize the luxury of self-expression.<br>I believe that celebrations are more than just the sum of their parts. It\'s a living organism that I approach comprehensively.<br>Getting to know my clients, I sense their energy, surround them with care, and give them all my attention.<br>As a result, I know how to give each celebration a unique individuality that reflects the personality.<br>This enables me to conduct unique, vibrant events at the highest level, constantly innovating and leveraging broad know-how acquired over more than 15 years!<br>I invite you to the world of celebrations!</p>';
+$about_gallery = wow_field('about_gallery');
 $separator = '<span class="marquee-separator"><i></i><i></i><i></i><i></i><i></i></span>';
 ?>
 <section class="about" id="about">

@@ -62,15 +62,7 @@ function wow_catalog_card($image_url, $thumb_html, $link, $title, $country, $des
 <section class="wedding-projects-catalog">
     <div class="wedding-projects-catalog-list">
     <?php
-    // Parent might pass the row explicitly via set_query_var (single-catalog
-    // single template iterates manually, no ACF have_rows context); otherwise
-    // we're inside an active have_rows() and get_sub_field works.
-    $row_ctx = get_query_var('wow_current_section');
-    if (is_array($row_ctx) && array_key_exists('cards', $row_ctx)) {
-        $cards = $row_ctx['cards'];
-    } else {
-        $cards = get_sub_field('cards');
-    }
+    $cards = wow_field('cards');
     if (!empty($cards)) :
         foreach ($cards as $card) :
             $link = wow_resolve_link($card['link'] ?? '');

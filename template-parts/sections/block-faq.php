@@ -1,6 +1,6 @@
 <?php
-$faq_title = get_sub_field('faq_title') ?: 'FREQUENTLY ASKED QUESTIONS';
-$faq_items = get_sub_field('faq_items');
+$faq_title = wow_field('faq_title') ?: 'FREQUENTLY ASKED QUESTIONS';
+$faq_items = wow_field('faq_items');
 // Category/archive pages already render their own hero+breadcrumb in the template,
 // so the FAQ block drops the hero there and emits only the accordion.
 $inline_only = is_tax() || is_category() || is_tag() || is_post_type_archive();

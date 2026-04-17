@@ -1,7 +1,7 @@
 <?php
-$dream_bg1 = get_sub_field('dream_bg_line1') ?: 'DREAM';
-$dream_bg2 = get_sub_field('dream_bg_line2') ?: 'EVENT';
-$dream_slides = get_sub_field('dream_slides');
+$dream_bg1 = wow_field('dream_bg_line1') ?: 'DREAM';
+$dream_bg2 = wow_field('dream_bg_line2') ?: 'EVENT';
+$dream_slides = wow_field('dream_slides');
 ?>
 <section class="dream" id="dream">
     <div class="dream-bg">

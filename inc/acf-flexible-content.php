@@ -384,6 +384,28 @@ function wow_fc_populate_link_choices($field) {
 add_filter('acf/load_field/name=link', 'wow_fc_populate_link_choices');
 
 /**
+ * Flexible-content sub-field accessor that works in both contexts:
+ *   - inside a have_rows()/the_row() loop (page.php, front-page.php) — delegates to get_sub_field()
+ *   - when a parent template iterated the flexible array manually and passed the current
+ *     row via set_query_var('wow_current_section', $row) — pulls the key straight from $row
+ *
+ * Block template files should use this instead of get_sub_field() so they work on every
+ * surface (pages, projects, catalogs).
+ */
+function wow_field($name, $default = null) {
+    $row = get_query_var('wow_current_section');
+    if (is_array($row) && array_key_exists($name, $row)) {
+        $v = $row[$name];
+        return ($v === null || $v === false || $v === '') ? $default : $v;
+    }
+    if (function_exists('get_sub_field')) {
+        $v = get_sub_field($name);
+        if ($v !== null && $v !== false && $v !== '') return $v;
+    }
+    return $default;
+}
+
+/**
  * Turn a stored card-link value ("term:N" or "post:N") into a real URL.
  * Accepts legacy absolute URLs too — those pass through unchanged.
  */

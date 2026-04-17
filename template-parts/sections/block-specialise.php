@@ -1,7 +1,7 @@
 <?php
-$specialise_title_1 = get_sub_field('specialise_title_1') ?: 'What';
-$specialise_title_2 = get_sub_field('specialise_title_2') ?: 'We Specialise in';
-$specialise_desc = get_sub_field('specialise_desc') ?: 'From concept to execution — we deliver experiences without compromise.';
+$specialise_title_1 = wow_field('specialise_title_1') ?: 'What';
+$specialise_title_2 = wow_field('specialise_title_2') ?: 'We Specialise in';
+$specialise_desc = wow_field('specialise_desc') ?: 'From concept to execution — we deliver experiences without compromise.';
 ?>
 <section class="specialise" id="specialise">
     <div class="specialise-header">
@@ -16,7 +16,7 @@ $specialise_desc = get_sub_field('specialise_desc') ?: 'From concept to executio
         <div class="swiper specialise-swiper">
             <div class="swiper-wrapper">
                 <?php
-                $cards = get_sub_field('specialise_cards');
+                $cards = wow_field('specialise_cards');
                 if (!empty($cards)) :
                     foreach ($cards as $card) :
                         $link = wow_resolve_link($card['link'] ?? '');

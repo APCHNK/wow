@@ -1,8 +1,8 @@
 <?php
-$hero_subtitle_top = get_sub_field('hero_subtitle_top') ?: 'WE CREATE';
-$hero_title = get_sub_field('hero_title') ?: 'WOW EVENT';
-$hero_subtitle_bottom = get_sub_field('hero_subtitle_bottom') ?: 'IN THE WORLD';
-$hero_video = get_sub_field('hero_video');
+$hero_subtitle_top = wow_field('hero_subtitle_top') ?: 'WE CREATE';
+$hero_title = wow_field('hero_title') ?: 'WOW EVENT';
+$hero_subtitle_bottom = wow_field('hero_subtitle_bottom') ?: 'IN THE WORLD';
+$hero_video = wow_field('hero_video');
 ?>
 <section class="hero" id="hero">
     <div class="hero-content">

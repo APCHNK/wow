@@ -1,7 +1,7 @@
 <?php
-$happen_title = get_sub_field('happen_title') ?: 'Make it Happen!';
-$happen_desc = get_sub_field('happen_desc') ?: 'One of the key advantages of working with us is our direct partnership with an international artist booking agency. This means we can provide our clients with exclusive access to world-renowned artists, celebrities, musicians, and performers for weddings, private parties, corporate events, and special occasions.';
-$happen_slides = get_sub_field('happen_slides');
+$happen_title = wow_field('happen_title') ?: 'Make it Happen!';
+$happen_desc = wow_field('happen_desc') ?: 'One of the key advantages of working with us is our direct partnership with an international artist booking agency. This means we can provide our clients with exclusive access to world-renowned artists, celebrities, musicians, and performers for weddings, private parties, corporate events, and special occasions.';
+$happen_slides = wow_field('happen_slides');
 ?>
 <section class="happen" id="happen">
     <div class="happen-header">
