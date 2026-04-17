@@ -45,7 +45,7 @@ function wow_fc_common_layouts($prefix) {
                     'layout' => 'block',
                     'button_label' => 'Add Card',
                     'sub_fields' => [
-                        ['key' => 'field_' . $p . '_scard_link', 'label' => 'Link', 'name' => 'link', 'type' => 'url', 'required' => 1],
+                        ['key' => 'field_' . $p . '_scard_link', 'label' => 'Link', 'name' => 'link', 'type' => 'select', 'ui' => 1, 'allow_null' => 0, 'required' => 1, 'choices' => [], 'return_format' => 'value', 'instructions' => 'Pick a project category or project — the button will link there.'],
                         ['key' => 'field_' . $p . '_scard_image', 'label' => 'Image', 'name' => 'image', 'type' => 'image', 'return_format' => 'url', 'preview_size' => 'medium'],
                         ['key' => 'field_' . $p . '_scard_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text'],
                         ['key' => 'field_' . $p . '_scard_button_text', 'label' => 'Button Text', 'name' => 'button_text', 'type' => 'text', 'default_value' => 'Show more'],
@@ -195,7 +195,7 @@ function wow_fc_common_layouts($prefix) {
                     'button_label' => 'Add Card',
                     'instructions' => 'Leave empty to auto-list children (on a parent category) or projects (on a leaf category). Fill to manually build cards with a free-form link.',
                     'sub_fields' => [
-                        ['key' => 'field_' . $p . '_card_link', 'label' => 'Link', 'name' => 'link', 'type' => 'url', 'required' => 1, 'instructions' => 'Where the Show-more button goes (any URL — a category, a project, a page, anything).'],
+                        ['key' => 'field_' . $p . '_card_link', 'label' => 'Link', 'name' => 'link', 'type' => 'select', 'ui' => 1, 'allow_null' => 0, 'required' => 1, 'choices' => [], 'return_format' => 'value', 'instructions' => 'Pick a project category or project — the button will link there.'],
                         ['key' => 'field_' . $p . '_card_image', 'label' => 'Image', 'name' => 'image', 'type' => 'image', 'return_format' => 'url', 'preview_size' => 'medium'],
                         ['key' => 'field_' . $p . '_card_title_top', 'label' => 'Title', 'name' => 'title_top', 'type' => 'text'],
                         ['key' => 'field_' . $p . '_card_country', 'label' => 'Country', 'name' => 'country', 'type' => 'text'],
@@ -337,3 +337,66 @@ function wow_register_flexible_content_groups() {
     ]);
 }
 add_action('acf/init', 'wow_register_flexible_content_groups');
+
+/**
+ * Populate the card "Link" select with all project categories + wedding projects.
+ * Stored value is "term:<id>" or "post:<id>"; wow_resolve_link() turns it back into a URL.
+ *
+ * Only the link sub-fields inside our card repeaters carry these choices — matched
+ * by key suffix so the filter doesn't leak to unrelated fields named "link".
+ */
+function wow_fc_populate_link_choices($field) {
+    $key = $field['key'] ?? '';
+    $suffixes = ['_card_link', '_scard_link'];
+    $match = false;
+    foreach ($suffixes as $suf) {
+        if (substr($key, -strlen($suf)) === $suf) { $match = true; break; }
+    }
+    if (!$match) return $field;
+
+    $choices = [];
+
+    $terms = get_terms(['taxonomy' => 'project_category', 'hide_empty' => false, 'orderby' => 'name']);
+    if (!is_wp_error($terms)) {
+        foreach ($terms as $t) {
+            $choices['term:' . $t->term_id] = 'Category — ' . $t->name;
+        }
+    }
+
+    $posts = get_posts([
+        'post_type' => 'wedding_project',
+        'post_status' => 'publish',
+        'posts_per_page' => -1,
+        'orderby' => 'title',
+        'order' => 'ASC',
+    ]);
+    foreach ($posts as $p) {
+        $choices['post:' . $p->ID] = 'Project — ' . $p->post_title;
+    }
+
+    $field['choices'] = $choices;
+    return $field;
+}
+add_filter('acf/load_field/name=link', 'wow_fc_populate_link_choices');
+
+/**
+ * Turn a stored card-link value ("term:N" or "post:N") into a real URL.
+ * Accepts legacy absolute URLs too — those pass through unchanged.
+ */
+function wow_resolve_link($value) {
+    $value = (string) $value;
+    if ($value === '') return '';
+    if (strpos($value, 'term:') === 0) {
+        $tid = (int) substr($value, 5);
+        if ($tid) {
+            $url = get_term_link($tid, 'project_category');
+            return is_wp_error($url) ? '' : $url;
+        }
+        return '';
+    }
+    if (strpos($value, 'post:') === 0) {
+        $pid = (int) substr($value, 5);
+        return $pid ? (string) get_permalink($pid) : '';
+    }
+    return $value; // treat as plain URL (legacy)
+}

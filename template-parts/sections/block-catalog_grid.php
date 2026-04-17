@@ -57,7 +57,7 @@ function wow_catalog_card($image_url, $thumb_html, $link, $title, $country, $des
     $cards = get_sub_field('cards');
     if (!empty($cards)) :
         foreach ($cards as $card) :
-            $link = (string) ($card['link'] ?? '');
+            $link = wow_resolve_link($card['link'] ?? '');
             if (!$link) continue;
             $image = (string) ($card['image'] ?? '');
             $title = (string) ($card['title_top'] ?? '');

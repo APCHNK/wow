@@ -19,7 +19,7 @@ $specialise_desc = get_sub_field('specialise_desc') ?: 'From concept to executio
                 $cards = get_sub_field('specialise_cards');
                 if (!empty($cards)) :
                     foreach ($cards as $card) :
-                        $link = (string) ($card['link'] ?? '');
+                        $link = wow_resolve_link($card['link'] ?? '');
                         if (!$link) continue;
                         $image = (string) ($card['image'] ?? '');
                         $title = (string) ($card['title'] ?? '');
