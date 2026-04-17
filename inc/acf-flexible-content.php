@@ -310,16 +310,16 @@ function wow_register_flexible_content_groups() {
         'style' => 'default',
     ]);
 
-    // Category sections — for taxonomy project_category.
-    // Rendered after the hero + catalog on archive-wedding_project.php, so the
-    // editor can drop extra blocks (e.g. a FAQ accordion) on each category page.
+    // Category sections — for the project_catalog CPT (formerly the project_category
+    // taxonomy term edit screen). The field name stays 'category_sections' so the
+    // migrated postmeta keys continue to match the ACF schema.
     acf_add_local_field_group([
         'key' => 'group_category_sections',
-        'title' => 'Category Page Sections',
+        'title' => 'Catalog Page Sections',
         'fields' => [
             [
                 'key' => 'field_category_sections',
-                'label' => 'Category Page Sections',
+                'label' => 'Catalog Page Sections',
                 'name' => 'category_sections',
                 'type' => 'flexible_content',
                 'button_label' => 'Add Section',
@@ -328,7 +328,7 @@ function wow_register_flexible_content_groups() {
         ],
         'location' => [
             [
-                ['param' => 'taxonomy', 'operator' => '==', 'value' => 'project_category'],
+                ['param' => 'post_type', 'operator' => '==', 'value' => 'project_catalog'],
             ],
         ],
         'menu_order' => 2,
@@ -356,21 +356,25 @@ function wow_fc_populate_link_choices($field) {
 
     $choices = [];
 
-    $terms = get_terms(['taxonomy' => 'project_category', 'hide_empty' => false, 'orderby' => 'name']);
-    if (!is_wp_error($terms)) {
-        foreach ($terms as $t) {
-            $choices['term:' . $t->term_id] = 'Category — ' . $t->name;
-        }
+    $catalogs = get_posts([
+        'post_type' => 'project_catalog',
+        'post_status' => 'publish',
+        'posts_per_page' => -1,
+        'orderby' => 'title',
+        'order' => 'ASC',
+    ]);
+    foreach ($catalogs as $c) {
+        $choices['post:' . $c->ID] = 'Catalog — ' . $c->post_title;
     }
 
-    $posts = get_posts([
+    $projects = get_posts([
         'post_type' => 'wedding_project',
         'post_status' => 'publish',
         'posts_per_page' => -1,
         'orderby' => 'title',
         'order' => 'ASC',
     ]);
-    foreach ($posts as $p) {
+    foreach ($projects as $p) {
         $choices['post:' . $p->ID] = 'Project — ' . $p->post_title;
     }
 

@@ -200,7 +200,7 @@ function wow_register_project_catalog() {
         'show_ui'            => true,
         'show_in_menu'       => true,
         'query_var'          => true,
-        'rewrite'            => ['slug' => 'catalog', 'with_front' => false],
+        'rewrite'            => ['slug' => 'project-category', 'with_front' => false],
         'capability_type'    => 'post',
         'has_archive'        => false,
         'hierarchical'       => true,
@@ -212,167 +212,74 @@ function wow_register_project_catalog() {
 }
 add_action('init', 'wow_register_project_catalog');
 
-// Register Project Category taxonomy (UI-exposed as "Catalogs").
+// project_category taxonomy — kept as an internal link between wedding_project
+// posts and project_catalog CPT posts (so tax_query still works on archive
+// pages). No public URL, no top-level menu: the CPT owns the UI now.
 function wow_register_project_category() {
-    $labels = [
-        'name'              => 'Catalogs',
-        'singular_name'     => 'Catalog',
-        'search_items'      => 'Search Catalogs',
-        'all_items'         => 'All Catalogs',
-        'parent_item'       => 'Parent Catalog',
-        'parent_item_colon' => 'Parent Catalog:',
-        'edit_item'         => 'Edit Catalog',
-        'update_item'       => 'Update Catalog',
-        'add_new_item'      => 'Add New Catalog',
-        'new_item_name'     => 'New Catalog Name',
-        'menu_name'         => 'Catalogs',
-        'back_to_items'     => '← Back to Catalogs',
-    ];
-
     register_taxonomy('project_category', 'wedding_project', [
-        'labels'            => $labels,
+        'labels'            => [
+            'name'          => 'Catalogs',
+            'singular_name' => 'Catalog',
+            'menu_name'     => 'Catalogs',
+        ],
         'hierarchical'      => true,
-        'public'            => true,
-        'show_ui'           => true,
-        'show_in_menu'      => false, // we register a dedicated top-level menu below
-        'show_in_rest'      => true,
+        'public'            => false,
+        'publicly_queryable'=> false,
+        'show_ui'           => true,  // still show the metabox on Project edit
+        'show_in_menu'      => false,
+        'show_in_rest'      => false,
         'show_admin_column' => true,
-        'rewrite'           => ['slug' => 'project-category'],
+        'rewrite'           => false,
     ]);
 }
 add_action('init', 'wow_register_project_category');
 
-// Top-level "Catalogs" menu for the project_category taxonomy, sibling to Projects.
-add_action('admin_menu', function () {
-    add_menu_page(
-        'Catalogs',
-        'Catalogs',
-        'edit_posts',
-        'edit-tags.php?taxonomy=project_category',
-        '',
-        'dashicons-book-alt',
-        6 // right after Projects (menu_position 5)
-    );
-});
-
-// Keep the Catalogs menu highlighted when editing a term.
-add_filter('parent_file', function ($parent_file) {
-    $screen = function_exists('get_current_screen') ? get_current_screen() : null;
-    if ($screen && ($screen->taxonomy ?? '') === 'project_category') {
-        return 'edit-tags.php?taxonomy=project_category';
+// Keep the project_category term hierarchy synchronised with project_catalog
+// posts, so tax_query on a Project still resolves to the right catalog.
+add_action('save_post_project_catalog', function ($post_id, $post) {
+    if (wp_is_post_revision($post_id)) return;
+    if ($post->post_status !== 'publish') return;
+    $slug = $post->post_name ?: sanitize_title($post->post_title);
+    $parent_term_id = 0;
+    if ($post->post_parent) {
+        $parent_post = get_post($post->post_parent);
+        if ($parent_post) {
+            $parent_term = get_term_by('slug', $parent_post->post_name, 'project_category');
+            if ($parent_term) $parent_term_id = $parent_term->term_id;
+        }
     }
-    return $parent_file;
+    $existing = get_term_by('slug', $slug, 'project_category');
+    if ($existing) {
+        wp_update_term($existing->term_id, 'project_category', [
+            'name'   => $post->post_title,
+            'parent' => $parent_term_id,
+        ]);
+    } else {
+        wp_insert_term($post->post_title, 'project_category', [
+            'slug'   => $slug,
+            'parent' => $parent_term_id,
+        ]);
+    }
+}, 10, 2);
+
+add_action('before_delete_post', function ($post_id) {
+    $post = get_post($post_id);
+    if (!$post || $post->post_type !== 'project_catalog') return;
+    $term = get_term_by('slug', $post->post_name, 'project_category');
+    if ($term && !is_wp_error($term)) {
+        wp_delete_term($term->term_id, 'project_category');
+    }
 });
 
-// Hide stock WordPress "Description" field/column on project_category — not used on the site.
-add_filter('manage_edit-project_category_columns', function ($columns) {
-    unset($columns['description']);
-    return $columns;
-});
-add_action('admin_head', function () {
-    $screen = get_current_screen();
-    if (!$screen || $screen->taxonomy !== 'project_category') return;
-    ?>
-    <style>
-        /* Edit-tag single-term page — make it feel like editing a post */
-        .term-description-wrap,
-        .form-field.term-description-wrap { display: none !important; }
-        body.term-php.taxonomy-project_category #edittag { max-width: none !important; }
-        /* Wrap each form-field row in a card-like container */
-        body.term-php.taxonomy-project_category .form-table,
-        body.term-php.taxonomy-project_category .form-table > tbody { display: block; }
-        body.term-php.taxonomy-project_category .form-table tr {
-            display: block;
-            background: #fff;
-            border: 1px solid #c3c4c7;
-            border-radius: 4px;
-            margin: 0 0 16px;
-            padding: 16px 20px;
-        }
-        body.term-php.taxonomy-project_category .form-table th,
-        body.term-php.taxonomy-project_category .form-table td {
-            display: block;
-            width: auto;
-            padding: 0;
-            border: 0;
-            vertical-align: top;
-        }
-        body.term-php.taxonomy-project_category .form-table th {
-            font-size: 14px;
-            margin: 0 0 8px;
-            font-weight: 600;
-        }
-        body.term-php.taxonomy-project_category .form-table td input[type="text"],
-        body.term-php.taxonomy-project_category .form-table td select { width: 100%; max-width: 600px; }
-        /* Hide the duplicated bottom submit — we add one up top via JS */
-        body.term-php.taxonomy-project_category .edit-tag-actions { display: none; }
-
-        /* List page: make it feel like a CPT listing — hide the left "add new" form
-           by default, show the table full-width, reveal the form when the user
-           clicks the page-title "Add New Catalog" button. */
-        body.taxonomy-project_category.edit-tags-php #col-container { display: block; }
-        body.taxonomy-project_category.edit-tags-php #col-left { display: none; }
-        body.taxonomy-project_category.edit-tags-php #col-right { float: none; width: 100% !important; }
-        body.taxonomy-project_category.edit-tags-php #col-left.wow-is-visible {
-            display: block;
-            float: none;
-            width: 100%;
-            max-width: 900px;
-            background: #fff;
-            padding: 20px 24px;
-            border: 1px solid #c3c4c7;
-            border-radius: 4px;
-            margin: 0 0 20px;
-        }
-        body.taxonomy-project_category.edit-tags-php #col-left .col-wrap { padding: 0; }
-    </style>
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        if (!document.body.classList.contains('taxonomy-project_category')) return;
-
-        // Listing screen: "Add New Catalog" button reveals the hidden form.
-        if (document.body.classList.contains('edit-tags-php')) {
-            var h1 = document.querySelector('.wrap > h1.wp-heading-inline') || document.querySelector('.wrap > h1');
-            var col = document.getElementById('col-left');
-            if (!h1 || !col) return;
-            var btn = document.createElement('a');
-            btn.href = '#';
-            btn.className = 'page-title-action';
-            btn.textContent = 'Add New Catalog';
-            btn.addEventListener('click', function (e) {
-                e.preventDefault();
-                col.classList.toggle('wow-is-visible');
-                if (col.classList.contains('wow-is-visible')) {
-                    col.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    var first = col.querySelector('input[type="text"], input:not([type="hidden"])');
-                    if (first) setTimeout(function () { first.focus(); }, 200);
-                }
-            });
-            h1.insertAdjacentElement('afterend', btn);
-            return;
-        }
-
-        // Single-term edit screen: "Update" button next to the H1, submits the form.
-        if (document.body.classList.contains('term-php')) {
-            var h1 = document.querySelector('.wrap > h1.wp-heading-inline') || document.querySelector('.wrap > h1');
-            var form = document.getElementById('edittag');
-            if (!h1 || !form) return;
-            var save = document.createElement('a');
-            save.href = '#';
-            save.className = 'page-title-action';
-            save.textContent = 'Update';
-            save.style.cssText = 'background:#2271b1;border-color:#2271b1;color:#fff;';
-            save.addEventListener('click', function (e) {
-                e.preventDefault();
-                var real = form.querySelector('input[type="submit"][name="submit"]');
-                if (real) real.click(); else form.submit();
-            });
-            h1.insertAdjacentElement('afterend', save);
-        }
-    });
-    </script>
-    <?php
-});
+// Bump a stored version so the rewrite rules get flushed whenever we change
+// CPT/taxonomy registration. Cheap on every request (simple option check).
+add_action('init', function () {
+    $v = '2';
+    if (get_option('wow_rewrite_version') !== $v) {
+        flush_rewrite_rules(false);
+        update_option('wow_rewrite_version', $v);
+    }
+}, 99);
 
 // Disable admin bar on frontend
 add_filter('show_admin_bar', '__return_false');
