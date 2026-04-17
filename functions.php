@@ -232,10 +232,38 @@ add_action('admin_head', function () {
     if (!$screen || $screen->taxonomy !== 'project_category') return;
     ?>
     <style>
-        /* Edit-tag single-term page */
+        /* Edit-tag single-term page — make it feel like editing a post */
         .term-description-wrap,
         .form-field.term-description-wrap { display: none !important; }
-        #edittag { max-width: none !important; }
+        body.term-php.taxonomy-project_category #edittag { max-width: none !important; }
+        /* Wrap each form-field row in a card-like container */
+        body.term-php.taxonomy-project_category .form-table,
+        body.term-php.taxonomy-project_category .form-table > tbody { display: block; }
+        body.term-php.taxonomy-project_category .form-table tr {
+            display: block;
+            background: #fff;
+            border: 1px solid #c3c4c7;
+            border-radius: 4px;
+            margin: 0 0 16px;
+            padding: 16px 20px;
+        }
+        body.term-php.taxonomy-project_category .form-table th,
+        body.term-php.taxonomy-project_category .form-table td {
+            display: block;
+            width: auto;
+            padding: 0;
+            border: 0;
+            vertical-align: top;
+        }
+        body.term-php.taxonomy-project_category .form-table th {
+            font-size: 14px;
+            margin: 0 0 8px;
+            font-weight: 600;
+        }
+        body.term-php.taxonomy-project_category .form-table td input[type="text"],
+        body.term-php.taxonomy-project_category .form-table td select { width: 100%; max-width: 600px; }
+        /* Hide the duplicated bottom submit — we add one up top via JS */
+        body.term-php.taxonomy-project_category .edit-tag-actions { display: none; }
 
         /* List page: make it feel like a CPT listing — hide the left "add new" form
            by default, show the table full-width, reveal the form when the user
@@ -259,26 +287,46 @@ add_action('admin_head', function () {
     <script>
     document.addEventListener('DOMContentLoaded', function () {
         if (!document.body.classList.contains('taxonomy-project_category')) return;
-        if (!document.body.classList.contains('edit-tags-php')) return;
 
-        var h1 = document.querySelector('.wrap > h1.wp-heading-inline');
-        var col = document.getElementById('col-left');
-        if (!h1 || !col) return;
+        // Listing screen: "Add New Catalog" button reveals the hidden form.
+        if (document.body.classList.contains('edit-tags-php')) {
+            var h1 = document.querySelector('.wrap > h1.wp-heading-inline') || document.querySelector('.wrap > h1');
+            var col = document.getElementById('col-left');
+            if (!h1 || !col) return;
+            var btn = document.createElement('a');
+            btn.href = '#';
+            btn.className = 'page-title-action';
+            btn.textContent = 'Add New Catalog';
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+                col.classList.toggle('wow-is-visible');
+                if (col.classList.contains('wow-is-visible')) {
+                    col.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    var first = col.querySelector('input[type="text"], input:not([type="hidden"])');
+                    if (first) setTimeout(function () { first.focus(); }, 200);
+                }
+            });
+            h1.insertAdjacentElement('afterend', btn);
+            return;
+        }
 
-        var btn = document.createElement('a');
-        btn.href = '#';
-        btn.className = 'page-title-action';
-        btn.textContent = 'Add New Catalog';
-        btn.addEventListener('click', function (e) {
-            e.preventDefault();
-            col.classList.toggle('wow-is-visible');
-            if (col.classList.contains('wow-is-visible')) {
-                col.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                var first = col.querySelector('input[type="text"], input:not([type="hidden"])');
-                if (first) setTimeout(function () { first.focus(); }, 200);
-            }
-        });
-        h1.insertAdjacentElement('afterend', btn);
+        // Single-term edit screen: "Update" button next to the H1, submits the form.
+        if (document.body.classList.contains('term-php')) {
+            var h1 = document.querySelector('.wrap > h1.wp-heading-inline') || document.querySelector('.wrap > h1');
+            var form = document.getElementById('edittag');
+            if (!h1 || !form) return;
+            var save = document.createElement('a');
+            save.href = '#';
+            save.className = 'page-title-action';
+            save.textContent = 'Update';
+            save.style.cssText = 'background:#2271b1;border-color:#2271b1;color:#fff;';
+            save.addEventListener('click', function (e) {
+                e.preventDefault();
+                var real = form.querySelector('input[type="submit"][name="submit"]');
+                if (real) real.click(); else form.submit();
+            });
+            h1.insertAdjacentElement('afterend', save);
+        }
     });
     </script>
     <?php
