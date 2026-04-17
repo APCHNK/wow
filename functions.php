@@ -170,18 +170,21 @@ function wow_register_wedding_projects() {
 }
 add_action('init', 'wow_register_wedding_projects');
 
-// Register Project Category taxonomy
+// Register Project Category taxonomy (UI-exposed as "Catalogs").
 function wow_register_project_category() {
     $labels = [
-        'name'              => 'Project Categories',
-        'singular_name'     => 'Project Category',
-        'search_items'      => 'Search Categories',
-        'all_items'         => 'All Categories',
-        'edit_item'         => 'Edit Category',
-        'update_item'       => 'Update Category',
-        'add_new_item'      => 'Add New Category',
-        'new_item_name'     => 'New Category Name',
-        'menu_name'         => 'Categories',
+        'name'              => 'Catalogs',
+        'singular_name'     => 'Catalog',
+        'search_items'      => 'Search Catalogs',
+        'all_items'         => 'All Catalogs',
+        'parent_item'       => 'Parent Catalog',
+        'parent_item_colon' => 'Parent Catalog:',
+        'edit_item'         => 'Edit Catalog',
+        'update_item'       => 'Update Catalog',
+        'add_new_item'      => 'Add New Catalog',
+        'new_item_name'     => 'New Catalog Name',
+        'menu_name'         => 'Catalogs',
+        'back_to_items'     => '← Back to Catalogs',
     ];
 
     register_taxonomy('project_category', 'wedding_project', [
@@ -189,12 +192,35 @@ function wow_register_project_category() {
         'hierarchical'      => true,
         'public'            => true,
         'show_ui'           => true,
+        'show_in_menu'      => false, // we register a dedicated top-level menu below
         'show_in_rest'      => true,
         'show_admin_column' => true,
         'rewrite'           => ['slug' => 'project-category'],
     ]);
 }
 add_action('init', 'wow_register_project_category');
+
+// Top-level "Catalogs" menu for the project_category taxonomy, sibling to Projects.
+add_action('admin_menu', function () {
+    add_menu_page(
+        'Catalogs',
+        'Catalogs',
+        'edit_posts',
+        'edit-tags.php?taxonomy=project_category',
+        '',
+        'dashicons-book-alt',
+        6 // right after Projects (menu_position 5)
+    );
+});
+
+// Keep the Catalogs menu highlighted when editing a term.
+add_filter('parent_file', function ($parent_file) {
+    $screen = function_exists('get_current_screen') ? get_current_screen() : null;
+    if ($screen && ($screen->taxonomy ?? '') === 'project_category') {
+        return 'edit-tags.php?taxonomy=project_category';
+    }
+    return $parent_file;
+});
 
 // Hide stock WordPress "Description" field/column on project_category — not used on the site.
 add_filter('manage_edit-project_category_columns', function ($columns) {
