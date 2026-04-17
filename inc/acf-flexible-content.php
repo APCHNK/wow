@@ -147,6 +147,34 @@ function wow_fc_common_layouts($prefix) {
                 ],
             ],
         ],
+        // 9. Archive Hero — image + title + subtitle (e.g. catalog page top).
+        [
+            'key' => 'layout_' . $p . '_archive_hero',
+            'name' => 'archive_hero',
+            'label' => 'Archive Hero (image + title + subtitle)',
+            'display' => 'block',
+            'sub_fields' => [
+                ['key' => 'field_' . $p . '_archive_hero_title', 'label' => 'Title', 'name' => 'archive_hero_title', 'type' => 'text', 'instructions' => 'Use [wow_diamond] shortcode to insert decorative diamond'],
+                ['key' => 'field_' . $p . '_archive_hero_subtitle', 'label' => 'Subtitle', 'name' => 'archive_hero_subtitle', 'type' => 'text'],
+                ['key' => 'field_' . $p . '_archive_hero_image', 'label' => 'Image', 'name' => 'archive_hero_image', 'type' => 'image', 'return_format' => 'url', 'preview_size' => 'medium'],
+            ],
+        ],
+        // 10. Catalog Grid — auto-renders children categories or projects depending on context.
+        [
+            'key' => 'layout_' . $p . '_catalog_grid',
+            'name' => 'catalog_grid',
+            'label' => 'Catalog Grid (auto — children or projects)',
+            'display' => 'block',
+            'sub_fields' => [
+                [
+                    'key' => 'field_' . $p . '_catalog_grid_note',
+                    'label' => '',
+                    'name' => '',
+                    'type' => 'message',
+                    'message' => 'No configuration needed. On a parent category page this renders subcategory cards; on a leaf category page it renders project cards. Does nothing on regular pages.',
+                ],
+            ],
+        ],
     ];
 }
 
