@@ -196,6 +196,17 @@ function wow_register_project_category() {
 }
 add_action('init', 'wow_register_project_category');
 
+// Hide stock WordPress "Description" field/column on project_category — not used on the site.
+add_filter('manage_edit-project_category_columns', function ($columns) {
+    unset($columns['description']);
+    return $columns;
+});
+add_action('admin_head', function () {
+    $screen = get_current_screen();
+    if (!$screen || $screen->taxonomy !== 'project_category') return;
+    echo '<style>.term-description-wrap,.form-field.term-description-wrap{display:none !important;}</style>';
+});
+
 // Disable admin bar on frontend
 add_filter('show_admin_bar', '__return_false');
 
