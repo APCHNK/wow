@@ -241,5 +241,31 @@ function wow_register_flexible_content_groups() {
         'position' => 'normal',
         'style' => 'default',
     ]);
+
+    // Category sections — for taxonomy project_category.
+    // Rendered after the hero + catalog on archive-wedding_project.php, so the
+    // editor can drop extra blocks (e.g. a FAQ accordion) on each category page.
+    acf_add_local_field_group([
+        'key' => 'group_category_sections',
+        'title' => 'Category Page Sections',
+        'fields' => [
+            [
+                'key' => 'field_category_sections',
+                'label' => 'Category Page Sections',
+                'name' => 'category_sections',
+                'type' => 'flexible_content',
+                'button_label' => 'Add Section',
+                'layouts' => wow_fc_common_layouts('cat'),
+            ],
+        ],
+        'location' => [
+            [
+                ['param' => 'taxonomy', 'operator' => '==', 'value' => 'project_category'],
+            ],
+        ],
+        'menu_order' => 2,
+        'position' => 'normal',
+        'style' => 'default',
+    ]);
 }
 add_action('acf/init', 'wow_register_flexible_content_groups');

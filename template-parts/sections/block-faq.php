@@ -1,7 +1,11 @@
 <?php
 $faq_title = get_sub_field('faq_title') ?: 'FREQUENTLY ASKED QUESTIONS';
 $faq_items = get_sub_field('faq_items');
+// Category/archive pages already render their own hero+breadcrumb in the template,
+// so the FAQ block drops the hero there and emits only the accordion.
+$inline_only = is_tax() || is_category() || is_tag() || is_post_type_archive();
 ?>
+<?php if (!$inline_only) : ?>
 <section class="faq-hero">
     <h1 class="faq-hero-title"><?php echo esc_html($faq_title); ?></h1>
     <div class="wedding-projects-breadcrumb">
@@ -12,6 +16,7 @@ $faq_items = get_sub_field('faq_items');
         <span><?php echo esc_html($faq_title); ?></span>
     </div>
 </section>
+<?php endif; ?>
 
 <section class="faq-list">
     <?php if (!empty($faq_items)) : ?>
