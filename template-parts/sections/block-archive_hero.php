@@ -1,7 +1,25 @@
 <?php
-$title = get_sub_field('archive_hero_title') ?: 'Our [wow_diamond] Wedding Projects';
-$subtitle = get_sub_field('archive_hero_subtitle') ?: 'Please take a look at our catalog of Weddings projects';
-$image = get_sub_field('archive_hero_image') ?: (get_template_directory_uri() . '/assets/images/wp.jpg');
+// Sub-fields come either from an outer ACF have_rows() loop (get_sub_field)
+// or from the $row array set via set_query_var('wow_current_section', $row)
+// when the parent template iterates the flexible array manually.
+$row = get_query_var('wow_current_section');
+$get = function ($name) use ($row) {
+    if (is_array($row) && array_key_exists($name, $row)) return $row[$name];
+    if (function_exists('get_sub_field')) return get_sub_field($name);
+    return null;
+};
+
+$title = $get('archive_hero_title') ?: 'Our [wow_diamond] Wedding Projects';
+$subtitle = $get('archive_hero_subtitle') ?: 'Please take a look at our catalog of Weddings projects';
+$image_raw = $get('archive_hero_image');
+if (is_array($image_raw)) {
+    $image = (string) ($image_raw['url'] ?? '');
+} elseif (is_numeric($image_raw)) {
+    $image = (string) wp_get_attachment_image_url((int) $image_raw, 'full');
+} else {
+    $image = (string) $image_raw;
+}
+if (!$image) $image = get_template_directory_uri() . '/assets/images/wp.jpg';
 ?>
 <section class="wedding-projects-hero">
     <div class="wedding-projects-hero-title">

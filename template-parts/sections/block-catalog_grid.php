@@ -114,10 +114,17 @@ function wow_catalog_card($image_url, $thumb_html, $link, $title, $country, $des
                 $rendered_auto = !empty($projects);
             }
         }
-        if (!$rendered_auto && have_posts()) : while (have_posts()) : the_post();
-            $thumb = get_the_post_thumbnail(get_the_ID(), 'large');
-            wow_catalog_card('', $thumb, get_permalink(), get_the_title(), '', [], 'Show more', $country_svg, get_the_title());
-        endwhile; endif;
+        if (!$rendered_auto && is_post_type_archive('wedding_project')) {
+            // Safe on the CPT archive: the main query is the list of projects.
+            // We must NOT run this on a single-catalog page — the main query
+            // there is a single post, and nesting have_posts()/the_post()
+            // inside the parent's while(have_posts()) loop flips the query
+            // pointer back and forth infinitely.
+            if (have_posts()) : while (have_posts()) : the_post();
+                $thumb = get_the_post_thumbnail(get_the_ID(), 'large');
+                wow_catalog_card('', $thumb, get_permalink(), get_the_title(), '', [], 'Show more', $country_svg, get_the_title());
+            endwhile; endif;
+        }
     endif;
     ?>
     </div>
