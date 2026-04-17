@@ -25,12 +25,21 @@ $country_svg = '<svg class="happen-title-border" width="422" height="201" viewBo
 <section class="wedding-projects-catalog">
     <div class="wedding-projects-catalog-list">
     <?php if ($has_children) :
-        foreach ($children as $child) :
-            $child_image = get_field('category_image', 'project_category_' . $child->term_id);
-            $child_link = get_term_link($child);
-            $child_title_top = get_field('category_title_top', 'project_category_' . $child->term_id);
-            $child_country = get_field('category_country', 'project_category_' . $child->term_id);
-            $child_desc_slides = get_field('category_desc_slider', 'project_category_' . $child->term_id);
+        // Parent category — render subcategory cards.
+        // If children_cards repeater is filled, use it (manual mode with overrides).
+        // Otherwise fall back to auto list of all children using term.name for the title.
+        $ccards = get_sub_field('children_cards');
+        if (!empty($ccards)) :
+            foreach ($ccards as $cc) :
+                $tid = (int) ($cc['category'] ?? 0);
+                if (!$tid) continue;
+                $child = get_term($tid, 'project_category');
+                if (!$child || is_wp_error($child)) continue;
+                $child_image = get_field('category_image', 'project_category_' . $tid);
+                $child_link = get_term_link($child);
+                $cc_title_top = (string) ($cc['title_top'] ?? '');
+                $cc_country = (string) ($cc['country'] ?? '');
+                $cc_desc = is_array($cc['desc_slider'] ?? null) ? $cc['desc_slider'] : [];
     ?>
         <div class="project">
             <div class="project-img">
@@ -42,17 +51,17 @@ $country_svg = '<svg class="happen-title-border" width="422" height="201" viewBo
             </div>
             <div class="project-info">
                 <div class="project-title">
-                    <span><?php echo esc_html($child_title_top ?: $child->name); ?></span>
-                    <?php if ($child_country) : ?>
-                    <span class="project-title-country"><?php echo esc_html($child_country); ?><?php echo $country_svg; ?></span>
+                    <span><?php echo esc_html($cc_title_top !== '' ? $cc_title_top : $child->name); ?></span>
+                    <?php if ($cc_country !== '') : ?>
+                    <span class="project-title-country"><?php echo esc_html($cc_country); ?><?php echo $country_svg; ?></span>
                     <?php endif; ?>
                 </div>
-                <?php if (!empty($child_desc_slides)) : ?>
+                <?php if (!empty($cc_desc)) : ?>
                 <div class="project-desc">
                     <div class="swiper project-desc-swiper">
                         <div class="swiper-wrapper">
-                            <?php foreach ($child_desc_slides as $slide) : ?>
-                                <div class="swiper-slide"><?php echo esc_html($slide['text']); ?></div>
+                            <?php foreach ($cc_desc as $slide) : ?>
+                                <div class="swiper-slide"><?php echo esc_html($slide['text'] ?? ''); ?></div>
                             <?php endforeach; ?>
                         </div>
                     </div>
@@ -61,7 +70,30 @@ $country_svg = '<svg class="happen-title-border" width="422" height="201" viewBo
                 <a href="<?php echo esc_url($child_link); ?>" class="project-link">Show more</a>
             </div>
         </div>
-    <?php endforeach; else :
+    <?php endforeach;
+        else :
+            // Auto fallback — list all children with only image + name.
+            foreach ($children as $child) :
+                $child_image = get_field('category_image', 'project_category_' . $child->term_id);
+    ?>
+        <div class="project">
+            <div class="project-img">
+                <?php if ($child_image) : ?>
+                    <img src="<?php echo esc_url($child_image); ?>" alt="<?php echo esc_attr($child->name); ?>" loading="lazy" decoding="async">
+                <?php else : ?>
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/p1.jpg" alt="" loading="lazy" decoding="async">
+                <?php endif; ?>
+            </div>
+            <div class="project-info">
+                <div class="project-title">
+                    <span><?php echo esc_html($child->name); ?></span>
+                </div>
+                <a href="<?php echo esc_url(get_term_link($child)); ?>" class="project-link">Show more</a>
+            </div>
+        </div>
+    <?php endforeach;
+        endif;
+    else :
         // Leaf category OR generic CPT archive — project cards.
         // If the block has a non-empty project_cards repeater, use it (manual mode with overrides).
         // Otherwise fall back to the auto list (all posts in current query).

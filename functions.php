@@ -245,44 +245,12 @@ function wow_register_acf_fields() {
         'fields' => [
             [
                 'key' => 'field_category_image',
-                'label' => 'Catalog Image',
+                'label' => 'Category Image',
                 'name' => 'category_image',
                 'type' => 'image',
                 'return_format' => 'url',
                 'preview_size' => 'medium',
-                'instructions' => 'Image for the specialise slider card on the home page',
-            ],
-            [
-                'key' => 'field_category_title_top',
-                'label' => 'Title Top (for parent catalog)',
-                'name' => 'category_title_top',
-                'type' => 'text',
-                'instructions' => 'Top line of the title on parent category page (e.g. "A WEDDING IN")',
-            ],
-            [
-                'key' => 'field_category_country',
-                'label' => 'Country (for parent catalog)',
-                'name' => 'category_country',
-                'type' => 'text',
-                'instructions' => 'Country name with decorative circle (e.g. "ITALY")',
-            ],
-            [
-                'key' => 'field_category_desc_slider',
-                'label' => 'Description Slider (for parent catalog)',
-                'name' => 'category_desc_slider',
-                'type' => 'repeater',
-                'instructions' => 'Animated text slides shown on parent category page',
-                'layout' => 'block',
-                'button_label' => 'Add Slide',
-                'sub_fields' => [
-                    [
-                        'key' => 'field_category_desc_slide_text',
-                        'label' => 'Text',
-                        'name' => 'text',
-                        'type' => 'textarea',
-                        'rows' => 2,
-                    ],
-                ],
+                'instructions' => 'Image for the specialise slider card on the home page and for this category card on its parent catalog page.',
             ],
         ],
         'location' => [
