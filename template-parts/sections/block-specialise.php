@@ -16,53 +16,32 @@ $specialise_desc = get_sub_field('specialise_desc') ?: 'From concept to executio
         <div class="swiper specialise-swiper">
             <div class="swiper-wrapper">
                 <?php
-                $selected_cat_ids = get_sub_field('specialise_categories');
-                if (!empty($selected_cat_ids)) {
-                    $categories = [];
-                    foreach ($selected_cat_ids as $cat_id) {
-                        $term = get_term($cat_id, 'project_category');
-                        if ($term && !is_wp_error($term)) {
-                            $categories[] = $term;
-                        }
-                    }
-                } else {
-                    $categories = get_terms([
-                        'taxonomy' => 'project_category',
-                        'hide_empty' => false,
-                        'parent' => 0,
-                    ]);
-                }
-
-                if (!empty($categories) && !is_wp_error($categories)) :
-                    foreach ($categories as $cat) :
-                        $cat_image = get_field('category_image', 'project_category_' . $cat->term_id);
-                        $cat_link = get_term_link($cat);
+                $cards = get_sub_field('specialise_cards');
+                if (!empty($cards)) :
+                    foreach ($cards as $card) :
+                        $tid = (int) ($card['category'] ?? 0);
+                        if (!$tid) continue;
+                        $term = get_term($tid, 'project_category');
+                        if (!$term || is_wp_error($term)) continue;
+                        $image = (string) ($card['image'] ?? '');
+                        $title = (string) ($card['title'] ?? '');
+                        $link = get_term_link($term);
                 ?>
                 <div class="swiper-slide">
                     <div class="specialise-card">
-                        <?php if ($cat_image) : ?>
-                            <img src="<?php echo esc_url($cat_image); ?>" alt="<?php echo esc_attr($cat->name); ?>">
+                        <?php if ($image) : ?>
+                            <img src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr($term->name); ?>">
                         <?php endif; ?>
                         <div class="card-content">
-                            <h3 class="card-title"><?php echo esc_html($cat->name); ?></h3>
-                            <a href="<?php echo esc_url($cat_link); ?>" class="card-btn">SHOW MORE</a>
+                            <h3 class="card-title"><?php echo esc_html($title !== '' ? $title : $term->name); ?></h3>
+                            <a href="<?php echo esc_url($link); ?>" class="card-btn">SHOW MORE</a>
                         </div>
                     </div>
                 </div>
                 <?php
                     endforeach;
-                else :
+                endif;
                 ?>
-                <div class="swiper-slide">
-                    <div class="specialise-card">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/w1.jpg" alt="Weddings">
-                        <div class="card-content">
-                            <h3 class="card-title">WEDDINGS & LOVE STORIES</h3>
-                            <a href="#" class="card-btn">SHOW MORE</a>
-                        </div>
-                    </div>
-                </div>
-                <?php endif; ?>
             </div>
         </div>
         <div class="specialise-nav">

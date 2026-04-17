@@ -35,7 +35,7 @@ $country_svg = '<svg class="happen-title-border" width="422" height="201" viewBo
                 if (!$tid) continue;
                 $child = get_term($tid, 'project_category');
                 if (!$child || is_wp_error($child)) continue;
-                $child_image = get_field('category_image', 'project_category_' . $tid);
+                $child_image = (string) ($cc['image'] ?? '');
                 $child_link = get_term_link($child);
                 $cc_title_top = (string) ($cc['title_top'] ?? '');
                 $cc_country = (string) ($cc['country'] ?? '');
@@ -72,17 +72,11 @@ $country_svg = '<svg class="happen-title-border" width="422" height="201" viewBo
         </div>
     <?php endforeach;
         else :
-            // Auto fallback — list all children with only image + name.
-            foreach ($children as $child) :
-                $child_image = get_field('category_image', 'project_category_' . $child->term_id);
-    ?>
+            // Auto fallback — list all children with placeholder image + name.
+            foreach ($children as $child) : ?>
         <div class="project">
             <div class="project-img">
-                <?php if ($child_image) : ?>
-                    <img src="<?php echo esc_url($child_image); ?>" alt="<?php echo esc_attr($child->name); ?>" loading="lazy" decoding="async">
-                <?php else : ?>
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/p1.jpg" alt="" loading="lazy" decoding="async">
-                <?php endif; ?>
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/p1.jpg" alt="" loading="lazy" decoding="async">
             </div>
             <div class="project-info">
                 <div class="project-title">

@@ -238,32 +238,6 @@ add_action('acf/init', 'wow_register_acf_options');
 function wow_register_acf_fields() {
     if (!function_exists('acf_add_local_field_group')) return;
 
-    // Project Category image
-    acf_add_local_field_group([
-        'key' => 'group_project_category',
-        'title' => 'Category Settings',
-        'fields' => [
-            [
-                'key' => 'field_category_image',
-                'label' => 'Category Image',
-                'name' => 'category_image',
-                'type' => 'image',
-                'return_format' => 'url',
-                'preview_size' => 'medium',
-                'instructions' => 'Image for the specialise slider card on the home page and for this category card on its parent catalog page.',
-            ],
-        ],
-        'location' => [
-            [
-                [
-                    'param' => 'taxonomy',
-                    'operator' => '==',
-                    'value' => 'project_category',
-                ],
-            ],
-        ],
-    ]);
-
     // Header settings
     acf_add_local_field_group([
         'key' => 'group_header',
