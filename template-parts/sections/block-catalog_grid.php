@@ -62,8 +62,53 @@ $country_svg = '<svg class="happen-title-border" width="422" height="201" viewBo
             </div>
         </div>
     <?php endforeach; else :
-        // leaf category OR generic CPT archive — render projects
-        if (have_posts()) : while (have_posts()) : the_post(); ?>
+        // Leaf category OR generic CPT archive — project cards.
+        // If the block has a non-empty project_cards repeater, use it (manual mode with overrides).
+        // Otherwise fall back to the auto list (all posts in current query).
+        $cards = get_sub_field('project_cards');
+        if (!empty($cards)) :
+            foreach ($cards as $card) :
+                $pid = (int) ($card['project'] ?? 0);
+                if (!$pid) continue;
+                $post = get_post($pid);
+                if (!$post || $post->post_status !== 'publish') continue;
+
+                $card_title_top = $card['title_top'] ?? '';
+                $card_country = $card['country'] ?? '';
+                $card_desc = is_array($card['desc_slider'] ?? null) ? $card['desc_slider'] : [];
+                $thumb = get_the_post_thumbnail($pid, 'large');
+    ?>
+        <div class="project">
+            <div class="project-img">
+                <?php if ($thumb) : echo $thumb; else : ?>
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/p1.jpg" alt="" loading="lazy" decoding="async">
+                <?php endif; ?>
+            </div>
+            <div class="project-info">
+                <div class="project-title">
+                    <span><?php echo esc_html($card_title_top !== '' ? $card_title_top : get_the_title($pid)); ?></span>
+                    <?php if ($card_country !== '') : ?>
+                    <span class="project-title-country"><?php echo esc_html($card_country); ?><?php echo $country_svg; ?></span>
+                    <?php endif; ?>
+                </div>
+                <?php if (!empty($card_desc)) : ?>
+                <div class="project-desc">
+                    <div class="swiper project-desc-swiper">
+                        <div class="swiper-wrapper">
+                            <?php foreach ($card_desc as $slide) : ?>
+                                <div class="swiper-slide"><?php echo esc_html($slide['text'] ?? ''); ?></div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+                <?php endif; ?>
+                <a href="<?php echo esc_url(get_permalink($pid)); ?>" class="project-link">Show more</a>
+            </div>
+        </div>
+    <?php endforeach;
+        else :
+            // Auto fallback — simple cards based on the current query.
+            if (have_posts()) : while (have_posts()) : the_post(); ?>
         <div class="project">
             <div class="project-img">
                 <?php if (has_post_thumbnail()) : the_post_thumbnail('large'); else : ?>
@@ -77,6 +122,8 @@ $country_svg = '<svg class="happen-title-border" width="422" height="201" viewBo
                 <a href="<?php echo esc_url(get_permalink()); ?>" class="project-link">Show more</a>
             </div>
         </div>
-    <?php endwhile; endif; endif; ?>
+    <?php endwhile; endif;
+        endif;
+    endif; ?>
     </div>
 </section>
