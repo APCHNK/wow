@@ -230,7 +230,58 @@ add_filter('manage_edit-project_category_columns', function ($columns) {
 add_action('admin_head', function () {
     $screen = get_current_screen();
     if (!$screen || $screen->taxonomy !== 'project_category') return;
-    echo '<style>.term-description-wrap,.form-field.term-description-wrap{display:none !important;}#edittag{max-width:none !important;}</style>';
+    ?>
+    <style>
+        /* Edit-tag single-term page */
+        .term-description-wrap,
+        .form-field.term-description-wrap { display: none !important; }
+        #edittag { max-width: none !important; }
+
+        /* List page: make it feel like a CPT listing — hide the left "add new" form
+           by default, show the table full-width, reveal the form when the user
+           clicks the page-title "Add New Catalog" button. */
+        body.taxonomy-project_category.edit-tags-php #col-container { display: block; }
+        body.taxonomy-project_category.edit-tags-php #col-left { display: none; }
+        body.taxonomy-project_category.edit-tags-php #col-right { float: none; width: 100% !important; }
+        body.taxonomy-project_category.edit-tags-php #col-left.wow-is-visible {
+            display: block;
+            float: none;
+            width: 100%;
+            max-width: 900px;
+            background: #fff;
+            padding: 20px 24px;
+            border: 1px solid #c3c4c7;
+            border-radius: 4px;
+            margin: 0 0 20px;
+        }
+        body.taxonomy-project_category.edit-tags-php #col-left .col-wrap { padding: 0; }
+    </style>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        if (!document.body.classList.contains('taxonomy-project_category')) return;
+        if (!document.body.classList.contains('edit-tags-php')) return;
+
+        var h1 = document.querySelector('.wrap > h1.wp-heading-inline');
+        var col = document.getElementById('col-left');
+        if (!h1 || !col) return;
+
+        var btn = document.createElement('a');
+        btn.href = '#';
+        btn.className = 'page-title-action';
+        btn.textContent = 'Add New Catalog';
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            col.classList.toggle('wow-is-visible');
+            if (col.classList.contains('wow-is-visible')) {
+                col.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                var first = col.querySelector('input[type="text"], input:not([type="hidden"])');
+                if (first) setTimeout(function () { first.focus(); }, 200);
+            }
+        });
+        h1.insertAdjacentElement('afterend', btn);
+    });
+    </script>
+    <?php
 });
 
 // Disable admin bar on frontend
