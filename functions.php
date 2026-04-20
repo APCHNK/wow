@@ -200,9 +200,10 @@ function wow_register_project_catalog() {
         'show_ui'            => true,
         'show_in_menu'       => true,
         'query_var'          => 'project_catalog',
-        // Disable WP's auto-generated rewrites (they'd force /project_catalog/<slug>/).
-        // We register custom top-level rules below.
-        'rewrite'            => false,
+        // Give WP a rewrite slug (so the admin shows the Edit-permalink button
+        // and sample permalinks resolve). The public URL is rewritten to
+        // top-level via post_type_link + the 'request' filter below.
+        'rewrite'            => ['slug' => 'catalog', 'with_front' => false],
         'capability_type'    => 'post',
         'has_archive'        => false,
         'hierarchical'       => true,
@@ -248,6 +249,22 @@ add_filter('request', function ($query_vars) {
     $query_vars['name'] = $catalog->post_name;
     $query_vars['project_catalog'] = $path;
     return $query_vars;
+});
+
+// 301 redirect /catalog/<slug>/ (WP's default CPT single URL) to the
+// top-level /<slug>/ so we don't end up with duplicate URLs.
+add_action('template_redirect', function () {
+    if (!is_singular('project_catalog')) return;
+    $request = trim($_SERVER['REQUEST_URI'] ?? '', '/');
+    $request = preg_replace('#\?.*#', '', $request);
+    // Strip the WP install prefix (e.g. /wow/) so we can test against slugs.
+    $home_path = trim(parse_url(home_url('/'), PHP_URL_PATH) ?? '', '/');
+    if ($home_path && strpos($request, $home_path) === 0) {
+        $request = trim(substr($request, strlen($home_path)), '/');
+    }
+    if (strpos($request, 'catalog/') !== 0) return;
+    $canonical = get_permalink(get_queried_object_id());
+    if ($canonical) { wp_safe_redirect($canonical, 301); exit; }
 });
 
 // project_category taxonomy — kept as an internal link between wedding_project
@@ -312,7 +329,7 @@ add_action('before_delete_post', function ($post_id) {
 // Bump a stored version so the rewrite rules get flushed whenever we change
 // CPT/taxonomy registration. Cheap on every request (simple option check).
 add_action('init', function () {
-    $v = '8';
+    $v = '9';
     if (get_option('wow_rewrite_version') !== $v) {
         flush_rewrite_rules(false);
         update_option('wow_rewrite_version', $v);
