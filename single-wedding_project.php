@@ -12,12 +12,11 @@ get_header();
 </style>
 <main class="wedding-project-single">
     <?php while (have_posts()) : the_post();
-        $categories = get_the_terms(get_the_ID(), 'project_category');
-        $category = !empty($categories) ? $categories[0] : null;
-        $parent_category = null;
-        if ($category) {
-            $parent_category = $category->parent ? get_term($category->parent, 'project_category') : $category;
-        }
+        $catalog_id = (int) get_post_meta(get_the_ID(), 'project_catalog', true);
+        $catalog_post = $catalog_id ? get_post($catalog_id) : null;
+        $back_url = $catalog_post
+            ? get_permalink($catalog_post)
+            : get_post_type_archive_link('wedding_project');
     ?>
 
     <?php if (have_rows('project_sections')) : ?>
@@ -43,14 +42,11 @@ get_header();
         'orderby' => 'date',
         'order' => 'DESC',
     ];
-    if ($category) {
-        $related_args['tax_query'] = [
-            [
-                'taxonomy' => 'project_category',
-                'field' => 'term_id',
-                'terms' => $category->term_id,
-            ],
-        ];
+    if ($catalog_id) {
+        $related_args['meta_query'] = [[
+            'key' => 'project_catalog',
+            'value' => $catalog_id,
+        ]];
     }
     $related = new WP_Query($related_args);
     if ($related->have_posts()) :
@@ -75,7 +71,7 @@ get_header();
                     </div>
                     <?php endwhile; ?>
                     <div class="swiper-slide">
-                        <a href="<?php echo $parent_category ? esc_url(get_term_link($parent_category)) : esc_url(get_post_type_archive_link('wedding_project')); ?>" class="our-projects-card our-projects-card--last">
+                        <a href="<?php echo esc_url($back_url); ?>" class="our-projects-card our-projects-card--last">
                             <img src="<?php echo get_template_directory_uri(); ?>/assets/images/aa.jpg" alt="Show more" loading="lazy" decoding="async">
                             <div class="our-projects-card-hover">
                                 <span class="our-projects-card-btn">SHOW MORE</span>
