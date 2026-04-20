@@ -310,6 +310,29 @@ function wow_register_flexible_content_groups() {
         'style' => 'default',
     ]);
 
+    // Catalog picker on wedding_project edit screen. Primary source of truth
+    // for "which catalog does this project belong to" — a save_post hook
+    // mirrors the value back onto the project_category taxonomy so existing
+    // tax_query-based code still works.
+    acf_add_local_field_group([
+        'key' => 'group_wedding_project_catalog',
+        'title' => 'Catalog',
+        'fields' => [[
+            'key' => 'field_wp_project_catalog',
+            'label' => 'Catalog',
+            'name' => 'project_catalog',
+            'type' => 'post_object',
+            'post_type' => ['project_catalog'],
+            'return_format' => 'id',
+            'allow_null' => 1,
+            'multiple' => 0,
+            'instructions' => 'The project appears under this catalog on the site and its URL is /<catalog-path>/<project-slug>/.',
+        ]],
+        'location' => [[[ 'param' => 'post_type', 'operator' => '==', 'value' => 'wedding_project' ]]],
+        'position' => 'side',
+        'menu_order' => 0,
+    ]);
+
     // Category sections — for the project_catalog CPT (formerly the project_category
     // taxonomy term edit screen). The field name stays 'category_sections' so the
     // migrated postmeta keys continue to match the ACF schema.

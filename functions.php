@@ -238,16 +238,36 @@ add_filter('post_type_link', function ($link, $post) {
 // slug (or slug path) and swap the query over to the CPT.
 add_filter('request', function ($query_vars) {
     if (empty($query_vars['pagename'])) return $query_vars;
-    // Pagename may look like "parent/child" — pass the whole thing to
-    // get_page_by_path; it walks the hierarchy and matches by parent chain.
     $path = $query_vars['pagename'];
-    $catalog = get_page_by_path($path, OBJECT, 'project_catalog');
-    if (!$catalog) return $query_vars;
 
-    unset($query_vars['pagename']);
-    $query_vars['post_type'] = 'project_catalog';
-    $query_vars['name'] = $catalog->post_name;
-    $query_vars['project_catalog'] = $path;
+    // 1) Exact match to a catalog post (handles /parent/ and /parent/child/).
+    $catalog = get_page_by_path($path, OBJECT, 'project_catalog');
+    if ($catalog) {
+        unset($query_vars['pagename']);
+        $query_vars['post_type'] = 'project_catalog';
+        $query_vars['name'] = $catalog->post_name;
+        $query_vars['project_catalog'] = $path;
+        return $query_vars;
+    }
+
+    // 2) Last segment is a wedding_project, the rest is the catalog path.
+    $parts = explode('/', $path);
+    if (count($parts) >= 2) {
+        $project_slug = array_pop($parts);
+        $catalog_path = implode('/', $parts);
+        $catalog = get_page_by_path($catalog_path, OBJECT, 'project_catalog');
+        if ($catalog) {
+            $project = get_page_by_path($project_slug, OBJECT, 'wedding_project');
+            if ($project && (int) get_post_meta($project->ID, 'project_catalog', true) === (int) $catalog->ID) {
+                unset($query_vars['pagename']);
+                $query_vars['post_type'] = 'wedding_project';
+                $query_vars['name'] = $project->post_name;
+                $query_vars['wedding_project'] = $project_slug;
+                return $query_vars;
+            }
+        }
+    }
+
     return $query_vars;
 });
 
@@ -268,6 +288,68 @@ add_filter('get_sample_permalink', function ($permalink, $post_id, $title, $name
     $permalink[0] = $home . $prefix . '%postname%/';
     return $permalink;
 }, 10, 5);
+
+// wedding_project permalinks: /<catalog-path>/<project-slug>/, driven by the
+// ACF project_catalog field. Falls back to the default CPT URL when the
+// project hasn't been tied to a catalog yet.
+add_filter('post_type_link', function ($link, $post) {
+    if ($post->post_type !== 'wedding_project') return $link;
+    $catalog_id = (int) get_post_meta($post->ID, 'project_catalog', true);
+    if (!$catalog_id) return $link;
+    $catalog = get_post($catalog_id);
+    if (!$catalog || $catalog->post_type !== 'project_catalog') return $link;
+
+    $slugs = [];
+    foreach (array_reverse(get_post_ancestors($catalog)) as $aid) {
+        $a = get_post($aid);
+        if ($a) $slugs[] = $a->post_name;
+    }
+    $slugs[] = $catalog->post_name;
+    $slugs[] = $post->post_name;
+    return user_trailingslashit(home_url('/' . implode('/', $slugs)));
+}, 10, 2);
+
+// After a project save, mirror the ACF catalog pick back onto the internal
+// project_category taxonomy so tax_query-based code (catalog_grid auto list,
+// etc) keeps returning the right project set.
+add_action('acf/save_post', function ($post_id) {
+    if (!is_numeric($post_id)) return;
+    $post_id = (int) $post_id;
+    if (get_post_type($post_id) !== 'wedding_project') return;
+    $catalog_id = (int) get_field('project_catalog', $post_id);
+    if (!$catalog_id) {
+        wp_set_object_terms($post_id, [], 'project_category');
+        return;
+    }
+    $catalog = get_post($catalog_id);
+    if (!$catalog) return;
+    $term = get_term_by('slug', $catalog->post_name, 'project_category');
+    if (!$term) return;
+    wp_set_object_terms($post_id, [(int) $term->term_id], 'project_category', false);
+}, 20);
+
+// Hide the native Catalogs taxonomy metabox on wedding_project edits so the
+// ACF field is the single UI entry point.
+add_action('add_meta_boxes_wedding_project', function () {
+    remove_meta_box('project_categorydiv', 'wedding_project', 'side');
+});
+
+// 301 redirect /wedding-projects/<slug>/ (default CPT single URL) to the
+// canonical /<catalog-path>/<slug>/ so we don't have duplicate URLs.
+add_action('template_redirect', function () {
+    if (!is_singular('wedding_project')) return;
+    $request = trim(preg_replace('#\?.*#', '', $_SERVER['REQUEST_URI'] ?? ''), '/');
+    $home_path = trim(parse_url(home_url('/'), PHP_URL_PATH) ?? '', '/');
+    if ($home_path && strpos($request, $home_path) === 0) {
+        $request = trim(substr($request, strlen($home_path)), '/');
+    }
+    if (strpos($request, 'wedding-projects/') !== 0) return;
+    $canonical = get_permalink(get_queried_object_id());
+    if ($canonical && strpos($canonical, '/wedding-projects/') === false) {
+        wp_safe_redirect($canonical, 301);
+        exit;
+    }
+});
 
 // 301 redirect /catalog/<slug>/ (WP's default CPT single URL) to the
 // top-level /<slug>/ so we don't end up with duplicate URLs.
@@ -313,25 +395,44 @@ add_action('save_post_project_catalog', function ($post_id, $post) {
     if (wp_is_post_revision($post_id)) return;
     if ($post->post_status !== 'publish') return;
     $slug = $post->post_name ?: sanitize_title($post->post_title);
+
+    // Resolve the mirror term id: stored (from the initial migration) first,
+    // slug lookup as fallback so fresh catalogs still match.
+    $term_id = (int) get_post_meta($post_id, '_synced_term_id', true);
+    if (!$term_id) {
+        $existing = get_term_by('slug', $slug, 'project_category');
+        if ($existing) $term_id = (int) $existing->term_id;
+    }
+
+    // Resolve parent term the same way.
     $parent_term_id = 0;
     if ($post->post_parent) {
-        $parent_post = get_post($post->post_parent);
-        if ($parent_post) {
-            $parent_term = get_term_by('slug', $parent_post->post_name, 'project_category');
-            if ($parent_term) $parent_term_id = $parent_term->term_id;
+        $parent_tid = (int) get_post_meta($post->post_parent, '_synced_term_id', true);
+        if ($parent_tid) {
+            $parent_term_id = $parent_tid;
+        } else {
+            $parent_post = get_post($post->post_parent);
+            if ($parent_post) {
+                $p_existing = get_term_by('slug', $parent_post->post_name, 'project_category');
+                if ($p_existing) $parent_term_id = (int) $p_existing->term_id;
+            }
         }
     }
-    $existing = get_term_by('slug', $slug, 'project_category');
-    if ($existing) {
-        wp_update_term($existing->term_id, 'project_category', [
+
+    if ($term_id) {
+        wp_update_term($term_id, 'project_category', [
             'name'   => $post->post_title,
-            'parent' => $parent_term_id,
-        ]);
-    } else {
-        wp_insert_term($post->post_title, 'project_category', [
             'slug'   => $slug,
             'parent' => $parent_term_id,
         ]);
+    } else {
+        $inserted = wp_insert_term($post->post_title, 'project_category', [
+            'slug'   => $slug,
+            'parent' => $parent_term_id,
+        ]);
+        if (!is_wp_error($inserted)) {
+            update_post_meta($post_id, '_synced_term_id', (int) $inserted['term_id']);
+        }
     }
 }, 10, 2);
 
@@ -347,7 +448,7 @@ add_action('before_delete_post', function ($post_id) {
 // Bump a stored version so the rewrite rules get flushed whenever we change
 // CPT/taxonomy registration. Cheap on every request (simple option check).
 add_action('init', function () {
-    $v = '9';
+    $v = '10';
     if (get_option('wow_rewrite_version') !== $v) {
         flush_rewrite_rules(false);
         update_option('wow_rewrite_version', $v);
