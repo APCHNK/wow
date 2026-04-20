@@ -251,6 +251,24 @@ add_filter('request', function ($query_vars) {
     return $query_vars;
 });
 
+// Admin "sample permalink" (the one shown on the edit screen with the Edit
+// button) is generated from the CPT rewrite slug and returns
+// http://host/catalog/%postname%/. Rewrite it to /%postname%/ so the UI shows
+// the real public URL and still exposes the Edit-permalink button.
+add_filter('get_sample_permalink', function ($permalink, $post_id, $title, $name, $post) {
+    if (!$post || $post->post_type !== 'project_catalog') return $permalink;
+    if (!is_array($permalink) || count($permalink) < 2) return $permalink;
+    $ancestors = array_reverse(get_post_ancestors($post));
+    $prefix = '';
+    foreach ($ancestors as $aid) {
+        $a = get_post($aid);
+        if ($a) $prefix .= $a->post_name . '/';
+    }
+    $home = trailingslashit(home_url('/'));
+    $permalink[0] = $home . $prefix . '%postname%/';
+    return $permalink;
+}, 10, 5);
+
 // 301 redirect /catalog/<slug>/ (WP's default CPT single URL) to the
 // top-level /<slug>/ so we don't end up with duplicate URLs.
 add_action('template_redirect', function () {
