@@ -199,8 +199,10 @@ function wow_register_project_catalog() {
         'publicly_queryable' => true,
         'show_ui'            => true,
         'show_in_menu'       => true,
-        'query_var'          => true,
-        'rewrite'            => ['slug' => 'project-category', 'with_front' => false],
+        'query_var'          => 'project_catalog',
+        // Disable WP's auto-generated rewrites (they'd force /project_catalog/<slug>/).
+        // We register custom top-level rules below.
+        'rewrite'            => false,
         'capability_type'    => 'post',
         'has_archive'        => false,
         'hierarchical'       => true,
@@ -211,6 +213,42 @@ function wow_register_project_catalog() {
     ]);
 }
 add_action('init', 'wow_register_project_catalog');
+
+// project_catalog permalinks are top-level: /my-catalog/ (no 'project-category/'
+// prefix). We override post_type_link so the editor/preview links are right,
+// and register matching rewrite rules at 'bottom' priority so WordPress core
+// Pages/CPT-archive rules keep winning first (pages like /about/ or the
+// /wedding-projects/ CPT archive stay accessible).
+add_filter('post_type_link', function ($link, $post) {
+    if ($post->post_type !== 'project_catalog') return $link;
+    $ancestors = array_reverse(get_post_ancestors($post));
+    $slugs = [];
+    foreach ($ancestors as $aid) {
+        $a = get_post($aid);
+        if ($a) $slugs[] = $a->post_name;
+    }
+    $slugs[] = $post->post_name;
+    return user_trailingslashit(home_url('/' . implode('/', $slugs)));
+}, 10, 2);
+
+// WP's built-in Pages rewrite rule (`(.?.+?)(?:/([0-9]+))?/?$`) catches any
+// top-level path first and turns it into ?pagename=... Before WordPress 404s
+// because that pagename is not a real Page, check if it's a project_catalog
+// slug (or slug path) and swap the query over to the CPT.
+add_filter('request', function ($query_vars) {
+    if (empty($query_vars['pagename'])) return $query_vars;
+    // Pagename may look like "parent/child" — pass the whole thing to
+    // get_page_by_path; it walks the hierarchy and matches by parent chain.
+    $path = $query_vars['pagename'];
+    $catalog = get_page_by_path($path, OBJECT, 'project_catalog');
+    if (!$catalog) return $query_vars;
+
+    unset($query_vars['pagename']);
+    $query_vars['post_type'] = 'project_catalog';
+    $query_vars['name'] = $catalog->post_name;
+    $query_vars['project_catalog'] = $path;
+    return $query_vars;
+});
 
 // project_category taxonomy — kept as an internal link between wedding_project
 // posts and project_catalog CPT posts (so tax_query still works on archive
@@ -274,7 +312,7 @@ add_action('before_delete_post', function ($post_id) {
 // Bump a stored version so the rewrite rules get flushed whenever we change
 // CPT/taxonomy registration. Cheap on every request (simple option check).
 add_action('init', function () {
-    $v = '2';
+    $v = '8';
     if (get_option('wow_rewrite_version') !== $v) {
         flush_rewrite_rules(false);
         update_option('wow_rewrite_version', $v);
