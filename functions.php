@@ -284,6 +284,97 @@ add_action('init', function () {
 // Disable admin bar on frontend
 add_filter('show_admin_bar', '__return_false');
 
+// ---------------------------------------------------------------------------
+// Duplicate-post row action (pages, projects, catalogs).
+// ---------------------------------------------------------------------------
+// Post types we add the Duplicate link to.
+function wow_duplicate_post_types() {
+    return ['page', 'wedding_project', 'project_catalog'];
+}
+
+// Add "Duplicate" link to the row actions on edit.php listings.
+add_filter('post_row_actions', 'wow_duplicate_row_action', 10, 2);
+add_filter('page_row_actions', 'wow_duplicate_row_action', 10, 2);
+function wow_duplicate_row_action($actions, $post) {
+    if (!current_user_can('edit_posts')) return $actions;
+    if (!in_array($post->post_type, wow_duplicate_post_types(), true)) return $actions;
+    $url = wp_nonce_url(
+        admin_url('admin.php?action=wow_duplicate_post&post=' . $post->ID),
+        'wow_duplicate_' . $post->ID
+    );
+    $actions['wow-duplicate'] = '<a href="' . esc_url($url) . '" title="Duplicate this item">Duplicate</a>';
+    return $actions;
+}
+
+// "Duplicate" button on the post-edit screen toolbar (near Publish/Update).
+add_action('post_submitbox_misc_actions', function () {
+    global $post;
+    if (!$post || !in_array($post->post_type, wow_duplicate_post_types(), true)) return;
+    if (!current_user_can('edit_posts')) return;
+    $url = wp_nonce_url(
+        admin_url('admin.php?action=wow_duplicate_post&post=' . $post->ID),
+        'wow_duplicate_' . $post->ID
+    );
+    ?>
+    <div class="misc-pub-section" style="padding-top:10px;">
+        <a href="<?php echo esc_url($url); ?>" class="button">Duplicate</a>
+    </div>
+    <?php
+});
+
+// Handler: deep-copies the post (postmeta + taxonomy terms + featured image)
+// and redirects the editor to the new draft.
+add_action('admin_action_wow_duplicate_post', function () {
+    $post_id = isset($_GET['post']) ? (int) $_GET['post'] : 0;
+    if (!$post_id) wp_die('No post id supplied.');
+    check_admin_referer('wow_duplicate_' . $post_id);
+    if (!current_user_can('edit_posts')) wp_die('Insufficient permissions.');
+
+    $post = get_post($post_id);
+    if (!$post) wp_die('Post not found.');
+    if (!in_array($post->post_type, wow_duplicate_post_types(), true)) wp_die('This post type cannot be duplicated.');
+
+    $new_id = wp_insert_post([
+        'post_type'      => $post->post_type,
+        'post_title'     => $post->post_title . ' (Copy)',
+        'post_content'   => $post->post_content,
+        'post_excerpt'   => $post->post_excerpt,
+        'post_status'    => 'draft',
+        'post_author'    => get_current_user_id(),
+        'post_parent'    => $post->post_parent,
+        'menu_order'     => $post->menu_order,
+        'comment_status' => $post->comment_status,
+        'ping_status'    => $post->ping_status,
+    ], true);
+    if (is_wp_error($new_id)) wp_die('Duplicate failed: ' . $new_id->get_error_message());
+
+    // Copy every postmeta row verbatim (ACF flexible content, thumbnail, etc).
+    global $wpdb;
+    $rows = $wpdb->get_results($wpdb->prepare(
+        "SELECT meta_key, meta_value FROM {$wpdb->postmeta} WHERE post_id = %d",
+        $post_id
+    ));
+    foreach ($rows as $r) {
+        if ($r->meta_key === '_edit_lock' || $r->meta_key === '_edit_last') continue;
+        $wpdb->insert($wpdb->postmeta, [
+            'post_id'    => $new_id,
+            'meta_key'   => $r->meta_key,
+            'meta_value' => $r->meta_value,
+        ]);
+    }
+
+    // Copy taxonomy terms.
+    foreach (get_object_taxonomies($post->post_type) as $tax) {
+        $terms = wp_get_object_terms($post_id, $tax, ['fields' => 'ids']);
+        if (!is_wp_error($terms) && !empty($terms)) {
+            wp_set_object_terms($new_id, $terms, $tax);
+        }
+    }
+
+    wp_safe_redirect(admin_url('post.php?action=edit&post=' . $new_id));
+    exit;
+});
+
 // Register ACF Options pages
 function wow_register_acf_options() {
     if (!function_exists('acf_add_options_page')) return;
