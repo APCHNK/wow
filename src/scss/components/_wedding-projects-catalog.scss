@@ -94,11 +94,12 @@
 
     .happen-title-border {
         position: absolute;
-        top: 50%;
+        top: 54%;
         left: -1.5vw;
         right: auto;
-        width: calc(100% + 3vw); // stretch past the word on both sides
-        height: 6.67vw;          // fixed height — no vertical scaling
+        width: calc(100% + 1.5vw);
+        height: 5.60vw;
+        max-height: 107px;
         transform: translateY(-50%);
         --border-angle: 0deg;
         mask: conic-gradient(from -90deg at 50% 50%, #000 var(--border-angle), transparent var(--border-angle));
