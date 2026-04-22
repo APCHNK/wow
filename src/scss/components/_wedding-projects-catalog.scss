@@ -40,11 +40,13 @@
 .project-img {
     width: 50%;
     max-width: 530px;
+    flex-shrink: 0;
     img {
+        display: block;
         width: 100%;
         height: auto;
-        object-fit: cover;
-            aspect-ratio: 516 / 657;
+        // No forced aspect ratio — each image renders at its natural proportions
+        // so mixed portrait/landscape uploads don't get cropped.
     }
 }
 
