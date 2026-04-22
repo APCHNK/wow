@@ -7,23 +7,27 @@ $category = !empty($categories) ? $categories[0] : null;
 // project_category is registered non-public, so get_term_link() returns an
 // unresolvable ?taxonomy=…&term=… URL. The term mirrors a project_catalog
 // post (see wow_sync_catalog_to_term in functions.php) — resolve via the
-// _synced_term_id meta, then fall back to matching slug.
-$category_url = '';
+// _synced_term_id meta, then fall back to matching slug. Once we have the
+// catalog post we also surface its parent catalog as an extra crumb.
+$catalog_post = null;
 if ($category) {
     $catalog_q = get_posts([
         'post_type'      => 'project_catalog',
         'posts_per_page' => 1,
         'meta_key'       => '_synced_term_id',
         'meta_value'     => $category->term_id,
-        'fields'         => 'ids',
     ]);
     if (!empty($catalog_q)) {
-        $category_url = get_permalink($catalog_q[0]);
+        $catalog_post = $catalog_q[0];
     } else {
         $by_slug = get_page_by_path($category->slug, OBJECT, 'project_catalog');
-        if ($by_slug) $category_url = get_permalink($by_slug);
+        if ($by_slug) $catalog_post = $by_slug;
     }
 }
+$parent_catalog = ($catalog_post && $catalog_post->post_parent)
+    ? get_post($catalog_post->post_parent)
+    : null;
+$category_url = $catalog_post ? get_permalink($catalog_post) : '';
 ?>
 <section class="wedding-project-single-hero">
     <div class="wedding-project-single-img">
@@ -55,6 +59,12 @@ if ($category) {
     <svg xmlns="http://www.w3.org/2000/svg" width="10" height="16" viewBox="0 0 10 16" fill="none">
         <path d="M0.707031 0.707092L7.70703 7.70709L0.707031 14.7071" stroke="black" stroke-width="2"/>
     </svg>
+    <?php if ($parent_catalog) : ?>
+        <a href="<?php echo esc_url(get_permalink($parent_catalog)); ?>"><?php echo esc_html($parent_catalog->post_title); ?></a>
+        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="16" viewBox="0 0 10 16" fill="none">
+            <path d="M0.707031 0.707092L7.70703 7.70709L0.707031 14.7071" stroke="black" stroke-width="2"/>
+        </svg>
+    <?php endif; ?>
     <?php if ($category && $category_url) : ?>
         <a href="<?php echo esc_url($category_url); ?>"><?php echo esc_html($category->name); ?></a>
     <?php else : ?>
