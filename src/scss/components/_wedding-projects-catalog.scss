@@ -54,7 +54,8 @@
     display: flex;
     flex-direction: column;
     gap: 24px;
-    width: 59%;
+    flex: 1;
+    min-width: 0;
     @media screen and (max-width: 1024px) {
         gap: 16px;
     }
