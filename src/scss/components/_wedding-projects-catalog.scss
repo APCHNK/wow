@@ -41,12 +41,12 @@
     width: 50%;
     max-width: 530px;
     flex-shrink: 0;
+    aspect-ratio: 516 / 657;
     img {
         display: block;
         width: 100%;
-        height: auto;
-        // No forced aspect ratio — each image renders at its natural proportions
-        // so mixed portrait/landscape uploads don't get cropped.
+        height: 100%;
+        object-fit: contain; // any input aspect ratio fits without cropping
     }
 }
 
