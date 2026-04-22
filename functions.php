@@ -411,13 +411,29 @@ function wow_sync_catalog_to_term($post_id) {
     if ($post->post_status !== 'publish') return null;
     $slug = $post->post_name ?: sanitize_title($post->post_title);
 
-    // Resolve the mirror term id: stored first, slug fallback (for catalogs
-    // created before the meta bridge existed), then create if still missing.
+    // Resolve the mirror term id. Stored mapping wins only if it still points
+    // at a term whose slug matches this catalog — otherwise it's stale
+    // (shared with another catalog, or the original term was deleted), drop
+    // it and fall through to slug lookup / term creation.
     $term_id = (int) get_post_meta($post_id, '_synced_term_id', true);
-    if ($term_id && !term_exists($term_id, 'project_category')) $term_id = 0;
+    if ($term_id) {
+        $t = get_term($term_id, 'project_category');
+        if (!$t || is_wp_error($t) || $t->slug !== $slug) {
+            delete_post_meta($post_id, '_synced_term_id');
+            $term_id = 0;
+        }
+    }
     if (!$term_id) {
         $existing = get_term_by('slug', $slug, 'project_category');
-        if ($existing) $term_id = (int) $existing->term_id;
+        // Guard against another catalog already owning this term.
+        if ($existing) {
+            $owner = $GLOBALS['wpdb']->get_var($GLOBALS['wpdb']->prepare(
+                "SELECT post_id FROM {$GLOBALS['wpdb']->postmeta}
+                 WHERE meta_key='_synced_term_id' AND meta_value=%d AND post_id<>%d LIMIT 1",
+                $existing->term_id, $post_id
+            ));
+            if (!$owner) $term_id = (int) $existing->term_id;
+        }
     }
 
     $parent_term_id = 0;
