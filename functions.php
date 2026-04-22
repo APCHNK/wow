@@ -484,22 +484,26 @@ add_action('save_post_project_catalog', function ($post_id, $post) {
     wow_sync_catalog_to_term($post_id);
 }, 10, 2);
 
-// Self-heal: on every admin page load (cheap check), make sure every
-// published catalog has its mirror term. Guarded by a short transient so
-// we don't scan on every single request.
+// Self-heal: on every admin page load (guarded by a 5-minute transient so we
+// don't scan on every request), make sure each published catalog still has a
+// mirror term with the right slug. Fast path: if the stored term id already
+// points at a term whose slug matches the catalog, skip — otherwise the
+// full sync runs and will create / repoint / rename as needed.
 add_action('admin_init', function () {
     if (get_transient('wow_catalogs_backfilled')) return;
-    set_transient('wow_catalogs_backfilled', 1, 15 * MINUTE_IN_SECONDS);
-    $ids = get_posts([
+    set_transient('wow_catalogs_backfilled', 1, 5 * MINUTE_IN_SECONDS);
+    $posts = get_posts([
         'post_type' => 'project_catalog',
         'post_status' => 'publish',
         'posts_per_page' => -1,
-        'fields' => 'ids',
     ]);
-    foreach ($ids as $pid) {
-        $term_id = (int) get_post_meta($pid, '_synced_term_id', true);
-        if ($term_id && term_exists($term_id, 'project_category')) continue;
-        wow_sync_catalog_to_term($pid);
+    foreach ($posts as $p) {
+        $stored = (int) get_post_meta($p->ID, '_synced_term_id', true);
+        if ($stored) {
+            $t = get_term($stored, 'project_category');
+            if ($t && !is_wp_error($t) && $t->slug === ($p->post_name ?: sanitize_title($p->post_title))) continue;
+        }
+        wow_sync_catalog_to_term($p->ID);
     }
 });
 
