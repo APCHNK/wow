@@ -46,7 +46,7 @@
         display: block;
         width: 100%;
         height: 100%;
-        object-fit: contain; // any input aspect ratio fits without cropping
+        object-fit: cover;
     }
 }
 
