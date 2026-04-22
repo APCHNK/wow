@@ -67,7 +67,6 @@
 }
 
 .project-title {
-    position: relative;
     color: #000;
     font-family: "Noto Sans";
     font-size: clamp(18px, 5.4vw, 103px);
@@ -89,23 +88,25 @@
 }
 
 .project-title-country {
-    display: inline-block;
-    width: max-content;
-}
+    position: relative;
+    display: block;
+    width: 100%;           // stretch to the full project-info column width
 
-.project-title .happen-title-border {
-    position: absolute;
-    inset: 0;                  // fill .project-title full width + height
-    left: -1.5vw;
-    right: -1.5vw;
-    width: auto;
-    height: auto;
-    --border-angle: 0deg;
-    mask: conic-gradient(from -90deg at 50% 50%, #000 var(--border-angle), transparent var(--border-angle));
-    -webkit-mask: conic-gradient(from -90deg at 50% 50%, #000 var(--border-angle), transparent var(--border-angle));
+    .happen-title-border {
+        position: absolute;
+        top: 50%;
+        left: -1.5vw;
+        right: -1.5vw;
+        width: auto;       // stretches horizontally
+        height: 6.67vw;    // fixed height — no vertical scaling
+        transform: translateY(-50%);
+        --border-angle: 0deg;
+        mask: conic-gradient(from -90deg at 50% 50%, #000 var(--border-angle), transparent var(--border-angle));
+        -webkit-mask: conic-gradient(from -90deg at 50% 50%, #000 var(--border-angle), transparent var(--border-angle));
 
-    &.animate {
-        animation: revealBorder 1s ease-out forwards;
+        &.animate {
+            animation: revealBorder 1s ease-out forwards;
+        }
     }
 }
 
