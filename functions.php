@@ -487,27 +487,76 @@ add_action('admin_init', function () {
     }
 });
 
-// Manual "force resync" action — clears the transient and runs backfill.
+// Manual "force resync" action — clears the transient, prints a verbose
+// per-catalog report, and also inserts rows via raw SQL when wp_insert_term
+// keeps bailing out on live.
 // Trigger:  /wp-admin/admin.php?action=wow_resync_catalogs
 add_action('admin_action_wow_resync_catalogs', function () {
     if (!current_user_can('manage_options')) wp_die('Insufficient permissions.');
+    global $wpdb;
     delete_transient('wow_catalogs_backfilled');
-    $ids = get_posts([
+
+    header('Content-Type: text/html; charset=utf-8');
+    echo '<pre style="font:13px ui-monospace,monospace;padding:16px;background:#f6f7f7;color:#1d2327;">';
+    echo "=== Catalog → term resync ===\n\n";
+
+    $posts = get_posts([
         'post_type' => 'project_catalog',
         'post_status' => 'publish',
         'posts_per_page' => -1,
-        'fields' => 'ids',
     ]);
-    $done = 0;
-    foreach ($ids as $pid) {
-        if (wow_sync_catalog_to_term($pid)) $done++;
+    echo "Catalog posts: " . count($posts) . "\n\n";
+
+    foreach ($posts as $p) {
+        $slug = $p->post_name ?: sanitize_title($p->post_title);
+        echo "• #{$p->ID}  {$p->post_title}  [slug={$slug}, parent_post={$p->post_parent}]\n";
+        $stored = (int) get_post_meta($p->ID, '_synced_term_id', true);
+        $stored_ok = $stored && term_exists($stored, 'project_category');
+        echo "    stored term id: " . ($stored_ok ? "{$stored} ✓" : ($stored ? "{$stored} (missing)" : "(none)")) . "\n";
+
+        $term_id = wow_sync_catalog_to_term($p->ID);
+        if ($term_id) {
+            echo "    → WP API sync ok, term id = {$term_id}\n";
+            continue;
+        }
+
+        // Fallback: insert the term row via raw SQL (handles the rare case
+        // where wp_insert_term fatals under cache/filter weirdness on live).
+        $existing = $wpdb->get_var($wpdb->prepare(
+            "SELECT t.term_id FROM {$wpdb->terms} t
+             JOIN {$wpdb->term_taxonomy} tt ON tt.term_id=t.term_id
+             WHERE tt.taxonomy='project_category' AND t.slug=%s LIMIT 1",
+            $slug
+        ));
+        if ($existing) {
+            update_post_meta($p->ID, '_synced_term_id', (int) $existing);
+            echo "    → SQL: reused existing term {$existing}\n";
+            continue;
+        }
+        $parent_term = 0;
+        if ($p->post_parent) {
+            $parent_term = (int) get_post_meta($p->post_parent, '_synced_term_id', true);
+        }
+        $ok_term = $wpdb->insert($wpdb->terms, ['name' => $p->post_title, 'slug' => $slug]);
+        if (!$ok_term) { echo "    → FAILED inserting into wp_terms\n"; continue; }
+        $new_term_id = (int) $wpdb->insert_id;
+        $ok_tax = $wpdb->insert($wpdb->term_taxonomy, [
+            'term_id' => $new_term_id,
+            'taxonomy' => 'project_category',
+            'description' => '',
+            'parent' => $parent_term,
+            'count' => 0,
+        ]);
+        if (!$ok_tax) { echo "    → FAILED inserting into wp_term_taxonomy\n"; continue; }
+        update_post_meta($p->ID, '_synced_term_id', $new_term_id);
+        clean_term_cache($new_term_id, 'project_category');
+        echo "    → SQL: created term {$new_term_id}\n";
     }
-    wp_safe_redirect(admin_url('edit.php?post_type=project_catalog&wow_resynced=' . $done));
+
+    echo "\nDone.\n";
+    echo '</pre>';
+    echo '<p><a href="' . esc_url(admin_url('edit.php?post_type=project_catalog')) . '">← Back to Catalogs</a></p>';
     exit;
-});
-add_action('admin_notices', function () {
-    if (!isset($_GET['wow_resynced'])) return;
-    echo '<div class="notice notice-success is-dismissible"><p>Catalogs re-synced: ' . (int) $_GET['wow_resynced'] . '.</p></div>';
 });
 
 add_action('before_delete_post', function ($post_id) {
