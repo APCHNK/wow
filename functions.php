@@ -405,24 +405,25 @@ add_action('init', 'wow_register_project_category');
 
 // Keep the project_category term hierarchy synchronised with project_catalog
 // posts, so tax_query on a Project still resolves to the right catalog.
-add_action('save_post_project_catalog', function ($post_id, $post) {
-    if (wp_is_post_revision($post_id)) return;
-    if ($post->post_status !== 'publish') return;
+function wow_sync_catalog_to_term($post_id) {
+    $post = get_post($post_id);
+    if (!$post || $post->post_type !== 'project_catalog') return null;
+    if ($post->post_status !== 'publish') return null;
     $slug = $post->post_name ?: sanitize_title($post->post_title);
 
-    // Resolve the mirror term id: stored (from the initial migration) first,
-    // slug lookup as fallback so fresh catalogs still match.
+    // Resolve the mirror term id: stored first, slug fallback (for catalogs
+    // created before the meta bridge existed), then create if still missing.
     $term_id = (int) get_post_meta($post_id, '_synced_term_id', true);
+    if ($term_id && !term_exists($term_id, 'project_category')) $term_id = 0;
     if (!$term_id) {
         $existing = get_term_by('slug', $slug, 'project_category');
         if ($existing) $term_id = (int) $existing->term_id;
     }
 
-    // Resolve parent term the same way.
     $parent_term_id = 0;
     if ($post->post_parent) {
         $parent_tid = (int) get_post_meta($post->post_parent, '_synced_term_id', true);
-        if ($parent_tid) {
+        if ($parent_tid && term_exists($parent_tid, 'project_category')) {
             $parent_term_id = $parent_tid;
         } else {
             $parent_post = get_post($post->post_parent);
@@ -444,11 +445,70 @@ add_action('save_post_project_catalog', function ($post_id, $post) {
             'slug'   => $slug,
             'parent' => $parent_term_id,
         ]);
-        if (!is_wp_error($inserted)) {
-            update_post_meta($post_id, '_synced_term_id', (int) $inserted['term_id']);
+        if (is_wp_error($inserted)) {
+            // If another term already owns the slug, reuse that term id.
+            if (in_array('term_exists', $inserted->get_error_codes(), true)) {
+                $existing_id = (int) $inserted->get_error_data('term_exists');
+                if ($existing_id) {
+                    update_post_meta($post_id, '_synced_term_id', $existing_id);
+                    return $existing_id;
+                }
+            }
+            error_log('wow_sync_catalog_to_term: wp_insert_term failed for post ' . $post_id . ' - ' . $inserted->get_error_message());
+            return null;
         }
+        $term_id = (int) $inserted['term_id'];
+        update_post_meta($post_id, '_synced_term_id', $term_id);
     }
+    return $term_id;
+}
+
+add_action('save_post_project_catalog', function ($post_id, $post) {
+    if (wp_is_post_revision($post_id)) return;
+    wow_sync_catalog_to_term($post_id);
 }, 10, 2);
+
+// Self-heal: on every admin page load (cheap check), make sure every
+// published catalog has its mirror term. Guarded by a short transient so
+// we don't scan on every single request.
+add_action('admin_init', function () {
+    if (get_transient('wow_catalogs_backfilled')) return;
+    set_transient('wow_catalogs_backfilled', 1, 15 * MINUTE_IN_SECONDS);
+    $ids = get_posts([
+        'post_type' => 'project_catalog',
+        'post_status' => 'publish',
+        'posts_per_page' => -1,
+        'fields' => 'ids',
+    ]);
+    foreach ($ids as $pid) {
+        $term_id = (int) get_post_meta($pid, '_synced_term_id', true);
+        if ($term_id && term_exists($term_id, 'project_category')) continue;
+        wow_sync_catalog_to_term($pid);
+    }
+});
+
+// Manual "force resync" action — clears the transient and runs backfill.
+// Trigger:  /wp-admin/admin.php?action=wow_resync_catalogs
+add_action('admin_action_wow_resync_catalogs', function () {
+    if (!current_user_can('manage_options')) wp_die('Insufficient permissions.');
+    delete_transient('wow_catalogs_backfilled');
+    $ids = get_posts([
+        'post_type' => 'project_catalog',
+        'post_status' => 'publish',
+        'posts_per_page' => -1,
+        'fields' => 'ids',
+    ]);
+    $done = 0;
+    foreach ($ids as $pid) {
+        if (wow_sync_catalog_to_term($pid)) $done++;
+    }
+    wp_safe_redirect(admin_url('edit.php?post_type=project_catalog&wow_resynced=' . $done));
+    exit;
+});
+add_action('admin_notices', function () {
+    if (!isset($_GET['wow_resynced'])) return;
+    echo '<div class="notice notice-success is-dismissible"><p>Catalogs re-synced: ' . (int) $_GET['wow_resynced'] . '.</p></div>';
+});
 
 add_action('before_delete_post', function ($post_id) {
     $post = get_post($post_id);
