@@ -334,6 +334,20 @@ add_action('add_meta_boxes_wedding_project', function () {
     remove_meta_box('project_categorydiv', 'wedding_project', 'side');
 });
 
+// Quick Edit on the projects list still shows the taxonomy checklist.
+// Widen the default fixed-height scroll area so every catalog is visible.
+add_action('admin_head-edit.php', function () {
+    $screen = get_current_screen();
+    if (!$screen || $screen->post_type !== 'wedding_project') return;
+    echo '<style>
+        .inline-edit-row .inline-edit-categories ul.cat-checklist,
+        .inline-edit-row ul.categorychecklist {
+            max-height: 500px !important;
+            min-height: 300px;
+        }
+    </style>';
+});
+
 // 301 redirect /wedding-projects/<slug>/ (default CPT single URL) to the
 // canonical /<catalog-path>/<slug>/ so we don't have duplicate URLs.
 add_action('template_redirect', function () {
