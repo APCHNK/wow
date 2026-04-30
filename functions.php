@@ -311,7 +311,11 @@ add_filter('post_type_link', function ($link, $post) {
 
 // After a project save, mirror the ACF catalog pick back onto the internal
 // project_category taxonomy so tax_query-based code (catalog_grid auto list,
-// etc) keeps returning the right project set.
+// etc) keeps returning the right project set. Lookup goes through the
+// catalog's _synced_term_id meta — looking up the term by post_name is wrong
+// because two catalogs under different parents (e.g. "Wedding in France" and
+// "Private Party in France") share the same post_name and would resolve to
+// the same term, scrambling assignments.
 add_action('acf/save_post', function ($post_id) {
     if (!is_numeric($post_id)) return;
     $post_id = (int) $post_id;
@@ -322,10 +326,14 @@ add_action('acf/save_post', function ($post_id) {
         return;
     }
     $catalog = get_post($catalog_id);
-    if (!$catalog) return;
-    $term = get_term_by('slug', $catalog->post_name, 'project_category');
-    if (!$term) return;
-    wp_set_object_terms($post_id, [(int) $term->term_id], 'project_category', false);
+    if (!$catalog || $catalog->post_type !== 'project_catalog') return;
+    $term_id = (int) get_post_meta($catalog_id, '_synced_term_id', true);
+    if (!$term_id || !term_exists($term_id, 'project_category')) {
+        $term_id = (int) wow_sync_catalog_to_term($catalog_id);
+    }
+    if ($term_id) {
+        wp_set_object_terms($post_id, [$term_id], 'project_category', false);
+    }
 }, 20);
 
 // Hide the native Catalogs taxonomy metabox on wedding_project edits so the
@@ -405,34 +413,31 @@ add_action('init', 'wow_register_project_category');
 
 // Keep the project_category term hierarchy synchronised with project_catalog
 // posts, so tax_query on a Project still resolves to the right catalog.
+//
+// Architecture: the catalog's _synced_term_id post meta is the source of
+// truth for the catalog<->term link. The term's slug does NOT have to match
+// the catalog's post_name — WP unique-suffixes term slugs when sibling
+// catalogs share the same post_name (e.g. "Wedding in France" and "Private
+// Party in France" both with post_name=france), and that's fine: we never
+// look terms up by slug here. The previous implementation dropped the
+// stored mapping on slug mismatch and recreated a new term every save,
+// silently re-pointing the catalog at an empty term while the projects
+// stayed attached to the old one. That was the bug behind "projects
+// disappeared from the catalog page".
 function wow_sync_catalog_to_term($post_id) {
     $post = get_post($post_id);
     if (!$post || $post->post_type !== 'project_catalog') return null;
     if ($post->post_status !== 'publish') return null;
-    $slug = $post->post_name ?: sanitize_title($post->post_title);
 
-    // Resolve the mirror term id. Stored mapping wins only if it still points
-    // at a term whose slug matches this catalog — otherwise it's stale
-    // (shared with another catalog, or the original term was deleted), drop
-    // it and fall through to slug lookup / term creation.
     $term_id = (int) get_post_meta($post_id, '_synced_term_id', true);
     if ($term_id) {
         $t = get_term($term_id, 'project_category');
-        if (!$t || is_wp_error($t) || $t->slug !== $slug) {
+        if (!$t || is_wp_error($t)) {
+            // The mirror term was hard-deleted; drop the stale mapping and
+            // fall through to creation. (Slug drift is intentionally
+            // ignored — the stored term id stays authoritative.)
             delete_post_meta($post_id, '_synced_term_id');
             $term_id = 0;
-        }
-    }
-    if (!$term_id) {
-        $existing = get_term_by('slug', $slug, 'project_category');
-        // Guard against another catalog already owning this term.
-        if ($existing) {
-            $owner = $GLOBALS['wpdb']->get_var($GLOBALS['wpdb']->prepare(
-                "SELECT post_id FROM {$GLOBALS['wpdb']->postmeta}
-                 WHERE meta_key='_synced_term_id' AND meta_value=%d AND post_id<>%d LIMIT 1",
-                $existing->term_id, $post_id
-            ));
-            if (!$owner) $term_id = (int) $existing->term_id;
         }
     }
 
@@ -441,41 +446,50 @@ function wow_sync_catalog_to_term($post_id) {
         $parent_tid = (int) get_post_meta($post->post_parent, '_synced_term_id', true);
         if ($parent_tid && term_exists($parent_tid, 'project_category')) {
             $parent_term_id = $parent_tid;
-        } else {
-            $parent_post = get_post($post->post_parent);
-            if ($parent_post) {
-                $p_existing = get_term_by('slug', $parent_post->post_name, 'project_category');
-                if ($p_existing) $parent_term_id = (int) $p_existing->term_id;
-            }
         }
     }
 
     if ($term_id) {
-        wp_update_term($term_id, 'project_category', [
-            'name'   => $post->post_title,
-            'slug'   => $slug,
-            'parent' => $parent_term_id,
-        ]);
-    } else {
-        $inserted = wp_insert_term($post->post_title, 'project_category', [
-            'slug'   => $slug,
-            'parent' => $parent_term_id,
-        ]);
-        if (is_wp_error($inserted)) {
-            // If another term already owns the slug, reuse that term id.
-            if (in_array('term_exists', $inserted->get_error_codes(), true)) {
-                $existing_id = (int) $inserted->get_error_data('term_exists');
-                if ($existing_id) {
-                    update_post_meta($post_id, '_synced_term_id', $existing_id);
-                    return $existing_id;
-                }
-            }
-            error_log('wow_sync_catalog_to_term: wp_insert_term failed for post ' . $post_id . ' - ' . $inserted->get_error_message());
-            return null;
+        // Only refresh the term's metadata when this catalog is its sole
+        // owner, so we don't ping-pong name/parent on a term shared with
+        // another catalog (cleanup script splits those).
+        $shared = $GLOBALS['wpdb']->get_var($GLOBALS['wpdb']->prepare(
+            "SELECT post_id FROM {$GLOBALS['wpdb']->postmeta}
+             WHERE meta_key='_synced_term_id' AND meta_value=%d AND post_id<>%d LIMIT 1",
+            $term_id, $post_id
+        ));
+        if (!$shared) {
+            wp_update_term($term_id, 'project_category', [
+                'name'   => $post->post_title,
+                'parent' => $parent_term_id,
+                // Don't rewrite the slug — it may have been WP-uniqued and
+                // we don't care, the id is what matters.
+            ]);
         }
-        $term_id = (int) $inserted['term_id'];
-        update_post_meta($post_id, '_synced_term_id', $term_id);
+        return $term_id;
     }
+
+    // No stored mapping — create a fresh mirror term. WP will append a
+    // numeric suffix to the slug if it collides with a sibling catalog's
+    // term; that's expected and harmless because we identify by id.
+    $slug = $post->post_name ?: sanitize_title($post->post_title);
+    $inserted = wp_insert_term($post->post_title, 'project_category', [
+        'slug'   => $slug,
+        'parent' => $parent_term_id,
+    ]);
+    if (is_wp_error($inserted)) {
+        if (in_array('term_exists', $inserted->get_error_codes(), true)) {
+            $existing_id = (int) $inserted->get_error_data('term_exists');
+            if ($existing_id) {
+                update_post_meta($post_id, '_synced_term_id', $existing_id);
+                return $existing_id;
+            }
+        }
+        error_log('wow_sync_catalog_to_term: wp_insert_term failed for post ' . $post_id . ' - ' . $inserted->get_error_message());
+        return null;
+    }
+    $term_id = (int) $inserted['term_id'];
+    update_post_meta($post_id, '_synced_term_id', $term_id);
     return $term_id;
 }
 
@@ -486,9 +500,9 @@ add_action('save_post_project_catalog', function ($post_id, $post) {
 
 // Self-heal: on every admin page load (guarded by a 5-minute transient so we
 // don't scan on every request), make sure each published catalog still has a
-// mirror term with the right slug. Fast path: if the stored term id already
-// points at a term whose slug matches the catalog, skip — otherwise the
-// full sync runs and will create / repoint / rename as needed.
+// mirror term. We only call sync when the link is genuinely broken — slug
+// drift alone is no longer a trigger, since the previous behaviour ended up
+// detaching catalogs from terms full of existing projects.
 add_action('admin_init', function () {
     if (get_transient('wow_catalogs_backfilled')) return;
     set_transient('wow_catalogs_backfilled', 1, 5 * MINUTE_IN_SECONDS);
@@ -499,10 +513,7 @@ add_action('admin_init', function () {
     ]);
     foreach ($posts as $p) {
         $stored = (int) get_post_meta($p->ID, '_synced_term_id', true);
-        if ($stored) {
-            $t = get_term($stored, 'project_category');
-            if ($t && !is_wp_error($t) && $t->slug === ($p->post_name ?: sanitize_title($p->post_title))) continue;
-        }
+        if ($stored && term_exists($stored, 'project_category')) continue;
         wow_sync_catalog_to_term($p->ID);
     }
 });
@@ -582,10 +593,178 @@ add_action('admin_action_wow_resync_catalogs', function () {
 add_action('before_delete_post', function ($post_id) {
     $post = get_post($post_id);
     if (!$post || $post->post_type !== 'project_catalog') return;
-    $term = get_term_by('slug', $post->post_name, 'project_category');
-    if ($term && !is_wp_error($term)) {
-        wp_delete_term($term->term_id, 'project_category');
+    // Look the term up via stored meta — get_term_by('slug', $post->post_name)
+    // would catch the wrong term when sibling catalogs share post_name (the
+    // top-level Wedding/Private-Party hierarchies do, by design), and would
+    // delete a still-active term plus all its term_relationships.
+    $term_id = (int) get_post_meta($post_id, '_synced_term_id', true);
+    if (!$term_id || !term_exists($term_id, 'project_category')) return;
+    // Only delete the mirror term if this catalog is the sole owner.
+    $shared = $GLOBALS['wpdb']->get_var($GLOBALS['wpdb']->prepare(
+        "SELECT post_id FROM {$GLOBALS['wpdb']->postmeta}
+         WHERE meta_key='_synced_term_id' AND meta_value=%d AND post_id<>%d LIMIT 1",
+        $term_id, $post_id
+    ));
+    if (!$shared) {
+        wp_delete_term($term_id, 'project_category');
     }
+});
+
+// One-shot repair tool for the term/relationship damage caused by the old
+// sync (slug-collision recreated terms on every save, leaving catalogs
+// pointing at empty mirrors while projects stayed on orphan terms).
+//
+// Trigger:  /wp-admin/admin.php?action=wow_cleanup_catalog_terms          (dry run)
+//           /wp-admin/admin.php?action=wow_cleanup_catalog_terms&execute=1  (apply)
+//
+// Steps:
+//   1. Split shared _synced_term_id between catalogs (keep the one whose
+//      title matches the term name; the rest get a fresh mirror term).
+//   2. Re-tag every wedding_project to its ACF project_catalog's term.
+//   3. Delete project_category terms nothing points to.
+add_action('admin_action_wow_cleanup_catalog_terms', function () {
+    if (!current_user_can('manage_options')) wp_die('Insufficient permissions.');
+    $execute = !empty($_GET['execute']);
+    global $wpdb;
+
+    header('Content-Type: text/html; charset=utf-8');
+    echo '<pre style="font:13px ui-monospace,monospace;padding:16px;background:#f6f7f7;color:#1d2327;">';
+    echo "=== Catalog/term cleanup (" . ($execute ? 'EXECUTE' : 'DRY RUN') . ") ===\n\n";
+
+    // ---- Step 1: split shared _synced_term_id values --------------------
+    echo "-- Step 1: shared _synced_term_id resolution --\n";
+    $shared_rows = $wpdb->get_results(
+        "SELECT meta_value AS term_id, GROUP_CONCAT(post_id ORDER BY post_id) AS post_ids
+         FROM {$wpdb->postmeta}
+         WHERE meta_key='_synced_term_id' AND meta_value REGEXP '^[0-9]+$'
+         GROUP BY meta_value HAVING COUNT(*) > 1"
+    );
+    if (!$shared_rows) {
+        echo "  (no shared mappings)\n";
+    }
+    foreach ($shared_rows as $row) {
+        $term_id = (int) $row->term_id;
+        $post_ids = array_map('intval', explode(',', $row->post_ids));
+        $term = get_term($term_id, 'project_category');
+        $term_name = $term && !is_wp_error($term) ? $term->name : '(missing term)';
+        echo "  term {$term_id} \"{$term_name}\" shared by: " . implode(', ', $post_ids) . "\n";
+
+        // Pick the keeper: title === term name wins, otherwise lowest id.
+        $keeper = null;
+        if ($term && !is_wp_error($term)) {
+            foreach ($post_ids as $pid) {
+                $p = get_post($pid);
+                if ($p && trim(strtolower($p->post_title)) === trim(strtolower($term->name))) {
+                    $keeper = $pid; break;
+                }
+            }
+        }
+        if (!$keeper) $keeper = min($post_ids);
+        echo "    keeper: {$keeper}\n";
+
+        foreach ($post_ids as $pid) {
+            if ($pid === $keeper) continue;
+            $p = get_post($pid);
+            $title = $p ? $p->post_title : '?';
+            $status = $p ? $p->post_status : '?';
+            // For non-published catalogs (trash/draft/auto-draft) we just
+            // drop the shared mapping — wow_sync_catalog_to_term skips
+            // them and we don't want a phantom mirror term either.
+            if (!$p || $status !== 'publish') {
+                echo "    detach {$pid} \"{$title}\" [{$status}] → drop meta only\n";
+                if ($execute) delete_post_meta($pid, '_synced_term_id');
+                continue;
+            }
+            echo "    detach {$pid} \"{$title}\" → ";
+            if ($execute) {
+                delete_post_meta($pid, '_synced_term_id');
+                $new_term_id = (int) wow_sync_catalog_to_term($pid);
+                echo $new_term_id ? "new term {$new_term_id}\n" : "FAILED\n";
+            } else {
+                echo "(would create new mirror term)\n";
+            }
+        }
+    }
+    echo "\n";
+
+    // ---- Step 2: re-tag wedding_projects from ACF -----------------------
+    echo "-- Step 2: re-tag wedding_project term_relationships from ACF --\n";
+    $projects = get_posts([
+        'post_type' => 'wedding_project',
+        'post_status' => ['publish', 'draft', 'pending', 'private', 'future'],
+        'posts_per_page' => -1,
+    ]);
+    $relinked = 0; $cleared = 0; $skipped = 0;
+    foreach ($projects as $proj) {
+        $catalog_id = (int) get_post_meta($proj->ID, 'project_catalog', true);
+        $current_term_ids = wp_get_object_terms($proj->ID, 'project_category', ['fields' => 'ids']);
+        if (is_wp_error($current_term_ids)) $current_term_ids = [];
+
+        if (!$catalog_id) {
+            if (!empty($current_term_ids)) {
+                echo "  #{$proj->ID} \"{$proj->post_title}\" — no ACF catalog, would clear " . count($current_term_ids) . " term(s)\n";
+                if ($execute) wp_set_object_terms($proj->ID, [], 'project_category');
+                $cleared++;
+            }
+            continue;
+        }
+        $target_term = (int) get_post_meta($catalog_id, '_synced_term_id', true);
+        if (!$target_term && $execute) {
+            $target_term = (int) wow_sync_catalog_to_term($catalog_id);
+        }
+        if (!$target_term) {
+            echo "  #{$proj->ID} \"{$proj->post_title}\" — catalog {$catalog_id} has no _synced_term_id, SKIP\n";
+            $skipped++;
+            continue;
+        }
+        if ($current_term_ids === [$target_term]) continue; // already correct
+        $catalog_title = get_the_title($catalog_id);
+        $current_str = empty($current_term_ids) ? 'none' : implode(',', $current_term_ids);
+        echo "  #{$proj->ID} \"{$proj->post_title}\" → catalog {$catalog_id} \"{$catalog_title}\" term {$target_term}  (was: {$current_str})\n";
+        if ($execute) wp_set_object_terms($proj->ID, [$target_term], 'project_category', false);
+        $relinked++;
+    }
+    echo "  -> relinked={$relinked} cleared={$cleared} skipped={$skipped}\n\n";
+
+    // ---- Step 3: drop orphan terms --------------------------------------
+    echo "-- Step 3: drop orphan project_category terms --\n";
+    $referenced = $wpdb->get_col(
+        "SELECT DISTINCT CAST(meta_value AS UNSIGNED) FROM {$wpdb->postmeta}
+         WHERE meta_key='_synced_term_id' AND meta_value REGEXP '^[0-9]+$'"
+    );
+    $referenced = array_map('intval', $referenced ?: []);
+    $orphans = $wpdb->get_results(
+        "SELECT t.term_id, t.name, t.slug
+         FROM {$wpdb->terms} t
+         JOIN {$wpdb->term_taxonomy} tt ON tt.term_id=t.term_id
+         WHERE tt.taxonomy='project_category'"
+    );
+    $deleted = 0; $kept_with_relationships = 0;
+    foreach ($orphans as $o) {
+        if (in_array((int) $o->term_id, $referenced, true)) continue;
+        // Don't drop a term that still holds project_category relationships;
+        // those relationships should have been re-tagged in step 2.
+        $rel_count = (int) $wpdb->get_var($wpdb->prepare(
+            "SELECT COUNT(*) FROM {$wpdb->term_relationships} tr
+             JOIN {$wpdb->term_taxonomy} tt ON tt.term_taxonomy_id=tr.term_taxonomy_id
+             WHERE tt.term_id=%d AND tt.taxonomy='project_category'",
+            $o->term_id
+        ));
+        if ($rel_count > 0) {
+            echo "  KEEP term {$o->term_id} \"{$o->name}\" (slug={$o->slug}) — still has {$rel_count} relationship(s)\n";
+            $kept_with_relationships++;
+            continue;
+        }
+        echo "  drop term {$o->term_id} \"{$o->name}\" (slug={$o->slug})\n";
+        if ($execute) wp_delete_term((int) $o->term_id, 'project_category');
+        $deleted++;
+    }
+    echo "  -> deleted={$deleted} kept_with_rels={$kept_with_relationships}\n\n";
+
+    echo "Done. " . ($execute ? '' : "(dry run — append &execute=1 to apply)\n");
+    echo '</pre>';
+    echo '<p><a href="' . esc_url(admin_url('edit.php?post_type=project_catalog')) . '">← Back to Catalogs</a></p>';
+    exit;
 });
 
 // Bump a stored version so the rewrite rules get flushed whenever we change

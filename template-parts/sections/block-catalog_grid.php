@@ -97,16 +97,21 @@ function wow_catalog_card($image_url, $thumb_html, $link, $title, $country, $des
                 }
                 $rendered_auto = true;
             } else {
-                $projects = get_posts([
+                // Lookup by stored term id, not by post_name. Sibling
+                // catalogs (e.g. Wedding-in-X / Private-Party-in-X) share
+                // the same post_name, so a slug-based query would mix
+                // their projects together.
+                $term_id = (int) get_post_meta($cur->ID, '_synced_term_id', true);
+                $projects = $term_id ? get_posts([
                     'post_type' => 'wedding_project',
                     'post_status' => 'publish',
                     'posts_per_page' => -1,
                     'tax_query' => [[
                         'taxonomy' => 'project_category',
-                        'field' => 'slug',
-                        'terms' => [$cur->post_name],
+                        'field' => 'term_id',
+                        'terms' => [$term_id],
                     ]],
-                ]);
+                ]) : [];
                 foreach ($projects as $pp) {
                     $thumb = get_the_post_thumbnail($pp->ID, 'large');
                     wow_catalog_card('', $thumb, get_permalink($pp), $pp->post_title, '', [], 'Show more', $country_svg, $pp->post_title);
