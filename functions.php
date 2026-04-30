@@ -251,19 +251,33 @@ add_filter('request', function ($query_vars) {
     }
 
     // 2) Last segment is a wedding_project, the rest is the catalog path.
+    // Two projects may legitimately share a post_name as long as they live
+    // under different ACF catalogs (see the wp_unique_post_slug filter), so
+    // we cannot use get_page_by_path here — it returns the first match by id
+    // and would misroute the project under the other catalog. Look up every
+    // project with that slug and pick the one whose ACF catalog matches the
+    // url's catalog.
     $parts = explode('/', $path);
     if (count($parts) >= 2) {
         $project_slug = array_pop($parts);
         $catalog_path = implode('/', $parts);
         $catalog = get_page_by_path($catalog_path, OBJECT, 'project_catalog');
         if ($catalog) {
-            $project = get_page_by_path($project_slug, OBJECT, 'wedding_project');
-            if ($project && (int) get_post_meta($project->ID, 'project_catalog', true) === (int) $catalog->ID) {
-                unset($query_vars['pagename']);
-                $query_vars['post_type'] = 'wedding_project';
-                $query_vars['name'] = $project->post_name;
-                $query_vars['wedding_project'] = $project_slug;
-                return $query_vars;
+            $candidates = get_posts([
+                'post_type'      => 'wedding_project',
+                'name'           => $project_slug,
+                'posts_per_page' => -1,
+                'post_status'    => 'publish',
+            ]);
+            foreach ($candidates as $project) {
+                if ((int) get_post_meta($project->ID, 'project_catalog', true) === (int) $catalog->ID) {
+                    unset($query_vars['pagename']);
+                    $query_vars['post_type'] = 'wedding_project';
+                    $query_vars['name'] = $project->post_name;
+                    $query_vars['wedding_project'] = $project_slug;
+                    $query_vars['p'] = $project->ID;
+                    return $query_vars;
+                }
             }
         }
     }
@@ -308,6 +322,38 @@ add_filter('post_type_link', function ($link, $post) {
     $slugs[] = $post->post_name;
     return user_trailingslashit(home_url('/' . implode('/', $slugs)));
 }, 10, 2);
+
+// Allow two wedding_project posts to share a post_name as long as they live
+// under different ACF catalogs. WP enforces global post_name uniqueness for
+// flat (non-hierarchical) post types, but our URLs are scoped to the catalog
+// path (/<catalog-path>/<project-slug>/), so "monaco" under Weddings and
+// "monaco" under Private Party are distinct urls and shouldn't collide.
+add_filter('wp_unique_post_slug', function ($slug, $post_id, $post_status, $post_type, $post_parent, $original_slug) {
+    if ($post_type !== 'wedding_project') return $slug;
+    if ($slug === $original_slug) return $slug; // WP didn't suffix; nothing to override
+
+    // Determine which catalog this post belongs to. On a fresh insert ACF
+    // meta isn't saved yet; fall back to the in-flight $_POST value.
+    $my_catalog = (int) get_post_meta($post_id, 'project_catalog', true);
+    if (!$my_catalog && isset($_POST['acf']['field_wp_project_catalog'])) {
+        $my_catalog = (int) $_POST['acf']['field_wp_project_catalog'];
+    }
+    if (!$my_catalog) return $slug; // unknown catalog → play it safe with WP's suffix
+
+    global $wpdb;
+    $real_collision = $wpdb->get_var($wpdb->prepare(
+        "SELECT p.ID FROM {$wpdb->posts} p
+         JOIN {$wpdb->postmeta} pm ON pm.post_id=p.ID AND pm.meta_key='project_catalog'
+         WHERE p.post_name = %s
+           AND p.post_type = 'wedding_project'
+           AND p.ID <> %d
+           AND p.post_status NOT IN ('trash')
+           AND CAST(pm.meta_value AS UNSIGNED) = %d
+         LIMIT 1",
+        $original_slug, $post_id, $my_catalog
+    ));
+    return $real_collision ? $slug : $original_slug;
+}, 10, 6);
 
 // After a project save, mirror the ACF catalog pick back onto the internal
 // project_category taxonomy so tax_query-based code (catalog_grid auto list,
