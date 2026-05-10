@@ -1,51 +1,25 @@
 import Swiper from 'swiper';
-import { Navigation, Mousewheel } from 'swiper/modules';
+import { Navigation } from 'swiper/modules';
 
 export function initSpecialise() {
     const swiperEl = document.querySelector('.specialise-swiper');
-    if (!swiperEl) return;
 
-    // Only init swiper on desktop (>768px)
-    if (window.innerWidth > 768) {
-        const containerWidth = swiperEl.offsetWidth;
-        const slideWidth = 535;
-        const offset = (containerWidth - slideWidth) / 2;
-
+    if (swiperEl && window.innerWidth > 768) {
+        // spaceBetween is per-breakpoint because each slot size has its own
+        // (slot - inactive_visual)/2 baseline; we offset that to a 20px gap.
         new Swiper(swiperEl, {
-            modules: [Navigation, Mousewheel],
+            modules: [Navigation],
             slidesPerView: 'auto',
-            spaceBetween: 220,
             centeredSlides: true,
-            slidesOffsetBefore: offset,
-            slidesOffsetAfter: offset,
             speed: 500,
+            spaceBetween: -109,   // <=1024 default: slot 600
+            breakpoints: {
+                1025: { spaceBetween: -142 }, // slot 750
+                1281: { spaceBetween: -182 }, // slot 940
+            },
             navigation: {
                 prevEl: '.specialise-prev',
                 nextEl: '.specialise-next',
-            },
-            mousewheel: {
-                forceToAxis: true,
-            },
-            breakpoints: {
-                769: {
-                    spaceBetween: 120,
-                    centeredSlides: true,
-                    slidesPerView: 'auto',
-                    slidesOffsetBefore: 0,
-                    slidesOffsetAfter: 0,
-                },
-                1025: {
-                    spaceBetween: 220,
-                    centeredSlides: true,
-                    slidesOffsetBefore: offset,
-                    slidesOffsetAfter: offset,
-                },
-                1281: {
-                    spaceBetween: 220,
-                    centeredSlides: true,
-                    slidesOffsetBefore: offset,
-                    slidesOffsetAfter: offset,
-                },
             },
         });
     }
@@ -54,7 +28,6 @@ export function initSpecialise() {
     const specialiseTitle = document.querySelector('.specialise-title');
     if (!specialiseTitle) return;
 
-    // Fade in on scroll
     const fadeObserver = new IntersectionObserver(
         (entries) => {
             entries.forEach((entry) => {

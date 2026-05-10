@@ -1,7 +1,7 @@
 @use '../variables' as *;
 
 .specialise {
-    padding: 0px 80px 120px 80px;
+    padding: 0 80px 120px 80px;
     overflow: hidden;
 }
 
@@ -27,11 +27,9 @@
         line-height: 1;
         font-stretch: condensed;
         transition: font-size 0.1s ease-out, margin-top 0.1s ease-out;
+
         &:nth-child(2) {
-            font-family: var(--font-family);
-            font-weight: 500;
             font-size: var(--title-size-2, 126px);
-            color: #000;
             margin-left: 34px;
             margin-top: var(--title-margin, -22px);
         }
@@ -51,38 +49,54 @@
     position: relative;
 }
 
+// --- Slider sizes ---
+// Slot width MATCHES the active card's visual width.
+// Inactive cards scale down via transform; their slot stays at full width.
+// This guarantees layout center === visual center === viewport center.
+$slot-w: 940px;
+$slot-h: 603px;
+$inactive-scale: 0.569; // 535 / 940 — visual width of inactive cards
+
 .specialise-swiper {
     overflow: visible !important;
-    // Fixed height based on active card: 940px * (343/535) ≈ 603px
-    height: 603px;
+    height: $slot-h;
 
     .swiper-wrapper {
         align-items: center;
     }
 
     .swiper-slide {
-        width: auto;
+        width: $slot-w;
+        height: $slot-h;
         display: flex;
         align-items: center;
-        transition: all 0.5s ease;
+        justify-content: center;
+        flex-shrink: 0;
+        // slot itself does not capture clicks — only the card does,
+        // so overlapping slots (negative spaceBetween) don't steal pointer events
+        pointer-events: none;
+    }
+
+    .swiper-slide-active {
+        z-index: 2;
     }
 }
 
 .specialise-card {
     position: relative;
-    display: block;
-    width: 535px;
-    aspect-ratio: 535/343;
-    border-radius: 10px;
+    width: $slot-w;
+    height: $slot-h;
+    border-radius: 30px;
     overflow: hidden;
-    text-decoration: none;
+    transform: scale($inactive-scale);
+    transform-origin: center center;
     transition: transform 0.5s ease, border-radius 0.5s ease;
+    pointer-events: auto;
 
     img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: transform 0.5s ease;
     }
 
     .card-content {
@@ -93,19 +107,20 @@
         justify-content: end;
         align-items: center;
         text-align: center;
-        padding: 34px;
+        padding: 60px;
         background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 100%);
     }
 
     .card-title {
         font-family: var(--font-family);
         font-weight: 400;
-        font-size: 34px;
+        font-size: 60px;
         font-variant: all-small-caps;
         color: #fff;
         font-stretch: semi-condensed;
-        transition: transform 0.4s ease;
-        transform: translateY(80px);
+        opacity: 0;
+        transform: translateY(60px);
+        transition: opacity 0.4s ease, transform 0.4s ease;
     }
 
     .card-btn {
@@ -115,18 +130,17 @@
         background: rgba(0, 0, 0, 0.5);
         font-family: var(--font-family);
         font-weight: 500;
-        font-size: 13px;
+        font-size: 23px;
         font-variant: all-small-caps;
         color: #fff;
-        padding: 14px 24px;
+        padding: 18px 36px 20px;
         font-stretch: semi-condensed;
-        transition: all 0.3s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
-        margin-top: 18px;
+        margin-top: 28px;
         line-height: 1;
-        padding-bottom: 16px;
-        text-decoration: unset;
+        text-decoration: none;
         opacity: 0;
         transform: translateY(20px);
+        transition: background 0.3s ease, color 0.3s ease, opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s;
 
         &:hover {
             background: #d4bbff;
@@ -136,12 +150,11 @@
     }
 }
 
-// Active slide styles (scale: 940/535 ≈ 1.757)
 .swiper-slide-active .specialise-card {
-    border-radius: 17px; // 30px / 1.757
-    transform: scale(1.757);
+    transform: scale(1);
 
     .card-title {
+        opacity: 1;
         transform: translateY(0);
     }
 
@@ -157,6 +170,8 @@
     gap: 16px;
     margin-top: 40px;
     padding-right: 20px;
+    position: relative;
+    z-index: 3;
 }
 
 .specialise-btn {
@@ -168,14 +183,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
+    transition: background 0.3s ease, border-color 0.3s ease;
 
     svg {
         width: 20px;
         height: 20px;
-        path {
-            transition: all 0.3s ease;
-        }
     }
 
     &:hover {
@@ -184,18 +196,36 @@
     }
 }
 
-// Responsive styles
+// --- Responsive ---
+
+@media (max-width: 1280px) {
+    .specialise-swiper {
+        height: 480px;
+        .swiper-slide {
+            width: 750px;
+            height: 480px;
+        }
+    }
+    .specialise-card {
+        width: 750px;
+        height: 480px;
+        .card-content { padding: 48px; }
+        .card-title { font-size: 48px; }
+        .card-btn { font-size: 19px; padding: 14px 28px 16px; }
+    }
+}
+
 @media (max-width: 1024px) {
     .specialise {
         padding: 0 50px 80px 50px;
     }
-    
+
     .specialise-title {
         margin-bottom: 60px;
-        
+
         span {
             font-size: 140px;
-            
+
             &:nth-child(2) {
                 font-size: 90px;
                 margin-left: 24px;
@@ -203,21 +233,25 @@
             }
         }
     }
-    
+
     .specialise-desc {
         font-size: 18px;
     }
-    
+
     .specialise-swiper {
-        height: 480px;
+        height: 400px;
+        .swiper-slide {
+            width: 600px;
+            height: 400px;
+        }
     }
-    
+
     .specialise-card {
-        width: 400px;
-    }
-    
-    .swiper-slide-active .specialise-card {
-        transform: scale(1.5);
+        width: 600px;
+        height: 400px;
+        .card-content { padding: 36px; }
+        .card-title { font-size: 38px; }
+        .card-btn { font-size: 16px; padding: 12px 24px 14px; }
     }
 }
 
@@ -257,205 +291,37 @@
 
         .swiper-slide {
             width: 100% !important;
+            height: auto;
+            pointer-events: auto;
         }
     }
 
     .specialise-card {
         width: 100%;
+        height: auto;
         aspect-ratio: 343 / 220;
+        transform: none;
 
+        .card-content { padding: 20px; }
         .card-title {
-            font-size: 20px;
-            transform: translateY(0);
-        }
-
-        .card-btn {
-            font-size: 11px;
-            padding: 10px 18px;
+            font-size: 22px;
             opacity: 1;
-            transform: translateY(0);
+            transform: none;
+        }
+        .card-btn {
+            font-size: 12px;
+            padding: 10px 18px 12px;
+            margin-top: 14px;
+            opacity: 1;
+            transform: none;
         }
     }
 
     .swiper-slide-active .specialise-card {
-        transform: scale(1);
-        border-radius: 10px;
+        transform: none;
     }
 
     .specialise-nav {
         display: none;
-    }
-}
-
-@media (max-width: 600px) {
-    .specialise {
-        padding: 0 20px 50px 20px;
-    }
-
-    .specialise-title {
-        margin-bottom: 30px;
-
-        span {
-            font-size: 70px;
-
-            &:nth-child(2) {
-                font-size: 42px;
-                margin-left: 14px;
-                margin-top: -8px;
-            }
-        }
-    }
-
-    .specialise-desc {
-        font-size: 15px;
-    }
-
-    .specialise-swiper {
-        height: 380px;
-    }
-
-    .specialise-card {
-        width: 280px;
-
-        .card-title {
-            font-size: 24px;
-        }
-
-        .card-btn {
-            font-size: 10px;
-            padding: 8px 16px;
-        }
-    }
-
-    .swiper-slide-active .specialise-card {
-        transform: scale(1.35);
-    }
-
-    .specialise-nav {
-        margin-top: 24px;
-    }
-}
-
-@media (max-width: 480px) {
-    .specialise {
-        padding: 0 12px 30px 12px;
-    }
-    
-    .specialise-header {
-        margin-bottom: 24px;
-    }
-    
-    .specialise-title {
-        margin-bottom: 20px;
-        
-        span {
-            font-size: 48px;
-            
-            &:nth-child(2) {
-                font-size: 28px;
-                margin-left: 10px;
-                margin-top: -5px;
-            }
-        }
-    }
-    
-    .specialise-desc {
-        font-size: 14px;
-    }
-    
-    .specialise-swiper {
-        height: auto;
-        overflow: hidden !important;
-    }
-    
-    .specialise-card {
-        width: 100%;
-        aspect-ratio: 296/189;
-        
-        .card-content {
-            padding: 16px;
-        }
-        
-        .card-title {
-            font-size: 16px;
-            transform: translateY(0);
-        }
-        
-        .card-btn {
-            font-size: 10px;
-            padding: 8px 14px;
-            margin-top: 10px;
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    
-    .swiper-slide-active .specialise-card {
-        transform: scale(1);
-        border-radius: 10px;
-    }
-    
-    .specialise-nav {
-        margin-top: 16px;
-        gap: 10px;
-    }
-    
-    .specialise-btn {
-        padding: 6px 14px;
-        
-        svg {
-            width: 16px;
-            height: 16px;
-        }
-    }
-}
-
-@media (max-width: 320px) {
-    .specialise {
-        padding: 0 12px 24px 12px;
-    }
-    
-    .specialise-header {
-        margin-bottom: 20px;
-    }
-    
-    .specialise-title {
-        margin-bottom: 16px;
-        
-        span {
-            font-size: 42px;
-            
-            &:nth-child(2) {
-                font-size: 24px;
-                margin-left: 8px;
-                margin-top: -4px;
-            }
-        }
-    }
-    
-    .specialise-desc {
-        font-size: 12px;
-    }
-    
-    .specialise-card {
-        width: 296px;
-        
-        .card-content {
-            padding: 14px;
-        }
-        
-        .card-title {
-            font-size: 14px;
-        }
-        
-        .card-btn {
-            font-size: 9px;
-            padding: 6px 12px;
-            margin-top: 8px;
-        }
-    }
-    
-    .specialise-nav {
-        margin-top: 12px;
     }
 }
