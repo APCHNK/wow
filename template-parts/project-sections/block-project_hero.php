@@ -1,4 +1,5 @@
 <?php
+$hero_image = get_sub_field('project_hero_image');
 $hero_title = get_sub_field('project_hero_title');
 $hero_desc = get_sub_field('project_hero_desc');
 $categories = get_the_terms(get_the_ID(), 'project_category');
@@ -31,10 +32,8 @@ $category_url = $catalog_post ? get_permalink($catalog_post) : '';
 ?>
 <section class="wedding-project-single-hero">
     <div class="wedding-project-single-img">
-        <?php if (has_post_thumbnail()) : ?>
-            <?php the_post_thumbnail('full'); ?>
-        <?php else : ?>
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/wp.jpg" alt="<?php the_title(); ?>">
+        <?php if (!empty($hero_image) && !empty($hero_image['url'])) : ?>
+            <img src="<?php echo esc_url($hero_image['url']); ?>" alt="<?php echo esc_attr($hero_image['alt'] ?: get_the_title()); ?>">
         <?php endif; ?>
     </div>
     <div class="wedding-project-single-info">

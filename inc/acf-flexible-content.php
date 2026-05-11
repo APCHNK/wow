@@ -227,6 +227,7 @@ function wow_fc_project_layouts() {
             'label' => 'Project Hero',
             'display' => 'block',
             'sub_fields' => [
+                ['key' => 'field_pr_project_hero_image', 'label' => 'Hero Image', 'name' => 'project_hero_image', 'type' => 'image', 'return_format' => 'array', 'preview_size' => 'medium'],
                 ['key' => 'field_pr_project_hero_title', 'label' => 'Hero Title', 'name' => 'project_hero_title', 'type' => 'text'],
                 ['key' => 'field_pr_project_hero_desc', 'label' => 'Hero Description', 'name' => 'project_hero_desc', 'type' => 'textarea', 'rows' => 3],
             ],
