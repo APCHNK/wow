@@ -82,6 +82,7 @@
     opacity: 0;
     transform: translateX(60px);
     transition: opacity 0.8s ease, transform 0.8s ease;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.55), 0 0 4px rgba(255, 255, 255, 0.85);
 
     &.animate {
         opacity: 1;

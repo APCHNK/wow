@@ -25,6 +25,7 @@
     border: none;
     cursor: pointer;
     padding: 5px;
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.85)) drop-shadow(0 0 4px rgba(255, 255, 255, 0.55));
 
     .hamburger {
         width: 30px;
