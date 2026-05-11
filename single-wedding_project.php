@@ -56,10 +56,25 @@ get_header();
         <div class="our-projects-slider">
             <div class="swiper our-projects-swiper">
                 <div class="swiper-wrapper">
-                    <?php while ($related->have_posts()) : $related->the_post(); ?>
+                    <?php while ($related->have_posts()) : $related->the_post();
+                        $hero_img = null;
+                        if (have_rows('project_sections')) {
+                            while (have_rows('project_sections')) { the_row();
+                                if (get_row_layout() === 'project_hero') {
+                                    $img = get_sub_field('project_hero_image');
+                                    if (!empty($img['url'])) {
+                                        $hero_img = $img;
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    ?>
                     <div class="swiper-slide">
                         <a href="<?php echo esc_url(get_permalink()); ?>" class="our-projects-card">
-                            <?php if (has_post_thumbnail()) : ?>
+                            <?php if ($hero_img) : ?>
+                                <img src="<?php echo esc_url($hero_img['url']); ?>" alt="<?php echo esc_attr($hero_img['alt'] ?: get_the_title()); ?>" loading="lazy" decoding="async">
+                            <?php elseif (has_post_thumbnail()) : ?>
                                 <?php the_post_thumbnail('large'); ?>
                             <?php else : ?>
                                 <img src="<?php echo get_template_directory_uri(); ?>/assets/images/a1.png" alt="<?php the_title_attribute(); ?>" loading="lazy" decoding="async">

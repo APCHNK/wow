@@ -813,6 +813,54 @@ add_action('admin_action_wow_cleanup_catalog_terms', function () {
     exit;
 });
 
+// One-shot: set every wedding_project featured image to LogoG5.jpg.
+// Trigger:  /wp-admin/admin.php?action=wow_set_default_thumb
+//           /wp-admin/admin.php?action=wow_set_default_thumb&execute=1
+//           &force=1 overwrites projects that already have a thumbnail
+add_action('admin_action_wow_set_default_thumb', function () {
+    if (!current_user_can('manage_options')) wp_die('Insufficient permissions.');
+    $execute = !empty($_GET['execute']);
+    $force = !empty($_GET['force']);
+
+    $logo_url = 'http://localhost/wow/wp-content/uploads/2026/05/LogoG5.jpg';
+    $attach_id = attachment_url_to_postid($logo_url);
+
+    header('Content-Type: text/html; charset=utf-8');
+    echo '<pre style="font:13px ui-monospace,monospace;padding:16px;background:#f6f7f7;color:#1d2327;">';
+    echo "=== Set default featured image (" . ($execute ? 'EXECUTE' : 'DRY RUN') . ($force ? ', FORCE' : '') . ") ===\n";
+    echo "Image: {$logo_url}\nAttachment ID: " . ($attach_id ?: '(NOT FOUND)') . "\n\n";
+
+    if (!$attach_id) {
+        echo "Cannot resolve attachment from URL — aborting.\n</pre>";
+        exit;
+    }
+
+    $posts = get_posts([
+        'post_type' => ['wedding_project', 'project_catalog'],
+        'post_status' => ['publish', 'draft', 'pending', 'private', 'future'],
+        'posts_per_page' => -1,
+    ]);
+
+    $set = 0; $skipped = 0;
+    foreach ($posts as $p) {
+        $current = (int) get_post_thumbnail_id($p->ID);
+        if ($current && !$force) {
+            echo "  [{$p->post_type}] #{$p->ID} \"{$p->post_title}\" — already has thumb #{$current}, SKIP\n";
+            $skipped++;
+            continue;
+        }
+        echo "  [{$p->post_type}] #{$p->ID} \"{$p->post_title}\" — set thumb #{$attach_id}" . ($current ? " (was #{$current})" : '') . "\n";
+        if ($execute) set_post_thumbnail($p->ID, $attach_id);
+        $set++;
+    }
+
+    echo "\n-> set={$set} skipped={$skipped}\n";
+    echo ($execute ? "Done.\n" : "(dry run — append &execute=1 to apply; &force=1 also overwrites existing thumbs)\n");
+    echo '</pre>';
+    echo '<p><a href="' . esc_url(admin_url('edit.php?post_type=wedding_project')) . '">← Back to Projects</a></p>';
+    exit;
+});
+
 // Bump a stored version so the rewrite rules get flushed whenever we change
 // CPT/taxonomy registration. Cheap on every request (simple option check).
 add_action('init', function () {
