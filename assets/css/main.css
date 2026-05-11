@@ -3171,7 +3171,7 @@ body {
     flex-direction: column;
     position: relative;
     align-items: center;
-    margin-top: 100px;
+    margin-top: 124px;
   }
 }
 
@@ -3269,7 +3269,7 @@ body {
 }
 @media screen and (max-width: 600px) {
   .wedding-project-single-title {
-    top: -25px;
+    top: -55px;
     left: unset;
   }
 }
