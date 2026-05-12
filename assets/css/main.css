@@ -1797,6 +1797,8 @@ body {
 }
 
 .our-projects-title {
+  display: flex;
+  align-items: center;
   font-family: "Noto Sans";
   font-weight: 500;
   font-size: clamp(32px, 5vw, 80px);
@@ -1821,6 +1823,15 @@ body {
 @media screen and (max-width: 480px) {
   .our-projects-title {
     text-align: center;
+  }
+}
+.our-projects-title svg {
+  margin: 0 -25px 0 -20px;
+}
+@media screen and (max-width: 768px) {
+  .our-projects-title svg {
+    width: 80px;
+    margin: 0 -15px 0 -10px;
   }
 }
 

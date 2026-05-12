@@ -16,6 +16,8 @@
 }
 
 .our-projects-title {
+    display: flex;
+    align-items: center;
     font-family: "Noto Sans";
     font-weight: 500;
     font-size: clamp(32px, 5vw, 80px);
@@ -39,6 +41,13 @@
 
     @media screen and (max-width: 480px) {
         text-align: center;
+    }
+    svg{
+        margin: 0 -25px 0 -20px;
+        @media screen and (max-width: 768px) {
+            width: 80px;
+            margin: 0 -15px 0 -10px;
+        }
     }
 }
 
