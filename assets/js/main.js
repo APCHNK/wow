@@ -7089,6 +7089,7 @@ function initWeddingProjects() {
     const heroTitle = document.querySelector('.wedding-projects-hero-title');
     const heroImg = document.querySelector('.wedding-projects-hero-img');
     const heroSubtitle = document.querySelector('.wedding-projects-hero-subtitle');
+    const heroBtn = document.querySelector('.wedding-projects-hero-btn');
 
     if (heroTitle) {
         const spans = heroTitle.querySelectorAll('span');
@@ -7116,6 +7117,12 @@ function initWeddingProjects() {
                             setTimeout(() => {
                                 heroSubtitle.classList.add('animate');
                             }, 600);
+                        }
+
+                        if (heroBtn) {
+                            setTimeout(() => {
+                                heroBtn.classList.add('animate');
+                            }, 800);
                         }
                     }, 800);
 

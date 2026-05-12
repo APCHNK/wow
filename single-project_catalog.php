@@ -17,6 +17,10 @@ while (have_posts()) : the_post();
     $current = get_post();
     $parent  = $current->post_parent ? get_post($current->post_parent) : null;
 
+    $slug_label = static function ($post): string {
+        return ucwords(str_replace('-', ' ', $post->post_name));
+    };
+
     $sections = get_field('category_sections');
     if (!is_array($sections)) $sections = [];
 ?>
@@ -47,8 +51,10 @@ while (have_posts()) : the_post();
                     <svg xmlns="http://www.w3.org/2000/svg" width="10" height="16" viewBox="0 0 10 16" fill="none">
                         <path d="M0.707031 0.707092L7.70703 7.70709L0.707031 14.7071" stroke="black" stroke-width="2"/>
                     </svg>
+                    <span><?php echo esc_html($slug_label($current)); ?></span>
+                <?php else : ?>
+                    <span><?php echo esc_html($current->post_title); ?></span>
                 <?php endif; ?>
-                <span><?php echo esc_html($current->post_title); ?></span>
             </section>
             <?php
         endif;

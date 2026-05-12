@@ -29,6 +29,10 @@ $parent_catalog = ($catalog_post && $catalog_post->post_parent)
     ? get_post($catalog_post->post_parent)
     : null;
 $category_url = $catalog_post ? get_permalink($catalog_post) : '';
+
+$slug_label = static function ($slug): string {
+    return ucwords(str_replace('-', ' ', (string) $slug));
+};
 ?>
 <section class="wedding-project-single-hero">
     <div class="wedding-project-single-img">
@@ -64,13 +68,15 @@ $category_url = $catalog_post ? get_permalink($catalog_post) : '';
             <path d="M0.707031 0.707092L7.70703 7.70709L0.707031 14.7071" stroke="black" stroke-width="2"/>
         </svg>
     <?php endif; ?>
-    <?php if ($category && $category_url) : ?>
-        <a href="<?php echo esc_url($category_url); ?>"><?php echo esc_html($category->name); ?></a>
+    <?php if ($catalog_post && $category_url) : ?>
+        <a href="<?php echo esc_url($category_url); ?>"><?php echo esc_html($slug_label($catalog_post->post_name)); ?></a>
+    <?php elseif ($category && $category_url) : ?>
+        <a href="<?php echo esc_url($category_url); ?>"><?php echo esc_html($slug_label($category->slug)); ?></a>
     <?php else : ?>
         <a href="<?php echo esc_url(get_post_type_archive_link('wedding_project')); ?>">Projects</a>
     <?php endif; ?>
     <svg xmlns="http://www.w3.org/2000/svg" width="10" height="16" viewBox="0 0 10 16" fill="none">
         <path d="M0.707031 0.707092L7.70703 7.70709L0.707031 14.7071" stroke="black" stroke-width="2"/>
     </svg>
-    <span><?php the_title(); ?></span>
+    <span><?php echo esc_html($slug_label(get_post()->post_name)); ?></span>
 </section>

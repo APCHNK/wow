@@ -52,7 +52,7 @@ get_header();
     if ($related->have_posts()) :
     ?>
     <section class="our-projects">
-        <h2 class="our-projects-title">Our Projects</h2>
+        <h2 class="our-projects-title">Our WOW Projects</h2>
         <div class="our-projects-slider">
             <div class="swiper our-projects-swiper">
                 <div class="swiper-wrapper">

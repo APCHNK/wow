@@ -95,6 +95,39 @@
     }
 }
 
+.wedding-projects-hero-bottom {
+    position: absolute;
+    bottom: 58px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+
+    @media screen and (max-width: 1024px) {
+        bottom: 30px;
+        gap: 20px;
+    }
+    @media screen and (max-width: 768px) {
+        bottom: 30px;
+        gap: 16px;
+    }
+    @media screen and (max-width: 480px) {
+        bottom: 10px;
+        gap: 10px;
+            .wedding-projects-hero-btn{
+                .footer-btn-icon{
+                    width: 25px;
+                    height: 25px;
+                }
+            }
+    }
+    
+}
+
 .wedding-projects-hero-subtitle {
     color: #FFF;
     font-family: "Noto Sans";
@@ -104,10 +137,6 @@
     line-height: normal;
     text-align: center;
     font-stretch: condensed;
-    position: absolute;
-    z-index: 2;
-    margin-top: 20px;
-    bottom: 86px;
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.8s ease, transform 0.8s ease;
@@ -118,16 +147,42 @@
     }
     @media screen and (max-width: 1024px) {
         font-size: 3vw;
-        
     }
     @media screen and (max-width: 768px) {
         font-size: 3vw;
-        bottom: 40px;
     }
     @media screen and (max-width: 480px) {
-        bottom: 12px;
         font-size: 3vw;
+    }
+}
 
+.wedding-projects-hero-btn {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+
+    &.animate {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    @media screen and (max-width: 480px) {
+        padding: 3px 20px 3px 5px;
+        gap: 8px;
+
+        .footer-btn-icon {
+            width: 36px;
+            height: 36px;
+
+            svg {
+                width: 36px;
+                height: 36px;
+            }
+        }
+
+        span:last-child {
+            font-size: 11px;
+        }
     }
 }
 

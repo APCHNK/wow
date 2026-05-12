@@ -2880,6 +2880,41 @@ body {
   }
 }
 
+.wedding-projects-hero-bottom {
+  position: absolute;
+  bottom: 58px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+}
+@media screen and (max-width: 1024px) {
+  .wedding-projects-hero-bottom {
+    bottom: 30px;
+    gap: 20px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .wedding-projects-hero-bottom {
+    bottom: 30px;
+    gap: 16px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .wedding-projects-hero-bottom {
+    bottom: 10px;
+    gap: 10px;
+  }
+  .wedding-projects-hero-bottom .wedding-projects-hero-btn .footer-btn-icon {
+    width: 25px;
+    height: 25px;
+  }
+}
+
 .wedding-projects-hero-subtitle {
   color: #FFF;
   font-family: "Noto Sans";
@@ -2889,10 +2924,6 @@ body {
   line-height: normal;
   text-align: center;
   font-stretch: condensed;
-  position: absolute;
-  z-index: 2;
-  margin-top: 20px;
-  bottom: 86px;
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.8s ease, transform 0.8s ease;
@@ -2909,13 +2940,38 @@ body {
 @media screen and (max-width: 768px) {
   .wedding-projects-hero-subtitle {
     font-size: 3vw;
-    bottom: 40px;
   }
 }
 @media screen and (max-width: 480px) {
   .wedding-projects-hero-subtitle {
-    bottom: 12px;
     font-size: 3vw;
+  }
+}
+
+.wedding-projects-hero-btn {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.wedding-projects-hero-btn.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media screen and (max-width: 480px) {
+  .wedding-projects-hero-btn {
+    padding: 3px 20px 3px 5px;
+    gap: 8px;
+  }
+  .wedding-projects-hero-btn .footer-btn-icon {
+    width: 36px;
+    height: 36px;
+  }
+  .wedding-projects-hero-btn .footer-btn-icon svg {
+    width: 36px;
+    height: 36px;
+  }
+  .wedding-projects-hero-btn span:last-child {
+    font-size: 11px;
   }
 }
 
@@ -3305,7 +3361,7 @@ body {
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-  text-transform: uppercase;
+  text-transform: lowercase;
   text-decoration: none;
   transition: opacity 0.3s ease;
   display: inline-flex;
@@ -3746,6 +3802,7 @@ body {
 .faq-hero .wedding-projects-breadcrumb {
   justify-content: center;
   padding: 20px 0;
+  display: none;
 }
 @media screen and (max-width: 480px) {
   .faq-hero .wedding-projects-breadcrumb {

@@ -35,6 +35,7 @@ color: #000;
 .faq-hero .wedding-projects-breadcrumb {
     justify-content: center;
     padding: 20px 0;
+    display: none;
     @media screen and (max-width: 480px) {
         padding-top: 8px;
     }
