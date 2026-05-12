@@ -1823,6 +1823,7 @@ body {
 @media screen and (max-width: 480px) {
   .our-projects-title {
     text-align: center;
+    justify-content: center;
   }
 }
 .our-projects-title svg {
