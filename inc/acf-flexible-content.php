@@ -169,8 +169,6 @@ function wow_fc_common_layouts($prefix) {
             'sub_fields' => [
                 ['key' => 'field_' . $p . '_archive_hero_title', 'label' => 'Title', 'name' => 'archive_hero_title', 'type' => 'text', 'instructions' => 'Use [wow_diamond] shortcode to insert decorative diamond'],
                 ['key' => 'field_' . $p . '_archive_hero_subtitle', 'label' => 'Subtitle', 'name' => 'archive_hero_subtitle', 'type' => 'text'],
-                ['key' => 'field_' . $p . '_archive_hero_btn_text', 'label' => 'Button Text', 'name' => 'archive_hero_btn_text', 'type' => 'text'],
-                ['key' => 'field_' . $p . '_archive_hero_btn_link', 'label' => 'Button Link', 'name' => 'archive_hero_btn_link', 'type' => 'url'],
                 ['key' => 'field_' . $p . '_archive_hero_image', 'label' => 'Image', 'name' => 'archive_hero_image', 'type' => 'image', 'return_format' => 'url', 'preview_size' => 'medium'],
             ],
         ],
