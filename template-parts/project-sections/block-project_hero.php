@@ -37,7 +37,7 @@ $slug_label = static function ($slug): string {
 <section class="wedding-project-single-hero">
     <div class="wedding-project-single-img">
         <?php if (!empty($hero_image) && !empty($hero_image['url'])) : ?>
-            <img src="<?php echo esc_url($hero_image['url']); ?>" alt="<?php echo esc_attr($hero_image['alt'] ?: get_the_title()); ?>">
+            <img src="<?php echo esc_url($hero_image['url']); ?>" alt="<?php echo esc_attr(wow_alt($hero_image['alt'] ?? '', $hero_title, get_the_title())); ?>">
         <?php endif; ?>
     </div>
     <div class="wedding-project-single-info">

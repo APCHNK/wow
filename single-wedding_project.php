@@ -73,11 +73,11 @@ get_header();
                     <div class="swiper-slide">
                         <a href="<?php echo esc_url(get_permalink()); ?>" class="our-projects-card">
                             <?php if ($hero_img) : ?>
-                                <img src="<?php echo esc_url($hero_img['url']); ?>" alt="<?php echo esc_attr($hero_img['alt'] ?: get_the_title()); ?>" loading="lazy" decoding="async">
+                                <img src="<?php echo esc_url($hero_img['url']); ?>" alt="<?php echo esc_attr(wow_alt($hero_img['alt'] ?? '', get_the_title(), 'Wedding project')); ?>" loading="lazy" decoding="async">
                             <?php elseif (has_post_thumbnail()) : ?>
-                                <?php the_post_thumbnail('large'); ?>
+                                <?php the_post_thumbnail('large', ['alt' => esc_attr(wow_alt(get_the_title(), 'Wedding project'))]); ?>
                             <?php else : ?>
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/a1.png" alt="<?php the_title_attribute(); ?>" loading="lazy" decoding="async">
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/a1.png" alt="<?php echo esc_attr(wow_alt(get_the_title(), 'Wedding project')); ?>" loading="lazy" decoding="async">
                             <?php endif; ?>
                             <div class="our-projects-card-content">
                                 <h3 class="our-projects-card-title"><?php the_title(); ?></h3>

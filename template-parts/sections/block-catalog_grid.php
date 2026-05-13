@@ -26,11 +26,14 @@ function wow_catalog_card($image_url, $thumb_html, $link, $title, $country, $des
     ?>
     <div class="project">
         <div class="project-img">
+            <?php
+                $card_alt = wow_alt(trim((string) $alt . ' ' . (string) $country), $title, 'Wedding project');
+            ?>
             <?php if ($image_url) : ?>
-                <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($alt); ?>" loading="lazy" decoding="async">
+                <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($card_alt); ?>" loading="lazy" decoding="async">
             <?php elseif ($thumb_html) : echo $thumb_html;
             else : ?>
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/p1.jpg" alt="" loading="lazy" decoding="async">
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/p1.jpg" alt="<?php echo esc_attr($card_alt); ?>" loading="lazy" decoding="async">
             <?php endif; ?>
         </div>
         <div class="project-info">

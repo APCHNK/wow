@@ -27,7 +27,7 @@ get_header();
             ?>
         </div>
         <div class="wedding-projects-hero-subtitle"><?php echo esc_html($fallback_subtitle); ?></div>
-        <div class="wedding-projects-hero-img"><img src="<?php echo esc_url($fallback_image); ?>" alt=""></div>
+        <div class="wedding-projects-hero-img"><img src="<?php echo esc_url($fallback_image); ?>" alt="<?php echo esc_attr(wow_alt(str_replace('[wow_diamond]', '', $fallback_title), 'Wedding projects')); ?>"></div>
     </section>
 
     <section class="wedding-projects-breadcrumb">

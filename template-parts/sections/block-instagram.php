@@ -24,11 +24,16 @@ $instagram_link = wow_field('instagram_link') ?: '#';
                 <?php
                 $instagram_photos = wow_get_instagram_photos(12);
                 if (!empty($instagram_photos)) :
-                    foreach ($instagram_photos as $photo) :
+                    foreach ($instagram_photos as $idx => $photo) :
+                        $photo_alt = wow_alt(
+                            $photo['caption'] ?? '',
+                            $photo['alt'] ?? '',
+                            $instagram_title . ' — post ' . ($idx + 1)
+                        );
                 ?>
                 <div class="swiper-slide">
                     <a href="<?php echo esc_url($photo['link']); ?>" class="instagram-card" target="_blank" rel="noopener">
-                        <img src="<?php echo esc_url($photo['url']); ?>" alt="Instagram" loading="lazy">
+                        <img src="<?php echo esc_url($photo['url']); ?>" alt="<?php echo esc_attr($photo_alt); ?>" loading="lazy">
                     </a>
                 </div>
                 <?php
@@ -38,7 +43,7 @@ $instagram_link = wow_field('instagram_link') ?: '#';
                 ?>
                 <div class="swiper-slide">
                     <a href="#" class="instagram-card">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/i<?php echo $i; ?>.jpg" alt="Instagram" loading="lazy" decoding="async">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/i<?php echo $i; ?>.jpg" alt="<?php echo esc_attr(wow_alt($instagram_title . ' — photo ' . $i)); ?>" loading="lazy" decoding="async">
                     </a>
                 </div>
                 <?php

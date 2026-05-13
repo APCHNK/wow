@@ -32,9 +32,9 @@ $gallery = get_sub_field('project_gallery');
                         </a>
                     </div>
                 </div>
-                <?php foreach ($gallery as $image) : ?>
+                <?php foreach ($gallery as $index => $image) : ?>
                 <div class="swiper-slide">
-                    <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" loading="lazy" decoding="async">
+                    <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr(wow_alt($image['alt'] ?? '', $image['caption'] ?? '', $image['title'] ?? '', get_the_title() . ' — photo ' . ($index + 1))); ?>" loading="lazy" decoding="async">
                 </div>
                 <?php endforeach; ?>
             </div>

@@ -450,3 +450,28 @@ function wow_resolve_link($value) {
     }
     return $value; // treat as plain URL (legacy)
 }
+
+/**
+ * Normalize an image alt string.
+ *
+ * Card titles in ACF are often written as fragments like "Event Management in"
+ * or "Hostess in" — the trailing preposition reads naturally in the layout but
+ * produces a dangling alt ("Image: Event Management in") for screen readers
+ * and text-only views. We trim trailing connector words and fall back to the
+ * provided context when the result is empty.
+ */
+function wow_alt($value, ...$fallbacks) {
+    $clean = static function ($s) {
+        $s = trim(wp_strip_all_tags((string) $s));
+        $s = preg_replace('/\s+(in|at|for|of|on|with|by|to|the|a|an|and|or)\s*$/i', '', $s);
+        $s = preg_replace('/\s+/', ' ', $s);
+        return trim($s);
+    };
+    $out = $clean($value);
+    if ($out !== '') return $out;
+    foreach ($fallbacks as $fb) {
+        $out = $clean($fb);
+        if ($out !== '') return $out;
+    }
+    return '';
+}

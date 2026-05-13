@@ -22,7 +22,7 @@ $happen_slides = wow_field('happen_slides');
                     <?php foreach ($happen_slides as $slide) : ?>
                 <div class="swiper-slide">
                     <div class="happen-card">
-                        <img src="<?php echo esc_url($slide['image']['url']); ?>" alt="<?php echo esc_attr($slide['title']); ?>" loading="lazy" decoding="async">
+                        <img src="<?php echo esc_url($slide['image']['url']); ?>" alt="<?php echo esc_attr(wow_alt(trim(($slide['title'] ?? '') . ' ' . ($slide['country'] ?? '')), $slide['image']['alt'] ?? '', 'Make it happen')); ?>" loading="lazy" decoding="async">
                         <div class="happen-card-content">
                             <span class="happen-card-country"><?php echo esc_html($slide['country']); ?></span>
                             <h3 class="happen-card-title"><?php echo esc_html($slide['title']); ?></h3>
@@ -41,7 +41,7 @@ $happen_slides = wow_field('happen_slides');
                         foreach ($fallback_happen as $item) : ?>
                 <div class="swiper-slide">
                     <div class="happen-card">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/<?php echo $item['img']; ?>" alt="<?php echo $item['title']; ?>" loading="lazy" decoding="async">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/<?php echo $item['img']; ?>" alt="<?php echo esc_attr(wow_alt($item['title'] . ' ' . $item['country'])); ?>" loading="lazy" decoding="async">
                         <div class="happen-card-content">
                             <span class="happen-card-country"><?php echo $item['country']; ?></span>
                             <h3 class="happen-card-title"><?php echo $item['title']; ?></h3>

@@ -1,5 +1,5 @@
 import Swiper from 'swiper';
-import { Navigation } from 'swiper/modules';
+import { Navigation, Mousewheel } from 'swiper/modules';
 
 export function initSpecialise() {
     const swiperEl = document.querySelector('.specialise-swiper');
@@ -8,11 +8,17 @@ export function initSpecialise() {
         // spaceBetween is per-breakpoint because each slot size has its own
         // (slot - inactive_visual)/2 baseline; we offset that to a 20px gap.
         new Swiper(swiperEl, {
-            modules: [Navigation],
+            modules: [Navigation, Mousewheel],
             slidesPerView: 'auto',
             centeredSlides: true,
             speed: 500,
             spaceBetween: -109,   // <=1024 default: slot 600
+            grabCursor: true,
+            // Touch swipe is on by default; widen the touch area so drags
+            // started over the transparent slot gap (pointer-events:none on
+            // .swiper-slide) still register on the wrapper.
+            touchEventsTarget: 'wrapper',
+            threshold: 5,
             breakpoints: {
                 1025: { spaceBetween: -142 }, // slot 750
                 1281: { spaceBetween: -182 }, // slot 940
@@ -20,6 +26,9 @@ export function initSpecialise() {
             navigation: {
                 prevEl: '.specialise-prev',
                 nextEl: '.specialise-next',
+            },
+            mousewheel: {
+                forceToAxis: true,
             },
         });
     }

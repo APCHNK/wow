@@ -70,7 +70,7 @@ function wow_get_instagram_photos($count = 12) {
         return array_slice($photos, 0, $count);
     }
 
-    $url = 'https://graph.instagram.com/me/media?fields=id,media_type,media_url,permalink,thumbnail_url&access_token=' . $token;
+    $url = 'https://graph.instagram.com/me/media?fields=id,media_type,media_url,permalink,thumbnail_url,caption&access_token=' . $token;
     $response = wp_remote_get($url);
 
     if (is_wp_error($response)) {
@@ -86,15 +86,27 @@ function wow_get_instagram_photos($count = 12) {
 
     $photos = [];
     foreach ($data['data'] as $item) {
+        // Caption is used as alt text; trim to the first sentence/line so the
+        // alt stays short for screen readers and text-only views.
+        $caption = trim((string) ($item['caption'] ?? ''));
+        if ($caption !== '') {
+            $first_line = strtok($caption, "\r\n");
+            $caption = $first_line !== false ? $first_line : $caption;
+            if (mb_strlen($caption) > 120) {
+                $caption = rtrim(mb_substr($caption, 0, 117)) . '…';
+            }
+        }
         if ($item['media_type'] === 'IMAGE' || $item['media_type'] === 'CAROUSEL_ALBUM') {
             $photos[] = [
                 'url' => $item['media_url'],
                 'link' => $item['permalink'],
+                'caption' => $caption,
             ];
         } elseif ($item['media_type'] === 'VIDEO' && !empty($item['thumbnail_url'])) {
             $photos[] = [
                 'url' => $item['thumbnail_url'],
                 'link' => $item['permalink'],
+                'caption' => $caption,
             ];
         }
     }

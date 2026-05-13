@@ -36,14 +36,27 @@
     margin: 0 auto;
     border-radius: 40px;
     overflow: hidden;
+    // Force a composited layer so the rounded-corner clip is rasterised together
+    // with its contents — without this the AA edge samples whatever sits behind
+    // the wrapper and shows up as a faint halo on contrasting video frames.
+    transform: translateZ(0);
     transition: width 0.1s ease-out, border-radius 0.1s ease-out;
     video, mux-player {
         display: block;
         width: 100%;
         height: 75vh;
         object-fit: cover;
+        // Match the wrapper radius on the inner element too: the AA pixels
+        // along the curve sample the video instead of the wrapper background.
+        border-radius: inherit;
+        border: 0;
+        outline: 0;
+        background: transparent;
         --controls: none;
         --media-object-fit: cover;
+        --media-border: 0;
+        --media-outline: 0;
+        --controls-backdrop-color: transparent;
     }
 }
 

@@ -29,7 +29,7 @@ $specialise_desc = wow_field('specialise_desc') ?: 'From concept to execution â€
                 <div class="swiper-slide">
                     <div class="specialise-card">
                         <?php if ($image) : ?>
-                            <img src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr($title); ?>">
+                            <img src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr(wow_alt($title, 'What we specialise in')); ?>">
                         <?php endif; ?>
                         <div class="card-content">
                             <h3 class="card-title"><?php echo esc_html($title); ?></h3>

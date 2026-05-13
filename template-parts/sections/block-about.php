@@ -50,9 +50,9 @@ $separator = '<span class="marquee-separator"><i></i><i></i><i></i><i></i><i></i
                 </div>
                 <?php endif; ?>
                 <?php if (!empty($about_gallery)) : ?>
-                    <?php foreach ($about_gallery as $image) : ?>
+                    <?php foreach ($about_gallery as $index => $image) : ?>
                 <div class="swiper-slide slide-image">
-                    <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" loading="lazy" decoding="async">
+                    <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr(wow_alt($image['alt'] ?? '', $image['title'] ?? '', trim($about_title_1 . ' ' . $about_title_2) . ' — photo ' . ($index + 1))); ?>" loading="lazy" decoding="async">
                 </div>
                     <?php endforeach; ?>
                 <?php else : ?>

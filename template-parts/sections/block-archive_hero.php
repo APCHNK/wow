@@ -39,6 +39,13 @@ if (!$image) $image = get_template_directory_uri() . '/assets/images/wp.jpg';
             </a>
     </div>
     <div class="wedding-projects-hero-img">
-        <img src="<?php echo esc_url($image); ?>" alt="">
+        <?php
+            $hero_alt = wow_alt(
+                wp_strip_all_tags(str_replace('[wow_diamond]', '', $title)),
+                $subtitle,
+                'Wedding projects'
+            );
+        ?>
+        <img src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr($hero_alt); ?>">
     </div>
 </section>
