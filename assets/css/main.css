@@ -960,11 +960,11 @@ body {
     margin-bottom: 40px;
   }
   .specialise-title span {
-    font-size: 90px;
+    font-size: 70px;
   }
   .specialise-title span:nth-child(2) {
-    font-size: 55px;
-    margin-left: 18px;
+    font-size: 45px;
+    margin-left: 0px;
     margin-top: -10px;
   }
   .specialise-desc {
