@@ -105,7 +105,7 @@ body {
   text-transform: uppercase;
   transition: color 0.3s ease;
   font-family: var(--font-family);
-  font-weight: 300;
+  font-weight: 400;
   font-size: 20px;
   font-variant: all-small-caps;
   color: #000;
@@ -337,7 +337,7 @@ body {
 }
 .nav-item .nav-title {
   font-family: var(--font-family);
-  font-weight: 300;
+  font-weight: 400;
   font-size: 52px;
   font-stretch: condensed;
   color: #fff;
@@ -421,7 +421,7 @@ body {
 }
 .contact-item .contact-value {
   font-family: var(--font-family);
-  font-weight: 400;
+  font-weight: 500;
   font-size: 16px;
   color: rgba(255, 255, 255, 0.8);
   opacity: 0.8;
@@ -591,7 +591,7 @@ body {
 
 .hero-subtitle {
   font-family: var(--font-family);
-  font-weight: 300;
+  font-weight: 400;
   font-size: 32px;
   color: #000;
   font-stretch: condensed;
@@ -753,7 +753,7 @@ body {
 
 .specialise-desc {
   font-family: var(--font-family);
-  font-weight: 400;
+  font-weight: 500;
   font-size: 22px;
   text-align: center;
   color: #191919;
@@ -813,7 +813,7 @@ body {
 }
 .specialise-card .card-title {
   font-family: var(--font-family);
-  font-weight: 400;
+  font-weight: 500;
   font-size: 60px;
   font-variant: all-small-caps;
   color: #fff;
@@ -1088,7 +1088,7 @@ body {
 
 .marquee-text {
   font-family: var(--font-family);
-  font-weight: 400;
+  font-weight: 500;
   font-size: 40px;
   font-variant: all-small-caps;
   color: #191919;
@@ -1123,7 +1123,7 @@ body {
 }
 .about-text-mobile p {
   font-family: var(--font-family);
-  font-weight: 300;
+  font-weight: 400;
   font-size: 12px;
   color: #000;
   font-stretch: semi-condensed;
@@ -1157,7 +1157,7 @@ body {
 }
 .slide-text .about-text p {
   font-family: var(--font-family);
-  font-weight: 300;
+  font-weight: 400;
   font-size: 18px;
   color: #000;
   font-stretch: semi-condensed;
@@ -1464,7 +1464,7 @@ body {
 
 .happen-title-text {
   font-family: var(--third-family);
-  font-weight: 400;
+  font-weight: 500;
   font-size: 103px;
   color: #000;
   white-space: nowrap;
@@ -1502,7 +1502,7 @@ body {
 }
 .happen-desc {
   font-family: var(--font-family);
-  font-weight: 300;
+  font-weight: 400;
   font-size: 18px;
   color: #000;
   max-width: 706px;
@@ -1584,7 +1584,7 @@ body {
 .happen-card-country {
   display: block;
   font-family: var(--font-family);
-  font-weight: 400;
+  font-weight: 500;
   font-size: 12px;
   color: #fff;
   margin-bottom: 8px;
@@ -1594,7 +1594,7 @@ body {
 
 .happen-card-title {
   font-family: var(--font-family);
-  font-weight: 300;
+  font-weight: 400;
   font-size: 24px;
   color: #fff;
   text-transform: uppercase;
@@ -1951,7 +1951,7 @@ body {
 
 .our-projects-card-title {
   font-family: "Noto Sans";
-  font-weight: 300;
+  font-weight: 400;
   font-size: clamp(12px, 1.2vw, 18px);
   color: #fff;
   text-transform: uppercase;
@@ -2062,7 +2062,7 @@ body {
 
 .instagram-desc {
   font-family: var(--font-family);
-  font-weight: 300;
+  font-weight: 400;
   font-size: 18px;
   color: #000;
   font-stretch: semi-condensed;
@@ -2319,7 +2319,7 @@ body {
 
 .dream-title {
   font-family: var(--font-family);
-  font-weight: 300;
+  font-weight: 400;
   font-size: 62px;
   line-height: 100%;
   font-variant: all-small-caps;
@@ -2330,7 +2330,7 @@ body {
 
 .dream-desc {
   font-family: var(--font-family);
-  font-weight: 400;
+  font-weight: 500;
   font-size: 18px;
   color: #fff;
   opacity: 0.8;
@@ -2496,7 +2496,7 @@ body {
     grid-area: desc;
     font-family: "Noto Sans", sans-serif;
     font-size: 12px;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 16px;
     margin-top: 24px;
     padding-left: 12px;
@@ -2520,7 +2520,7 @@ body {
   }
   .dream-desc {
     font-size: 12px;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 16px;
     margin-top: 20px;
   }
@@ -2542,7 +2542,7 @@ body {
 
 .footer-title {
   font-family: var(--font-family);
-  font-weight: 300;
+  font-weight: 400;
   font-size: 62px;
   line-height: 100%;
   font-variant: all-small-caps;
@@ -2609,7 +2609,7 @@ body {
 
 .footer-link {
   font-family: var(--font-family);
-  font-weight: 400;
+  font-weight: 500;
   font-size: 16px;
   color: rgba(255, 255, 255, 0.8);
   opacity: 0.8;
@@ -2932,7 +2932,7 @@ body {
   font-family: "Noto Sans";
   font-size: 32px;
   font-style: normal;
-  font-weight: 300;
+  font-weight: 400;
   line-height: normal;
   text-align: center;
   font-stretch: condensed;
@@ -3188,7 +3188,7 @@ body {
   font-family: "Noto Sans";
   font-size: clamp(12px, 0.94vw, 18px);
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.6;
   font-stretch: condensed;
 }
@@ -3348,7 +3348,7 @@ body {
   font-family: "Noto Sans";
   font-size: clamp(12px, 0.94vw, 18px);
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.6;
   font-stretch: condensed;
   opacity: 0;
@@ -3430,7 +3430,7 @@ body {
   font-family: "Noto Sans";
   font-size: clamp(12px, 0.94vw, 18px);
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.6;
   font-stretch: condensed;
   max-height: 0;
@@ -3566,7 +3566,7 @@ body {
   font-family: "Noto Sans";
   font-size: clamp(12px, 0.94vw, 18px);
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.6;
   font-stretch: condensed;
   opacity: 0;
@@ -3717,7 +3717,7 @@ body {
   padding: 40px 144px;
   font-family: "Noto Sans";
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -3901,7 +3901,7 @@ body {
 }
 .faq-answer p {
   font-family: "Noto Sans";
-  font-weight: 400;
+  font-weight: 500;
   font-size: clamp(12px, 0.94vw, 16px);
   color: #000;
   line-height: 1.6;

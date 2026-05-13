@@ -69,7 +69,7 @@
 
 .dream-title {
     font-family: var(--font-family);
-    font-weight: 300;
+    font-weight: 400;
     font-size: 62px;
     line-height: 100%;
     font-variant: all-small-caps;
@@ -80,7 +80,7 @@
 
 .dream-desc {
     font-family: var(--font-family);
-    font-weight: 400;
+    font-weight: 500;
     font-size: 18px;
     color: #fff;
     opacity: 0.8;
@@ -276,7 +276,7 @@
         grid-area: desc;
         font-family: 'Noto Sans', sans-serif;
         font-size: 12px;
-        font-weight: 300;
+        font-weight: 400;
         line-height: 16px;
         margin-top: 24px;
         padding-left: 12px;
@@ -309,7 +309,7 @@
     
     .dream-desc {
         font-size: 12px;
-        font-weight: 300;
+        font-weight: 400;
         line-height: 16px;
         margin-top: 20px;
     }
