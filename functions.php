@@ -886,8 +886,11 @@ add_action('init', function () {
 // Disable admin bar on frontend
 add_filter('show_admin_bar', '__return_false');
 
-// Redirect empty pages (404, or a Page/CPT with no ACF page_sections and no
+// Redirect empty pages (404, or a Page/CPT with no ACF sections and no
 // post_content) to the home page so visitors never land on a blank screen.
+// Each post type stores its sections in a different ACF flexible field
+// (page_sections / category_sections / project_sections), so we look up the
+// right field per post type.
 add_action('template_redirect', function () {
     if (is_admin() || is_preview() || is_robots() || is_feed()) return;
     if (is_front_page() || is_home()) return;
@@ -899,8 +902,17 @@ add_action('template_redirect', function () {
     } elseif (is_singular()) {
         $post = get_queried_object();
         if ($post instanceof WP_Post) {
-            $has_sections = function_exists('have_rows') && have_rows('page_sections', $post->ID);
-            $has_content = trim(strip_tags((string) $post->post_content)) !== '';
+            $section_field_by_type = [
+                'page'            => 'page_sections',
+                'project_catalog' => 'category_sections',
+                'wedding_project' => 'project_sections',
+            ];
+            $field = $section_field_by_type[$post->post_type] ?? null;
+
+            $sections = $field && function_exists('get_field') ? get_field($field, $post->ID) : null;
+            $has_sections = is_array($sections) && !empty($sections);
+            $has_content  = trim(strip_tags((string) $post->post_content)) !== '';
+
             if (!$has_sections && !$has_content) {
                 $should_redirect = true;
             }
