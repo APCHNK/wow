@@ -886,6 +886,33 @@ add_action('init', function () {
 // Disable admin bar on frontend
 add_filter('show_admin_bar', '__return_false');
 
+// Redirect empty pages (404, or a Page/CPT with no ACF page_sections and no
+// post_content) to the home page so visitors never land on a blank screen.
+add_action('template_redirect', function () {
+    if (is_admin() || is_preview() || is_robots() || is_feed()) return;
+    if (is_front_page() || is_home()) return;
+
+    $should_redirect = false;
+
+    if (is_404()) {
+        $should_redirect = true;
+    } elseif (is_singular()) {
+        $post = get_queried_object();
+        if ($post instanceof WP_Post) {
+            $has_sections = function_exists('have_rows') && have_rows('page_sections', $post->ID);
+            $has_content = trim(strip_tags((string) $post->post_content)) !== '';
+            if (!$has_sections && !$has_content) {
+                $should_redirect = true;
+            }
+        }
+    }
+
+    if ($should_redirect) {
+        wp_safe_redirect(home_url('/'), 302);
+        exit;
+    }
+});
+
 // ---------------------------------------------------------------------------
 // Duplicate-post row action (pages, projects, catalogs).
 // ---------------------------------------------------------------------------
