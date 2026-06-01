@@ -189,6 +189,29 @@ add_filter('pll_get_post_types', function ($post_types, $is_settings) {
 }, 10, 2);
 
 /* ------------------------------------------------------------------------- *
+ * Keep a translation's slug identical to its source.
+ *
+ * A post in a non-default language should reuse the SAME slug as its source
+ * post — Polylang's /<lang>/ URL prefix already makes it unique per language.
+ * Without this, wp_unique_post_slug (and the theme's catalog-aware slug filter)
+ * append "-2" every time the translation is saved/published. Runs last (99) so
+ * it has the final say over other wp_unique_post_slug filters.
+ * ------------------------------------------------------------------------- */
+add_filter('wp_unique_post_slug', function ($slug, $post_id, $post_status, $post_type, $post_parent, $original_slug) {
+    if (!function_exists('pll_get_post_language') || !function_exists('pll_default_language')) {
+        return $slug;
+    }
+    if (!in_array($post_type, wow_pll_translatable_post_types(), true)) {
+        return $slug;
+    }
+    $lang = pll_get_post_language($post_id);
+    if ($lang && $lang !== pll_default_language() && $original_slug !== '') {
+        return $original_slug; // translations keep the exact requested slug, no -N suffix
+    }
+    return $slug;
+}, 99, 6);
+
+/* ------------------------------------------------------------------------- *
  * 5. Seed a new translation with the source post's content.
  *
  *    Polylang can't list ACF Flexible Content meta keys in wpml-config.xml
