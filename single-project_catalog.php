@@ -42,7 +42,7 @@ while (have_posts()) : the_post();
             $hero_done = true;
             ?>
             <section class="wedding-projects-breadcrumb">
-                <a href="<?php echo home_url(); ?>">Main</a>
+                <a href="<?php echo home_url(); ?>"><?php pll_e('Main'); ?></a>
                 <svg xmlns="http://www.w3.org/2000/svg" width="10" height="16" viewBox="0 0 10 16" fill="none">
                     <path d="M0.707031 0.707092L7.70703 7.70709L0.707031 14.7071" stroke="black" stroke-width="2"/>
                 </svg>
@@ -51,7 +51,7 @@ while (have_posts()) : the_post();
                     <svg xmlns="http://www.w3.org/2000/svg" width="10" height="16" viewBox="0 0 10 16" fill="none">
                         <path d="M0.707031 0.707092L7.70703 7.70709L0.707031 14.7071" stroke="black" stroke-width="2"/>
                     </svg>
-                    <span><?php echo esc_html($slug_label($current)); ?></span>
+                    <span><?php echo esc_html($current->post_title); ?></span>
                 <?php else : ?>
                     <span><?php echo esc_html($current->post_title); ?></span>
                 <?php endif; ?>

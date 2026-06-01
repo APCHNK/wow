@@ -27,7 +27,7 @@ function wow_catalog_card($image_url, $thumb_html, $link, $title, $country, $des
     <div class="project">
         <div class="project-img">
             <?php
-                $card_alt = wow_alt(trim((string) $alt . ' ' . (string) $country), $title, 'Wedding project');
+                $card_alt = wow_alt(trim((string) $alt . ' ' . (string) $country), $title, pll__('Wedding project'));
             ?>
             <?php if ($image_url) : ?>
                 <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($card_alt); ?>" loading="lazy" decoding="async">
@@ -54,7 +54,7 @@ function wow_catalog_card($image_url, $thumb_html, $link, $title, $country, $des
                 </div>
             </div>
             <?php endif; ?>
-            <a href="<?php echo esc_url($link); ?>" class="project-link"><?php echo esc_html($button_text !== '' ? $button_text : 'Show more'); ?></a>
+            <a href="<?php echo esc_url($link); ?>" class="project-link"><?php echo esc_html($button_text !== '' ? $button_text : pll__('Show more')); ?></a>
         </div>
     </div>
     <?php
@@ -96,7 +96,7 @@ function wow_catalog_card($image_url, $thumb_html, $link, $title, $country, $des
             if (!empty($children)) {
                 foreach ($children as $child) {
                     $thumb = get_the_post_thumbnail($child->ID, 'large');
-                    wow_catalog_card('', $thumb, get_permalink($child), $child->post_title, '', [], 'Show more', $country_svg, $child->post_title);
+                    wow_catalog_card('', $thumb, get_permalink($child), $child->post_title, '', [], pll__('Show more'), $country_svg, $child->post_title);
                 }
                 $rendered_auto = true;
             } else {
@@ -117,7 +117,7 @@ function wow_catalog_card($image_url, $thumb_html, $link, $title, $country, $des
                 ]) : [];
                 foreach ($projects as $pp) {
                     $thumb = get_the_post_thumbnail($pp->ID, 'large');
-                    wow_catalog_card('', $thumb, get_permalink($pp), $pp->post_title, '', [], 'Show more', $country_svg, $pp->post_title);
+                    wow_catalog_card('', $thumb, get_permalink($pp), $pp->post_title, '', [], pll__('Show more'), $country_svg, $pp->post_title);
                 }
                 $rendered_auto = !empty($projects);
             }
@@ -130,7 +130,7 @@ function wow_catalog_card($image_url, $thumb_html, $link, $title, $country, $des
             // pointer back and forth infinitely.
             if (have_posts()) : while (have_posts()) : the_post();
                 $thumb = get_the_post_thumbnail(get_the_ID(), 'large');
-                wow_catalog_card('', $thumb, get_permalink(), get_the_title(), '', [], 'Show more', $country_svg, get_the_title());
+                wow_catalog_card('', $thumb, get_permalink(), get_the_title(), '', [], pll__('Show more'), $country_svg, get_the_title());
             endwhile; endif;
         }
     endif;

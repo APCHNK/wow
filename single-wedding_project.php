@@ -52,7 +52,7 @@ get_header();
     if ($related->have_posts()) :
     ?>
     <section class="our-projects">
-        <h2 class="our-projects-title">Our <?php echo do_shortcode('[wow_diamond]'); ?> Projects</h2>
+        <h2 class="our-projects-title"><?php pll_e('Our'); ?> <?php echo do_shortcode('[wow_diamond]'); ?> <?php pll_e('Projects'); ?></h2>
         <div class="our-projects-slider">
             <div class="swiper our-projects-swiper">
                 <div class="swiper-wrapper">
@@ -73,11 +73,11 @@ get_header();
                     <div class="swiper-slide">
                         <a href="<?php echo esc_url(get_permalink()); ?>" class="our-projects-card">
                             <?php if ($hero_img) : ?>
-                                <img src="<?php echo esc_url($hero_img['url']); ?>" alt="<?php echo esc_attr(wow_alt($hero_img['alt'] ?? '', get_the_title(), 'Wedding project')); ?>" loading="lazy" decoding="async">
+                                <img src="<?php echo esc_url($hero_img['url']); ?>" alt="<?php echo esc_attr(wow_alt($hero_img['alt'] ?? '', get_the_title(), pll__('Wedding project'))); ?>" loading="lazy" decoding="async">
                             <?php elseif (has_post_thumbnail()) : ?>
-                                <?php the_post_thumbnail('large', ['alt' => esc_attr(wow_alt(get_the_title(), 'Wedding project'))]); ?>
+                                <?php the_post_thumbnail('large', ['alt' => esc_attr(wow_alt(get_the_title(), pll__('Wedding project')))]); ?>
                             <?php else : ?>
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/a1.png" alt="<?php echo esc_attr(wow_alt(get_the_title(), 'Wedding project')); ?>" loading="lazy" decoding="async">
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/a1.png" alt="<?php echo esc_attr(wow_alt(get_the_title(), pll__('Wedding project'))); ?>" loading="lazy" decoding="async">
                             <?php endif; ?>
                             <div class="our-projects-card-content">
                                 <h3 class="our-projects-card-title"><?php the_title(); ?></h3>
@@ -87,21 +87,21 @@ get_header();
                     <?php endwhile; ?>
                     <div class="swiper-slide">
                         <a href="<?php echo esc_url($back_url); ?>" class="our-projects-card our-projects-card--last">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/aa.jpg" alt="Show more" loading="lazy" decoding="async">
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/aa.jpg" alt="<?php echo esc_attr(pll__('Show more')); ?>" loading="lazy" decoding="async">
                             <div class="our-projects-card-hover">
-                                <span class="our-projects-card-btn">SHOW MORE</span>
+                                <span class="our-projects-card-btn"><?php pll_e('SHOW MORE'); ?></span>
                             </div>
                         </a>
                     </div>
                 </div>
             </div>
             <div class="our-projects-nav">
-                <button class="our-projects-btn our-projects-prev" aria-label="Previous">
+                <button class="our-projects-btn our-projects-prev" aria-label="<?php echo esc_attr(pll__('Previous')); ?>">
                     <svg width="15" height="14" viewBox="0 0 15 14" fill="none">
                         <path d="M5.72439 13.7388L6.73332 12.5281L2.74055 7.72816L15 7.72816L15 6.01084L2.74055 6.01084L6.73331 1.21094L5.72439 0.000228921L-1.00088e-06 6.8695L5.72439 13.7388Z" fill="black"/>
                     </svg>
                 </button>
-                <button class="our-projects-btn our-projects-next" aria-label="Next">
+                <button class="our-projects-btn our-projects-next" aria-label="<?php echo esc_attr(pll__('Next')); ?>">
                     <svg width="15" height="14" viewBox="0 0 15 14" fill="none">
                         <path d="M9.27561 13.7388L8.26668 12.5281L12.2595 7.72816L8.75774e-07 7.72816L1.126e-06 6.01084L12.2595 6.01084L8.26669 1.21094L9.27561 0.000228921L15 6.8695L9.27561 13.7388Z" fill="black"/>
                     </svg>

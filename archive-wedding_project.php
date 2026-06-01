@@ -12,8 +12,8 @@ get_header();
 
 <main class="wedding-projects-archive">
     <?php
-    $fallback_title = 'Our [wow_diamond] Wedding Projects';
-    $fallback_subtitle = 'Please take a look at our catalog of Weddings projects';
+    $fallback_title = pll__('Our [wow_diamond] Wedding Projects');
+    $fallback_subtitle = pll__('Please take a look at our catalog of Weddings projects');
     $fallback_image = get_template_directory_uri() . '/assets/images/wp.jpg';
     ?>
     <section class="wedding-projects-hero">
@@ -27,15 +27,15 @@ get_header();
             ?>
         </div>
         <div class="wedding-projects-hero-subtitle"><?php echo esc_html($fallback_subtitle); ?></div>
-        <div class="wedding-projects-hero-img"><img src="<?php echo esc_url($fallback_image); ?>" alt="<?php echo esc_attr(wow_alt(str_replace('[wow_diamond]', '', $fallback_title), 'Wedding projects')); ?>"></div>
+        <div class="wedding-projects-hero-img"><img src="<?php echo esc_url($fallback_image); ?>" alt="<?php echo esc_attr(wow_alt(str_replace('[wow_diamond]', '', $fallback_title), pll__('Wedding projects'))); ?>"></div>
     </section>
 
     <section class="wedding-projects-breadcrumb">
-        <a href="<?php echo home_url(); ?>">Main</a>
+        <a href="<?php echo home_url(); ?>"><?php pll_e('Main'); ?></a>
         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="16" viewBox="0 0 10 16" fill="none">
             <path d="M0.707031 0.707092L7.70703 7.70709L0.707031 14.7071" stroke="black" stroke-width="2"/>
         </svg>
-        <span>All Projects</span>
+        <span><?php pll_e('All Projects'); ?></span>
     </section>
 
     <?php get_template_part('template-parts/sections/block', 'catalog_grid'); ?>

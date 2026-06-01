@@ -76,6 +76,30 @@
     $header_facebook = get_field('header_facebook', 'option') ?: '#';
 ?>
 
+<style>
+    .wow-lang-switcher {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        justify-content: flex-end;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    .wow-lang-switcher li { line-height: 1; }
+    .wow-lang-switcher a {
+        text-transform: uppercase;
+        text-decoration: none;
+        font-size: 14px;
+        letter-spacing: 0.05em;
+        color: inherit;
+        opacity: 0.55;
+        transition: opacity 0.2s ease;
+    }
+    .wow-lang-switcher a:hover { opacity: 1; }
+    .wow-lang-switcher .current-lang a { opacity: 1; font-weight: 600; }
+</style>
+
 <header class="site-header">
     <div class="header-container">
         <button class="menu-toggle" id="menu-toggle">
@@ -84,7 +108,7 @@
                 <span></span>
                 <span></span>
             </div>
-            <span class="menu-text"><span class="menu-text-default">MENU</span></span>
+            <span class="menu-text"><span class="menu-text-default"><?php pll_e('MENU'); ?></span></span>
         </button>
 
         <div class="site-logo">
@@ -93,7 +117,9 @@
             </a>
         </div>
 
-        <div class="header-spacer"></div>
+        <div class="header-spacer">
+            <?php if (function_exists('wow_language_switcher')) wow_language_switcher(); ?>
+        </div>
     </div>
 </header>
 
@@ -108,13 +134,13 @@
                 <div class="nav-item">
                     <?php if (!empty($item['link'])) : ?>
                     <a href="<?php echo esc_url($item['link']); ?>">
-                        <h3 class="nav-title"><?php echo esc_html($item['title']); ?></h3>
+                        <h3 class="nav-title"><?php echo esc_html(pll__($item['title'])); ?></h3>
                     </a>
                     <?php else : ?>
-                    <h3 class="nav-title"><?php echo esc_html($item['title']); ?></h3>
+                    <h3 class="nav-title"><?php echo esc_html(pll__($item['title'])); ?></h3>
                     <?php endif; ?>
                     <?php if (!empty($item['description'])) : ?>
-                    <p class="nav-desc"><?php echo esc_html($item['description']); ?></p>
+                    <p class="nav-desc"><?php echo esc_html(pll__($item['description'])); ?></p>
                     <?php endif; ?>
                 </div>
                 <?php endforeach; ?>
@@ -147,15 +173,15 @@
     <div class="nav-footer">
         <div class="nav-contacts">
             <div class="contact-item">
-                <span class="contact-label">Contacts</span>
+                <span class="contact-label"><?php pll_e('Contacts'); ?></span>
                 <a href="tel:<?php echo esc_attr($header_phone); ?>" class="contact-value"><?php echo esc_html($header_phone); ?></a>
             </div>
             <div class="contact-item">
-                <span class="contact-label">E-mail</span>
+                <span class="contact-label"><?php pll_e('E-mail'); ?></span>
                 <a href="mailto:<?php echo esc_attr($header_email); ?>" class="contact-value"><?php echo esc_html($header_email); ?></a>
             </div>
             <div class="contact-item">
-                <a href="/faq" class="contact-label">FAQ</a>
+                <a href="/faq" class="contact-label"><?php pll_e('FAQ'); ?></a>
             </div>
         </div>
         <div class="nav-social">

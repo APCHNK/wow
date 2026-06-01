@@ -10,7 +10,7 @@
 <footer class="site-footer">
     <div class="footer-content">
         <div class="footer-left">
-            <h2 class="footer-title"><?php echo esc_html($footer_title); ?></h2>
+            <h2 class="footer-title"><?php echo esc_html(pll__($footer_title)); ?></h2>
             <a href="<?php echo esc_url($footer_btn_link); ?>" class="footer-btn">
                 <span class="footer-btn-icon">
                     <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -19,20 +19,20 @@
                     </svg>
 
                 </span>
-                <span><?php echo esc_html($footer_btn_text); ?></span>
+                <span><?php echo esc_html(pll__($footer_btn_text)); ?></span>
             </a>
         </div>
         <div class="footer-right">
             <div class="footer-contact">
-                <span class="footer-label">Contacts</span>
+                <span class="footer-label"><?php pll_e('Contacts'); ?></span>
                 <a href="tel:<?php echo esc_attr($footer_phone); ?>" class="footer-link"><?php echo esc_html($footer_phone); ?></a>
             </div>
             <div class="footer-contact">
-                <span class="footer-label">E-mail</span>
+                <span class="footer-label"><?php pll_e('E-mail'); ?></span>
                 <a href="mailto:<?php echo esc_attr($footer_email); ?>" class="footer-link"><?php echo esc_html($footer_email); ?></a>
             </div>
             <div class="footer-contact">
-                <a href="/faq" class="footer-label">FAQ</a>
+                <a href="/faq" class="footer-label"><?php pll_e('FAQ'); ?></a>
             </div>
         </div>
     </div>

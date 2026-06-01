@@ -31,12 +31,12 @@ $dream_slides = wow_field('dream_slides');
             </div>
         </div>
         <div class="dream-nav">
-            <button class="dream-btn dream-prev" aria-label="Previous">
+            <button class="dream-btn dream-prev" aria-label="<?php echo esc_attr(pll__('Previous')); ?>">
                 <svg width="15" height="14" viewBox="0 0 15 14" fill="none">
                     <path d="M5.72439 13.7388L6.73332 12.5281L2.74055 7.72816L15 7.72816L15 6.01084L2.74055 6.01084L6.73331 1.21094L5.72439 0.000228921L-1.00088e-06 6.8695L5.72439 13.7388Z" fill="white"/>
                 </svg>
             </button>
-            <button class="dream-btn dream-next" aria-label="Next">
+            <button class="dream-btn dream-next" aria-label="<?php echo esc_attr(pll__('Next')); ?>">
                 <svg width="15" height="14" viewBox="0 0 15 14" fill="none">
                     <path d="M9.27561 13.7388L8.26668 12.5281L12.2595 7.72816L8.75774e-07 7.72816L1.126e-06 6.01084L12.2595 6.01084L8.26669 1.21094L9.27561 0.000228921L15 6.8695L9.27561 13.7388Z" fill="white"/>
                 </svg>

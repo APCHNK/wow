@@ -9,7 +9,7 @@ $inline_only = is_tax() || is_category() || is_tag() || is_post_type_archive();
 <section class="faq-hero">
     <h1 class="faq-hero-title"><?php echo esc_html($faq_title); ?></h1>
     <div class="wedding-projects-breadcrumb">
-        <a href="<?php echo home_url(); ?>">MAIN</a>
+        <a href="<?php echo home_url(); ?>"><?php pll_e('MAIN'); ?></a>
         <svg xmlns="http://www.w3.org/2000/svg" width="8" height="12" viewBox="0 0 8 12" fill="none">
             <path d="M1.5 1L6.5 6L1.5 11" stroke="black" stroke-width="1.5"/>
         </svg>

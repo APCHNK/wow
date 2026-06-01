@@ -47,7 +47,7 @@ $slug_label = static function ($slug): string {
         <div class="wedding-project-single-desc">
             <?php echo esc_html($hero_desc); ?>
             <a href="#full-content" class="wedding-project-single-readmore">
-                READ MORE
+                <?php pll_e('READ MORE'); ?>
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
                     <path d="M6.01875 16.5L4.6875 15.1688L10.8563 9L4.6875 2.83125L6.01875 1.5L13.5188 9L6.01875 16.5Z" fill="black"/>
                 </svg>
@@ -58,7 +58,7 @@ $slug_label = static function ($slug): string {
 </section>
 
 <section class="wedding-projects-breadcrumb single">
-    <a href="<?php echo home_url(); ?>">Main</a>
+    <a href="<?php echo home_url(); ?>"><?php pll_e('Main'); ?></a>
     <svg xmlns="http://www.w3.org/2000/svg" width="10" height="16" viewBox="0 0 10 16" fill="none">
         <path d="M0.707031 0.707092L7.70703 7.70709L0.707031 14.7071" stroke="black" stroke-width="2"/>
     </svg>
@@ -69,14 +69,14 @@ $slug_label = static function ($slug): string {
         </svg>
     <?php endif; ?>
     <?php if ($catalog_post && $category_url) : ?>
-        <a href="<?php echo esc_url($category_url); ?>"><?php echo esc_html($slug_label($catalog_post->post_name)); ?></a>
+        <a href="<?php echo esc_url($category_url); ?>"><?php echo esc_html($catalog_post->post_title); ?></a>
     <?php elseif ($category && $category_url) : ?>
-        <a href="<?php echo esc_url($category_url); ?>"><?php echo esc_html($slug_label($category->slug)); ?></a>
+        <a href="<?php echo esc_url($category_url); ?>"><?php echo esc_html($category->name); ?></a>
     <?php else : ?>
-        <a href="<?php echo esc_url(get_post_type_archive_link('wedding_project')); ?>">Projects</a>
+        <a href="<?php echo esc_url(get_post_type_archive_link('wedding_project')); ?>"><?php pll_e('Projects'); ?></a>
     <?php endif; ?>
     <svg xmlns="http://www.w3.org/2000/svg" width="10" height="16" viewBox="0 0 10 16" fill="none">
         <path d="M0.707031 0.707092L7.70703 7.70709L0.707031 14.7071" stroke="black" stroke-width="2"/>
     </svg>
-    <span><?php echo esc_html($slug_label(get_post()->post_name)); ?></span>
+    <span><?php echo esc_html(get_the_title()); ?></span>
 </section>

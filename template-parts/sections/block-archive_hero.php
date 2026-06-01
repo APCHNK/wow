@@ -35,7 +35,7 @@ if (!$image) $image = get_template_directory_uri() . '/assets/images/wp.jpg';
                         <path d="M34.1758 26.8691L27.749 19.1572L27.2949 19.7031L32.0156 25.377L32.8789 26.415L16.6338 26.415L16.6338 27.3232L32.8789 27.3232L32.0156 28.3623L27.2949 34.0361L27.749 34.582L34.1758 26.8691Z" fill="black" stroke="black" stroke-width="1.26667"/>
                     </svg>
                 </span>
-                <span>Contact us</span>
+                <span><?php pll_e('Contact us'); ?></span>
             </a>
     </div>
     <div class="wedding-projects-hero-img">
