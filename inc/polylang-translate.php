@@ -198,6 +198,21 @@ function wow_i18n_api_key() {
 }
 
 /**
+ * Force a post's slug to exactly $slug, bypassing wp_unique_post_slug (which
+ * would append -2 etc.). A translation must keep the SAME slug as its source —
+ * Polylang's /<lang>/ prefix already makes the URL unique per language.
+ */
+function wow_i18n_force_slug($post_id, $slug) {
+    $slug = (string) $slug;
+    if ($slug === '' || get_post_field('post_name', $post_id) === $slug) {
+        return;
+    }
+    global $wpdb;
+    $wpdb->update($wpdb->posts, ['post_name' => $slug], ['ID' => (int) $post_id]);
+    clean_post_cache($post_id);
+}
+
+/**
  * Translate one source post into $target_slug. Creates the translation as a
  * DRAFT if missing, seeds layout/media, then writes the translated text leaves.
  * Returns ['ru_id'=>int, 'created'=>bool, 'translated'=>int, 'total'=>int] or ['error'=>string].
@@ -227,6 +242,7 @@ function wow_i18n_translate_post($en_id, $target_slug, array $opts = []) {
         $ru_id = wp_insert_post([
             'post_type'    => $en->post_type,
             'post_title'   => $en->post_title,
+            'post_name'    => $en->post_name, // keep the Latin slug; otherwise WP makes a Cyrillic %-encoded URL from the translated title
             'post_content' => $en->post_content,
             'post_excerpt' => $en->post_excerpt,
             'post_status'  => 'draft',
@@ -247,6 +263,7 @@ function wow_i18n_translate_post($en_id, $target_slug, array $opts = []) {
         $tr[$default]      = $en_id;
         $tr[$target_slug]  = $ru_id;
         pll_save_post_translations($tr);
+        wow_i18n_force_slug($ru_id, $en->post_name); // exact same slug as the source
         $created = true;
     }
 

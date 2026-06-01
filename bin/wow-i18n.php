@@ -264,6 +264,7 @@ if ($cmd === 'import') {
                 $ru_id = wp_insert_post([
                     'post_type'    => $en->post_type,
                     'post_title'   => $en->post_title,
+                    'post_name'    => $en->post_name, // keep the Latin slug, not a Cyrillic %-encoded one
                     'post_content' => $en->post_content,
                     'post_excerpt' => $en->post_excerpt,
                     'post_status'  => 'draft',
@@ -283,6 +284,7 @@ if ($cmd === 'import') {
                 $tr[$default] = $en_id;
                 $tr[$target]  = $ru_id;
                 pll_save_post_translations($tr);
+                wow_i18n_force_slug($ru_id, $en->post_name); // exact same slug as the source
                 $created++;
             }
         }

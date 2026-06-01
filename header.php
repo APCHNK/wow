@@ -93,11 +93,16 @@
         font-size: 14px;
         letter-spacing: 0.05em;
         color: inherit;
-        opacity: 0.55;
-        transition: opacity 0.2s ease;
+        opacity: 0.6;
+        transition: opacity 0.2s ease, color 0.2s ease;
     }
     .wow-lang-switcher a:hover { opacity: 1; }
     .wow-lang-switcher .current-lang a { opacity: 1; font-weight: 600; }
+    /* When the fullscreen menu is open the background is dark — make the
+       switcher white and bright like the CLOSE button / logo. */
+    html.menu-open .wow-lang-switcher a { color: #fff; opacity: 0.7; }
+    html.menu-open .wow-lang-switcher a:hover,
+    html.menu-open .wow-lang-switcher .current-lang a { color: #fff; opacity: 1; }
 </style>
 
 <header class="site-header">
