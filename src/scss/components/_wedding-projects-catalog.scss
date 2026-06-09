@@ -115,7 +115,6 @@
 .project-desc {
     opacity: 0;
     transition: opacity 0.5s ease;
-    height: 7.4em;
     position: relative;
 
     &.animate {
@@ -135,6 +134,13 @@
         font-weight: 500;
         line-height: 1.6;
         font-stretch: condensed;
+
+        // Show at most 4 lines; clamp the rest with an ellipsis.
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4;
+        line-clamp: 4;
+        overflow: hidden;
     }
 }
 

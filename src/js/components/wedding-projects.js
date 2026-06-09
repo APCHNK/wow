@@ -164,6 +164,7 @@ function initDescSwipers() {
             slidesPerView: 1,
             loop: true,
             speed: 800,
+            allowTouchMove: false, // static: no drag/swipe scrolling
         });
     });
 }

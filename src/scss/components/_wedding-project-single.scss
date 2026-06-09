@@ -1,5 +1,5 @@
 .wedding-project-single {
-    margin-top: 20px;
+    margin-top: 120px;
 }
 
 
@@ -277,16 +277,12 @@
     justify-content: end;
     gap: 24px;
     height: 100%;
+    // Static panel on the left — outside the swiper, does not scroll.
+    flex: 0 0 40%;
+    max-width: 483px;
     @media screen and (max-width: 1024px) {
         justify-content: start;
     }
-}
-
-.wedding-project-swiper .swiper-slide.slide-info {
-    width: 40% !important;
-    max-width: none;
-    overflow: visible;
-
     @media screen and (max-width: 768px) {
         display: none;
     }
@@ -331,16 +327,23 @@
 
 .wedding-project-gallery-slider {
     position: relative;
+    display: flex;
+    flex-wrap: wrap;          // lets the nav row wrap below the info + photos row
+    align-items: stretch;
+    column-gap: 40px;
+    row-gap: 0;
 
     @media screen and (max-width: 768px) {
-        display: flex;
         flex-direction: column;
         align-items: center;
+        row-gap: 20px;
     }
 }
 
 .wedding-project-swiper {
     overflow: visible;
+    flex: 1 1 0;
+    min-width: 0; // let the flex item shrink so photos bleed instead of pushing the row
 
     @media screen and (max-width: 768px) {
         overflow: hidden;
@@ -403,6 +406,7 @@
 }
 
 .wedding-project-gallery-nav {
+    width: 100%;             // wrap to a full-width row beneath the photos
     display: flex;
     gap: 12px;
     justify-content: flex-end;

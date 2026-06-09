@@ -5,11 +5,6 @@
 
 get_header();
 ?>
-<style>
-    .site-logo{
-        display: none;
-    }
-</style>
 <main class="wedding-project-single">
     <?php while (have_posts()) : the_post();
         $catalog_id = (int) get_post_meta(get_the_ID(), 'project_catalog', true);

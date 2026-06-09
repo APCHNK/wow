@@ -12,10 +12,7 @@ $gallery = get_sub_field('project_gallery');
     </div>
     <div class="wedding-project-gallery-bottom">
     <div class="wedding-project-gallery-slider">
-        <div class="swiper wedding-project-swiper">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide slide-info">
-                    <div class="wedding-project-gallery-info">
+        <div class="wedding-project-gallery-info">
                         <?php if ($gallery_desc) : ?>
                         <div class="wedding-project-gallery-desc">
                             <?php echo esc_html($gallery_desc); ?>
@@ -30,8 +27,9 @@ $gallery = get_sub_field('project_gallery');
                             </span>
                             <span><?php echo esc_html($gallery_btn_text); ?></span>
                         </a>
-                    </div>
-                </div>
+        </div>
+        <div class="swiper wedding-project-swiper">
+            <div class="swiper-wrapper">
                 <?php foreach ($gallery as $index => $image) : ?>
                 <div class="swiper-slide">
                     <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr(wow_alt($image['alt'] ?? '', $image['caption'] ?? '', $image['title'] ?? '', get_the_title() . ' — photo ' . ($index + 1))); ?>" loading="lazy" decoding="async">
