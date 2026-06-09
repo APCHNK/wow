@@ -206,24 +206,37 @@ function wow_i18n_translate_texts(array $texts, array $engine) {
 
 /** Resolve the engine settings for a target language slug. */
 function wow_i18n_engine($target_slug, array $opts = []) {
-    $key   = $opts['key']   ?? wow_i18n_api_key();
-    $deepl = $opts['deepl'] ?? wow_i18n_deepl_key();
-
-    // Honour the explicit engine choice (Settings → AI Translate). 'auto' keeps
-    // the legacy behaviour: DeepL wins if its key is set, otherwise the LLM key.
+    // Each engine has its OWN key now. The selected engine decides which key and
+    // provider are used; 'auto' picks the first one that has a key configured.
     $choice = $opts['engine'] ?? (string) get_option('wow_translate_engine', 'auto');
-    if ($choice === 'deepl') {
-        $key = '';                 // force DeepL, never fall back to an LLM
-    } elseif ($choice === 'anthropic' || $choice === 'openai') {
-        $deepl = '';               // force the LLM, ignore any DeepL key
-        $opts['provider'] = $choice;
-    } elseif ($choice === 'gemini') {
-        $deepl = '';               // force Gemini, ignore any DeepL key
-        $key = wow_i18n_gemini_key();
-        $opts['provider'] = 'gemini';
+
+    $deepl_key = $opts['deepl'] ?? wow_i18n_deepl_key();
+    $anthropic = wow_i18n_api_key();
+    $openai    = wow_i18n_openai_key();
+    $gemini    = wow_i18n_gemini_key();
+
+    $deepl = '';
+    $key = '';
+    $provider = '';
+    switch ($choice) {
+        case 'deepl':     $deepl = $deepl_key; break;
+        case 'anthropic': $key = $anthropic; $provider = 'anthropic'; break;
+        case 'openai':    $key = $openai;    $provider = 'openai';    break;
+        case 'gemini':    $key = $gemini;    $provider = 'gemini';    break;
+        default: // auto — first configured key wins.
+            if ($deepl_key)     { $deepl = $deepl_key; }
+            elseif ($anthropic) { $key = $anthropic; $provider = 'anthropic'; }
+            elseif ($openai)    { $key = $openai;    $provider = 'openai'; }
+            elseif ($gemini)    { $key = $gemini;    $provider = 'gemini'; }
     }
 
-    $provider = $opts['provider'] ?? ((strpos((string) $key, 'sk-ant') === 0) ? 'anthropic' : 'openai');
+    // Explicit opts win over the resolved values (used by callers/tests).
+    if (array_key_exists('key', $opts))      { $key = $opts['key']; }
+    if (array_key_exists('provider', $opts)) { $provider = $opts['provider']; }
+    if ($provider === '') {
+        $provider = (strpos((string) $key, 'sk-ant') === 0) ? 'anthropic' : 'openai';
+    }
+
     $model = $opts['model'] ?? (string) get_option('wow_translate_model', '');
     if ($model === '') {
         $model = wow_i18n_default_model($provider);
@@ -238,12 +251,20 @@ function wow_i18n_engine($target_slug, array $opts = []) {
     ];
 }
 
-/** Read the API key: wp-config constant first, then the saved option. */
+/** Read the Anthropic (Claude) key: wp-config constant first, then the option. */
 function wow_i18n_api_key() {
     if (defined('WOW_ANTHROPIC_KEY') && WOW_ANTHROPIC_KEY) {
         return (string) WOW_ANTHROPIC_KEY;
     }
     return (string) get_option('wow_translate_key', '');
+}
+
+/** Read the OpenAI (GPT) key: wp-config constant first, then the option. */
+function wow_i18n_openai_key() {
+    if (defined('WOW_OPENAI_KEY') && WOW_OPENAI_KEY) {
+        return (string) WOW_OPENAI_KEY;
+    }
+    return (string) get_option('wow_translate_openai_key', '');
 }
 
 /** Read the DeepL key: wp-config constant first, then the saved option. */
@@ -272,7 +293,7 @@ function wow_i18n_default_model($provider) {
 /** Selectable translation engines: value => human label. */
 function wow_i18n_engines() {
     return [
-        'auto'      => 'Auto (DeepL if its key is set, otherwise Claude / OpenAI)',
+        'auto'      => 'Auto (first key that is set: DeepL → Claude → OpenAI → Gemini)',
         'deepl'     => 'DeepL',
         'anthropic' => 'Claude (Anthropic)',
         'openai'    => 'OpenAI (GPT)',
@@ -291,25 +312,20 @@ function wow_i18n_sanitize_engine($value) {
  * present. Returns ['engine'=>'deepl|anthropic|openai|none', 'ready'=>bool].
  */
 function wow_i18n_active_engine() {
-    $choice = wow_i18n_sanitize_engine(get_option('wow_translate_engine', 'auto'));
-    $deepl  = (bool) wow_i18n_deepl_key();
-    $llm    = wow_i18n_api_key();
-    if ($choice === 'deepl') {
-        return ['engine' => 'deepl', 'ready' => $deepl];
-    }
-    if ($choice === 'gemini') {
-        return ['engine' => 'gemini', 'ready' => (bool) wow_i18n_gemini_key()];
-    }
-    if ($choice === 'anthropic' || $choice === 'openai') {
-        return ['engine' => $choice, 'ready' => (bool) $llm];
-    }
-    // auto
-    if ($deepl) {
-        return ['engine' => 'deepl', 'ready' => true];
-    }
-    if ($llm) {
-        return ['engine' => (strpos($llm, 'sk-ant') === 0) ? 'anthropic' : 'openai', 'ready' => true];
-    }
+    $choice    = wow_i18n_sanitize_engine(get_option('wow_translate_engine', 'auto'));
+    $deepl     = (bool) wow_i18n_deepl_key();
+    $anthropic = (bool) wow_i18n_api_key();
+    $openai    = (bool) wow_i18n_openai_key();
+    $gemini    = (bool) wow_i18n_gemini_key();
+    if ($choice === 'deepl')     { return ['engine' => 'deepl',     'ready' => $deepl]; }
+    if ($choice === 'anthropic') { return ['engine' => 'anthropic', 'ready' => $anthropic]; }
+    if ($choice === 'openai')    { return ['engine' => 'openai',    'ready' => $openai]; }
+    if ($choice === 'gemini')    { return ['engine' => 'gemini',    'ready' => $gemini]; }
+    // auto: first configured key wins, in this order.
+    if ($deepl)     { return ['engine' => 'deepl',     'ready' => true]; }
+    if ($anthropic) { return ['engine' => 'anthropic', 'ready' => true]; }
+    if ($openai)    { return ['engine' => 'openai',    'ready' => true]; }
+    if ($gemini)    { return ['engine' => 'gemini',    'ready' => true]; }
     return ['engine' => 'none', 'ready' => false];
 }
 
@@ -342,8 +358,9 @@ function wow_i18n_translate_post($en_id, $target_slug, array $opts = []) {
         return ['error' => 'Source post not found.'];
     }
     $engine = wow_i18n_engine($target_slug, $opts);
+    $engine_label = !empty($engine['deepl']) ? 'DeepL' : ucfirst((string) $engine['provider']);
     if (empty($engine['deepl']) && empty($engine['key'])) {
-        return ['error' => 'No API key configured.'];
+        return ['error' => "No API key for the selected engine ({$engine_label}). Set its key in Settings → AI Translate."];
     }
 
     $default = pll_default_language() ?: 'en';
@@ -461,6 +478,19 @@ function wow_i18n_translate_post($en_id, $target_slug, array $opts = []) {
         wp_update_post($postarr);
     }
 
+    // Loud failure instead of a silent English duplicate: if there was text to
+    // translate but NOTHING came back, the engine call failed (wrong/blocked key
+    // for this provider, rate limit, …). Tell the user rather than leaving a copy.
+    if (count($items) > 0 && $wrote === 0) {
+        return [
+            'ru_id'      => $ru_id,
+            'created'    => $created,
+            'translated' => 0,
+            'total'      => count($items),
+            'error'      => "{$engine_label} returned no translations — its API key is likely missing or invalid for this provider. The draft was left in the source language; fix the key in Settings → AI Translate and re-run.",
+        ];
+    }
+
     return ['ru_id' => $ru_id, 'created' => $created, 'translated' => $wrote, 'total' => count($items)];
 }
 
@@ -477,6 +507,7 @@ if (is_admin()) {
     add_action('admin_init', function () {
         register_setting('wow_ai_translate', 'wow_translate_engine', ['sanitize_callback' => 'wow_i18n_sanitize_engine']);
         register_setting('wow_ai_translate', 'wow_translate_key', ['sanitize_callback' => 'trim']);
+        register_setting('wow_ai_translate', 'wow_translate_openai_key', ['sanitize_callback' => 'trim']);
         register_setting('wow_ai_translate', 'wow_translate_deepl_key', ['sanitize_callback' => 'trim']);
         register_setting('wow_ai_translate', 'wow_translate_gemini_key', ['sanitize_callback' => 'trim']);
         register_setting('wow_ai_translate', 'wow_translate_model', ['sanitize_callback' => 'trim']);
@@ -484,6 +515,7 @@ if (is_admin()) {
 
     function wow_ai_translate_settings_page() {
         $key_const    = defined('WOW_ANTHROPIC_KEY') && WOW_ANTHROPIC_KEY;
+        $openai_const = defined('WOW_OPENAI_KEY') && WOW_OPENAI_KEY;
         $deepl_const  = defined('WOW_DEEPL_KEY') && WOW_DEEPL_KEY;
         $gemini_const = defined('WOW_GEMINI_KEY') && WOW_GEMINI_KEY;
         $engine       = wow_i18n_sanitize_engine(get_option('wow_translate_engine', 'auto'));
@@ -526,11 +558,25 @@ if (is_admin()) {
                         </td>
                     </tr>
                     <tr>
-                        <th><label for="wow_translate_key">Anthropic / OpenAI API key</label></th>
+                        <th><label for="wow_translate_key">Claude (Anthropic) API key</label></th>
                         <td>
                             <input type="password" id="wow_translate_key" name="wow_translate_key" class="regular-text"
-                                   value="<?php echo esc_attr(get_option('wow_translate_key', '')); ?>" autocomplete="off" <?php disabled($key_const); ?>>
-                            <p class="description">A <code>sk-ant-…</code> key = Anthropic, otherwise OpenAI. More secure: define <code>WOW_ANTHROPIC_KEY</code> in <code>wp-config.php</code>.</p>
+                                   value="<?php echo esc_attr(get_option('wow_translate_key', '')); ?>" autocomplete="off" placeholder="sk-ant-…" <?php disabled($key_const); ?>>
+                            <p class="description">
+                                Used when the engine is <strong>Claude</strong>. Best brand voice. No free tier.
+                                <?php if ($key_const) : ?><br><em>Defined in <code>wp-config.php</code> (<code>WOW_ANTHROPIC_KEY</code>) — this field is ignored.</em><?php endif; ?>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label for="wow_translate_openai_key">OpenAI (GPT) API key</label></th>
+                        <td>
+                            <input type="password" id="wow_translate_openai_key" name="wow_translate_openai_key" class="regular-text"
+                                   value="<?php echo esc_attr(get_option('wow_translate_openai_key', '')); ?>" autocomplete="off" placeholder="sk-…" <?php disabled($openai_const); ?>>
+                            <p class="description">
+                                Used when the engine is <strong>OpenAI</strong>. No free tier (small trial credit only).
+                                <?php if ($openai_const) : ?><br><em>Defined in <code>wp-config.php</code> (<code>WOW_OPENAI_KEY</code>) — this field is ignored.</em><?php endif; ?>
+                            </p>
                         </td>
                     </tr>
                     <tr>
@@ -613,7 +659,7 @@ if (is_admin()) {
         if (!current_user_can('edit_posts')) {
             $fail('Insufficient permissions.');
         }
-        if (!wow_i18n_api_key() && !wow_i18n_deepl_key() && !wow_i18n_gemini_key()) {
+        if (!wow_i18n_api_key() && !wow_i18n_openai_key() && !wow_i18n_deepl_key() && !wow_i18n_gemini_key()) {
             $fail('No API key set. Go to Settings → AI Translate.');
         }
 

@@ -105,8 +105,8 @@ if (!$llm_flag   && function_exists('wow_i18n_api_key'))   { $llm = wow_i18n_api
 if (!$deepl_flag && !$llm_flag && function_exists('wow_i18n_sanitize_engine')) {
     $choice = wow_i18n_sanitize_engine(get_option('wow_translate_engine', 'auto'));
     if ($choice === 'deepl')         { $llm = ''; }
-    elseif ($choice === 'anthropic') { $deepl = ''; if ($provider === '') { $provider = 'anthropic'; } }
-    elseif ($choice === 'openai')    { $deepl = ''; if ($provider === '') { $provider = 'openai'; } }
+    elseif ($choice === 'anthropic') { $deepl = ''; $llm = wow_i18n_api_key();    if ($provider === '') { $provider = 'anthropic'; } }
+    elseif ($choice === 'openai')    { $deepl = ''; $llm = wow_i18n_openai_key(); if ($provider === '') { $provider = 'openai'; } }
     elseif ($choice === 'gemini')    { $deepl = ''; $llm = wow_i18n_gemini_key(); if ($provider === '') { $provider = 'gemini'; } }
 }
 
