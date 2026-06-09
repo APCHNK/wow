@@ -142,6 +142,15 @@ if ($cmd === 'export') {
                 wow_i18n_collect($val, [$name], $items);
             }
         }
+        // Yoast SEO title/description/social (single-element path = exact meta key).
+        if (function_exists('wow_i18n_yoast_meta_keys')) {
+            foreach (wow_i18n_yoast_meta_keys() as $mk) {
+                $val = get_post_meta($p->ID, $mk, true);
+                if (is_string($val) && trim($val) !== '') {
+                    $items[] = ['path' => [$mk], 'en' => $val, 'ru' => ''];
+                }
+            }
+        }
         if (empty($items)) {
             continue;
         }

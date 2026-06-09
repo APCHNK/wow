@@ -31,6 +31,22 @@ const WOW_I18N_TEXT_FIELDS = [
 
 const WOW_I18N_POST_TYPES = ['page', 'post', 'wedding_project', 'project_catalog'];
 
+/**
+ * Yoast SEO meta keys that get translated too, so the RU search snippet and
+ * social cards are in Russian instead of inheriting the English source.
+ * Yoast template variables like %%sitename%% are preserved by the engine.
+ */
+function wow_i18n_yoast_meta_keys() {
+    return apply_filters('wow_i18n_yoast_meta_keys', [
+        '_yoast_wpseo_title',
+        '_yoast_wpseo_metadesc',
+        '_yoast_wpseo_opengraph-title',
+        '_yoast_wpseo_opengraph-description',
+        '_yoast_wpseo_twitter-title',
+        '_yoast_wpseo_twitter-description',
+    ]);
+}
+
 /* ------------------------------------------------------------------ *
  * Collection
  * ------------------------------------------------------------------ */
@@ -66,7 +82,7 @@ function wow_i18n_llm_system($target_name = 'Russian') {
         . "Produce natural, fluent, elegant {$target_name} suitable for an upscale brand voice.\n"
         . "Rules:\n"
         . "- Keep ALL HTML tags and attributes exactly as-is; translate only the human-visible text between them.\n"
-        . "- NEVER translate or alter: the literal token [wow_diamond]; brand/product names (Golden5Event, Mux, Instagram, Facebook); URLs; email addresses; phone numbers.\n"
+        . "- NEVER translate or alter: the literal token [wow_diamond]; Yoast SEO variables wrapped in double percent signs such as %%sitename%%, %%title%%, %%page%% or %%sep%%; brand/product names (Golden5Event, Mux, Instagram, Facebook); URLs; email addresses; phone numbers.\n"
         . "- Translate well-known place names to their standard {$target_name} forms.\n"
         . "- Preserve meaning exactly. Do NOT add, drop, summarize or reorder content.\n"
         . "- The input is a JSON object {\"id\": \"english text\"}. Return ONLY a JSON object {\"id\": \"{$target_name} text\"} with the SAME ids and no surrounding prose or code fences.";
@@ -391,6 +407,14 @@ function wow_i18n_translate_post($en_id, $target_slug, array $opts = []) {
     if (is_array($fields)) {
         foreach ($fields as $name => $val) {
             wow_i18n_collect($val, [$name], $items);
+        }
+    }
+    // Yoast SEO title/description/social — a single-element path is written back
+    // verbatim as the meta key by step 5 (implode('_', [$key]) === $key).
+    foreach (wow_i18n_yoast_meta_keys() as $mk) {
+        $val = get_post_meta($en_id, $mk, true);
+        if (is_string($val) && trim($val) !== '') {
+            $items[] = ['path' => [$mk], 'en' => $val];
         }
     }
     if (empty($items)) {
