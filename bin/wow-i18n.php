@@ -93,6 +93,11 @@ foreach ($opts as $o) {
     elseif (strpos($o, '--limit=') === 0)     { $limit = (int) substr($o, 8); }
 }
 
+// Fall back to the keys saved in Settings → AI Translate (or wp-config constants)
+// when no explicit flag is passed, so the CLI and the admin share one key.
+if ($deepl === '' && function_exists('wow_i18n_deepl_key')) { $deepl = wow_i18n_deepl_key(); }
+if ($llm === '' && function_exists('wow_i18n_api_key'))    { $llm = wow_i18n_api_key(); }
+
 $default = pll_default_language() ?: 'en';
 
 if ($cmd === 'export') {

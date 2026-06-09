@@ -173,7 +173,7 @@ function wow_i18n_translate_texts(array $texts, array $engine) {
 /** Resolve the engine settings for a target language slug. */
 function wow_i18n_engine($target_slug, array $opts = []) {
     $key   = $opts['key']   ?? wow_i18n_api_key();
-    $deepl = $opts['deepl'] ?? (defined('WOW_DEEPL_KEY') ? WOW_DEEPL_KEY : '');
+    $deepl = $opts['deepl'] ?? wow_i18n_deepl_key();
     $provider = $opts['provider'] ?? ((strpos((string) $key, 'sk-ant') === 0) ? 'anthropic' : 'openai');
     $model = $opts['model'] ?? (string) get_option('wow_translate_model', '');
     if ($model === '') {
@@ -195,6 +195,14 @@ function wow_i18n_api_key() {
         return (string) WOW_ANTHROPIC_KEY;
     }
     return (string) get_option('wow_translate_key', '');
+}
+
+/** Read the DeepL key: wp-config constant first, then the saved option. */
+function wow_i18n_deepl_key() {
+    if (defined('WOW_DEEPL_KEY') && WOW_DEEPL_KEY) {
+        return (string) WOW_DEEPL_KEY;
+    }
+    return (string) get_option('wow_translate_deepl_key', '');
 }
 
 /**
@@ -351,22 +359,38 @@ if (is_admin()) {
         add_options_page('AI Translate', 'AI Translate', 'manage_options', 'wow-ai-translate', 'wow_ai_translate_settings_page');
     });
     add_action('admin_init', function () {
-        register_setting('wow_ai_translate', 'wow_translate_key');
-        register_setting('wow_ai_translate', 'wow_translate_model');
+        register_setting('wow_ai_translate', 'wow_translate_key', ['sanitize_callback' => 'trim']);
+        register_setting('wow_ai_translate', 'wow_translate_deepl_key', ['sanitize_callback' => 'trim']);
+        register_setting('wow_ai_translate', 'wow_translate_model', ['sanitize_callback' => 'trim']);
     });
 
     function wow_ai_translate_settings_page() {
-        $key_const = defined('WOW_ANTHROPIC_KEY') && WOW_ANTHROPIC_KEY;
+        $key_const   = defined('WOW_ANTHROPIC_KEY') && WOW_ANTHROPIC_KEY;
+        $deepl_const = defined('WOW_DEEPL_KEY') && WOW_DEEPL_KEY;
+        $deepl_set   = (bool) wow_i18n_deepl_key();
         ?>
         <div class="wrap">
             <h1>AI Translate</h1>
             <p>Translate pages/projects into the other Polylang languages with AI. Hover a post in the list and click <strong>&ldquo;AI &rarr; RU&rdquo;</strong>.</p>
-            <?php if ($key_const) : ?>
-                <p><em>The key is defined in <code>wp-config.php</code> (<code>WOW_ANTHROPIC_KEY</code>) — the field below is ignored.</em></p>
+            <p><strong>Engine priority:</strong> if a <strong>DeepL</strong> key is set, DeepL is used. Otherwise the Anthropic / OpenAI key below is used.</p>
+            <?php if ($deepl_set) : ?>
+                <p><span class="dashicons dashicons-yes" style="color:#46b450"></span> <em>DeepL is currently the active engine.</em></p>
             <?php endif; ?>
             <form method="post" action="options.php">
                 <?php settings_fields('wow_ai_translate'); ?>
                 <table class="form-table">
+                    <tr>
+                        <th><label for="wow_translate_deepl_key">DeepL API key</label></th>
+                        <td>
+                            <input type="password" id="wow_translate_deepl_key" name="wow_translate_deepl_key" class="regular-text"
+                                   value="<?php echo esc_attr(get_option('wow_translate_deepl_key', '')); ?>" autocomplete="off" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx:fx" <?php disabled($deepl_const); ?>>
+                            <p class="description">
+                                Free plan key ends with <code>:fx</code> (500,000 chars/month, no Pro needed) — the free endpoint is detected automatically.
+                                Leave empty to translate with Anthropic / OpenAI instead.
+                                <?php if ($deepl_const) : ?><br><em>Defined in <code>wp-config.php</code> (<code>WOW_DEEPL_KEY</code>) — this field is ignored.</em><?php endif; ?>
+                            </p>
+                        </td>
+                    </tr>
                     <tr>
                         <th><label for="wow_translate_key">Anthropic / OpenAI API key</label></th>
                         <td>
@@ -444,7 +468,7 @@ if (is_admin()) {
         if (!current_user_can('edit_posts')) {
             $fail('Insufficient permissions.');
         }
-        if (!wow_i18n_api_key() && !(defined('WOW_DEEPL_KEY') && WOW_DEEPL_KEY)) {
+        if (!wow_i18n_api_key() && !wow_i18n_deepl_key()) {
             $fail('No API key set. Go to Settings → AI Translate.');
         }
 
