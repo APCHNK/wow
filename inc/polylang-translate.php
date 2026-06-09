@@ -151,13 +151,22 @@ function wow_i18n_deepl(array $texts, $key, $target = 'RU') {
         return [];
     }
     $endpoint = (strpos($key, ':fx') !== false) ? 'https://api-free.deepl.com/v2/translate' : 'https://api.deepl.com/v2/translate';
-    $resp = wp_remote_post($endpoint, ['timeout' => 60, 'body' => [
-        'auth_key' => $key, 'text' => array_values($texts), 'target_lang' => $target, 'source_lang' => 'EN',
-        'tag_handling' => 'html', 'preserve_formatting' => '1',
-    ]]);
+    // DeepL deprecated the legacy `auth_key` form-body method — the key must now
+    // be sent in the Authorization header.
+    $resp = wp_remote_post($endpoint, [
+        'timeout' => 60,
+        'headers' => ['Authorization' => 'DeepL-Auth-Key ' . $key],
+        'body'    => [
+            'text' => array_values($texts), 'target_lang' => $target, 'source_lang' => 'EN',
+            'tag_handling' => 'html', 'preserve_formatting' => '1',
+        ],
+    ]);
     if (is_wp_error($resp)) { error_log('wow-i18n DeepL: ' . $resp->get_error_message()); return []; }
     $data = json_decode(wp_remote_retrieve_body($resp), true);
-    if (empty($data['translations'])) { return []; }
+    if (empty($data['translations'])) {
+        if (isset($data['message'])) { error_log('wow-i18n DeepL API: ' . $data['message']); }
+        return [];
+    }
     return array_map(function ($t) { return $t['text']; }, $data['translations']);
 }
 
