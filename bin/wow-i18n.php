@@ -95,8 +95,20 @@ foreach ($opts as $o) {
 
 // Fall back to the keys saved in Settings → AI Translate (or wp-config constants)
 // when no explicit flag is passed, so the CLI and the admin share one key.
-if ($deepl === '' && function_exists('wow_i18n_deepl_key')) { $deepl = wow_i18n_deepl_key(); }
-if ($llm === '' && function_exists('wow_i18n_api_key'))    { $llm = wow_i18n_api_key(); }
+$deepl_flag = ($deepl !== '');
+$llm_flag   = ($llm !== '');
+if (!$deepl_flag && function_exists('wow_i18n_deepl_key')) { $deepl = wow_i18n_deepl_key(); }
+if (!$llm_flag   && function_exists('wow_i18n_api_key'))   { $llm = wow_i18n_api_key(); }
+
+// When neither engine was forced via a flag, honour the engine chosen in the
+// admin (Settings → AI Translate) so the CLI and the UI behave identically.
+if (!$deepl_flag && !$llm_flag && function_exists('wow_i18n_sanitize_engine')) {
+    $choice = wow_i18n_sanitize_engine(get_option('wow_translate_engine', 'auto'));
+    if ($choice === 'deepl')         { $llm = ''; }
+    elseif ($choice === 'anthropic') { $deepl = ''; if ($provider === '') { $provider = 'anthropic'; } }
+    elseif ($choice === 'openai')    { $deepl = ''; if ($provider === '') { $provider = 'openai'; } }
+    elseif ($choice === 'gemini')    { $deepl = ''; $llm = wow_i18n_gemini_key(); if ($provider === '') { $provider = 'gemini'; } }
+}
 
 $default = pll_default_language() ?: 'en';
 
@@ -204,7 +216,7 @@ if ($cmd === 'import') {
             $provider = (strpos($llm, 'sk-ant') === 0) ? 'anthropic' : 'openai';
         }
         if (!$model) {
-            $model = ($provider === 'anthropic') ? 'claude-sonnet-4-6' : 'gpt-4o';
+            $model = wow_i18n_default_model($provider);
         }
         // Gather pending items with stable numeric ids.
         $idMap = []; // id => [postIndex, itemIndex]
@@ -388,7 +400,7 @@ if ($cmd === 'strings') {
     if (empty($todo)) { exit(0); }
 
     if ($llm && !$provider) { $provider = (strpos($llm, 'sk-ant') === 0) ? 'anthropic' : 'openai'; }
-    if ($llm && !$model)    { $model = ($provider === 'anthropic') ? 'claude-sonnet-4-6' : 'gpt-4o'; }
+    if ($llm && !$model)    { $model = wow_i18n_default_model($provider); }
 
     $idMap   = $todo;          // id => original
     $results = [];             // id => translation
