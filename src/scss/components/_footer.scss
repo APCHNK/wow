@@ -57,7 +57,7 @@
 .footer-btn span:last-child {
     font-family: var(--font-family);
     font-weight: 500;
-    font-size: 14px;
+    font-size: var(--fs-xs);
     color: #000;
     letter-spacing: 1px;
 }
@@ -78,7 +78,7 @@
 .footer-label {
     font-family: var(--font-family);
     font-weight: 500;
-    font-size: 18px;
+    font-size: var(--fs-md);
     color: #fff;
     opacity: 0.8;
     text-decoration: none;
@@ -87,7 +87,7 @@
 .footer-link {
     font-family: var(--font-family);
     font-weight: 500;
-    font-size: 16px;
+    font-size: var(--fs-sm);
     color: rgba(255, 255, 255, 0.8);
     opacity: 0.8;
     text-decoration: none;
@@ -191,7 +191,7 @@
     
     .footer-title {
         font-family: 'Noto Sans', sans-serif;
-        font-size: 16px;
+        font-size: var(--fs-sm);
         font-weight: 500;
         line-height: 22px;
         font-variant: normal;
@@ -214,7 +214,7 @@
     }
     
     .footer-btn span:last-child {
-        font-size: 12px;
+        font-size: var(--fs-xs);
     }
     
     .footer-right {
@@ -222,11 +222,11 @@
     }
     
     .footer-label {
-        font-size: 14px;
+        font-size: var(--fs-xs);
     }
     
     .footer-link {
-        font-size: 13px;
+        font-size: var(--fs-xs);
     }
     
     .footer-social {
@@ -251,7 +251,7 @@
     
     .footer-title {
         font-family: 'Noto Sans', sans-serif;
-        font-size: 16px;
+        font-size: var(--fs-sm);
         font-weight: 500;
         line-height: 22px;
     }
@@ -272,15 +272,15 @@
     }
     
     .footer-btn span:last-child {
-        font-size: 11px;
+        font-size: var(--fs-xs);
     }
     
     .footer-label {
-        font-size: 12px;
+        font-size: var(--fs-xs);
     }
     
     .footer-link {
-        font-size: 12px;
+        font-size: var(--fs-xs);
     }
     
     .footer-contact {

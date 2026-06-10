@@ -71,7 +71,7 @@
 .happen-desc {
     font-family: var(--font-family);
     font-weight: 400;
-    font-size: 18px;
+    font-size: var(--fs-md);
     color: #000;
     max-width: 706px;
     font-stretch: semi-condensed;
@@ -170,7 +170,7 @@
     display: block;
     font-family: var(--font-family);
     font-weight: 500;
-    font-size: 12px;
+    font-size: var(--fs-xs);
     color: #fff;
     margin-bottom: 8px;
     text-transform: uppercase;
@@ -180,7 +180,7 @@
 .happen-card-title {
     font-family: var(--font-family);
     font-weight: 400;
-    font-size: 24px;
+    font-size: var(--fs-xl);
     color: #fff;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -249,7 +249,7 @@
     }
     
     .happen-desc {
-        font-size: 16px;
+        font-size: var(--fs-sm);
         max-width: 600px;
     }
     
@@ -278,7 +278,7 @@
     }
     
     .happen-desc {
-        font-size: 14px;
+        font-size: var(--fs-xs);
         max-width: 500px;
     }
     
@@ -303,12 +303,12 @@
     }
 
     .happen-card-title {
-        font-size: 20px;
+        font-size: var(--fs-lg);
         letter-spacing: 1.5px;
     }
 
     .happen-card-country {
-        font-size: 11px;
+        font-size: var(--fs-xs);
     }
 
     .happen-nav {
@@ -336,7 +336,7 @@
     }
     
     .happen-desc {
-        font-size: 12px;
+        font-size: var(--fs-xs);
         max-width: 100%;
     }
     
@@ -352,12 +352,12 @@
     }
 
     .happen-card-title {
-        font-size: 14px;
+        font-size: var(--fs-xs);
         letter-spacing: 1px;
     }
 
     .happen-card-country {
-        font-size: 10px;
+        font-size: var(--fs-xs);
         margin-bottom: 4px;
     }
 }
@@ -377,7 +377,7 @@
     }
     
     .happen-desc {
-        font-size: 11px;
+        font-size: var(--fs-xs);
     }
     
     .happen-swiper .swiper-slide {
@@ -393,11 +393,11 @@
     }
     
     .happen-card-title {
-        font-size: 12px;
+        font-size: var(--fs-xs);
     }
     
     .happen-card-country {
-        font-size: 9px;
+        font-size: var(--fs-xs);
     }
     
     .happen-nav {

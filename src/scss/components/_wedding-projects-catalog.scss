@@ -70,7 +70,7 @@
 .project-title {
     color: #000;
     font-family: "Noto Sans";
-    font-size: clamp(18px, 5.4vw, 103px);
+    font-size: clamp(28px, 5.4vw, 103px);
     font-style: normal;
     font-weight: 500;
     line-height: 97.087%; /* 97.087% */
@@ -129,7 +129,7 @@
         height: auto !important;
         color: #000;
         font-family: "Noto Sans";
-        font-size: clamp(12px, 0.94vw, 18px);
+        font-size: clamp(14px, 0.94vw, 18px);
         font-style: normal;
         font-weight: 500;
         line-height: 1.6;
@@ -141,6 +141,10 @@
         -webkit-line-clamp: 4;
         line-clamp: 4;
         overflow: hidden;
+
+        @media (max-width: 768px) {
+            font-weight: 400;
+        }
     }
 }
 
@@ -148,7 +152,7 @@
 .project-link {
     color: #000;
     font-family: "Noto Sans";
-    font-size: 20px;
+    font-size: var(--fs-lg);
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -173,7 +177,7 @@
         border-color: #D4BBFF;
     }
     @media screen and (max-width: 768px) {
-        font-size: 14px;
+        font-size: var(--fs-xs);
         padding: 6px 14px;
     }
 }

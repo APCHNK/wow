@@ -40,6 +40,31 @@ $slug_label = static function ($slug): string {
             <img src="<?php echo esc_url($hero_image['url']); ?>" alt="<?php echo esc_attr(wow_alt($hero_image['alt'] ?? '', $hero_title, get_the_title())); ?>">
         <?php endif; ?>
     </div>
+
+    <section class="wedding-projects-breadcrumb single">
+        <a href="<?php echo home_url(); ?>"><?php pll_e('Main'); ?></a>
+        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="16" viewBox="0 0 10 16" fill="none">
+            <path d="M0.707031 0.707092L7.70703 7.70709L0.707031 14.7071" stroke="black" stroke-width="2"/>
+        </svg>
+        <?php if ($parent_catalog) : ?>
+            <a href="<?php echo esc_url(get_permalink($parent_catalog)); ?>"><?php echo esc_html($parent_catalog->post_title); ?></a>
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="16" viewBox="0 0 10 16" fill="none">
+                <path d="M0.707031 0.707092L7.70703 7.70709L0.707031 14.7071" stroke="black" stroke-width="2"/>
+            </svg>
+        <?php endif; ?>
+        <?php if ($catalog_post && $category_url) : ?>
+            <a href="<?php echo esc_url($category_url); ?>"><?php echo esc_html($catalog_post->post_title); ?></a>
+        <?php elseif ($category && $category_url) : ?>
+            <a href="<?php echo esc_url($category_url); ?>"><?php echo esc_html($category->name); ?></a>
+        <?php else : ?>
+            <a href="<?php echo esc_url(get_post_type_archive_link('wedding_project')); ?>"><?php pll_e('Projects'); ?></a>
+        <?php endif; ?>
+        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="16" viewBox="0 0 10 16" fill="none">
+            <path d="M0.707031 0.707092L7.70703 7.70709L0.707031 14.7071" stroke="black" stroke-width="2"/>
+        </svg>
+        <span><?php echo esc_html(get_the_title()); ?></span>
+    </section>
+
     <div class="wedding-project-single-info">
         <h1 class="wedding-project-single-title"><?php echo esc_html($hero_title ?: get_the_title()); ?></h1>
 
@@ -55,28 +80,4 @@ $slug_label = static function ($slug): string {
         </div>
         <?php endif; ?>
     </div>
-</section>
-
-<section class="wedding-projects-breadcrumb single">
-    <a href="<?php echo home_url(); ?>"><?php pll_e('Main'); ?></a>
-    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="16" viewBox="0 0 10 16" fill="none">
-        <path d="M0.707031 0.707092L7.70703 7.70709L0.707031 14.7071" stroke="black" stroke-width="2"/>
-    </svg>
-    <?php if ($parent_catalog) : ?>
-        <a href="<?php echo esc_url(get_permalink($parent_catalog)); ?>"><?php echo esc_html($parent_catalog->post_title); ?></a>
-        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="16" viewBox="0 0 10 16" fill="none">
-            <path d="M0.707031 0.707092L7.70703 7.70709L0.707031 14.7071" stroke="black" stroke-width="2"/>
-        </svg>
-    <?php endif; ?>
-    <?php if ($catalog_post && $category_url) : ?>
-        <a href="<?php echo esc_url($category_url); ?>"><?php echo esc_html($catalog_post->post_title); ?></a>
-    <?php elseif ($category && $category_url) : ?>
-        <a href="<?php echo esc_url($category_url); ?>"><?php echo esc_html($category->name); ?></a>
-    <?php else : ?>
-        <a href="<?php echo esc_url(get_post_type_archive_link('wedding_project')); ?>"><?php pll_e('Projects'); ?></a>
-    <?php endif; ?>
-    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="16" viewBox="0 0 10 16" fill="none">
-        <path d="M0.707031 0.707092L7.70703 7.70709L0.707031 14.7071" stroke="black" stroke-width="2"/>
-    </svg>
-    <span><?php echo esc_html(get_the_title()); ?></span>
 </section>

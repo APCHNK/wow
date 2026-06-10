@@ -4,6 +4,14 @@
     --font-family: #{$font-family};
     --font-display: #{$font-display};
     --third-family: #{$font-accent};
+
+    /* Type scale — modular, min readable size is 14px.
+       Covers body & secondary text; large display headings stay bespoke. */
+    --fs-xs: 14px;   /* minimum: captions, labels, meta, counters, breadcrumbs */
+    --fs-sm: 16px;   /* body & secondary text, descriptions */
+    --fs-md: 18px;   /* lead / emphasized body */
+    --fs-lg: 20px;   /* small subtitle */
+    --fs-xl: 24px;   /* subtitle */
 }
 
 * {

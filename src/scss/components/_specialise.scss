@@ -39,10 +39,14 @@
 .specialise-desc {
     font-family: var(--font-family);
     font-weight: 500;
-    font-size: 22px;
+    font-size: var(--fs-xl);
     text-align: center;
     color: #191919;
     font-stretch: condensed;
+
+    @media (max-width: 768px) {
+        font-weight: 400;
+    }
 }
 
 .specialise-slider {
@@ -130,7 +134,7 @@ $inactive-scale: 0.569; // 535 / 940 — visual width of inactive cards
         background: rgba(0, 0, 0, 0.5);
         font-family: var(--font-family);
         font-weight: 500;
-        font-size: 23px;
+        font-size: var(--fs-xl);
         font-variant: all-small-caps;
         color: #fff;
         padding: 18px 36px 20px;
@@ -211,7 +215,7 @@ $inactive-scale: 0.569; // 535 / 940 — visual width of inactive cards
         height: 480px;
         .card-content { padding: 48px; }
         .card-title { font-size: 48px; }
-        .card-btn { font-size: 19px; padding: 14px 28px 16px; }
+        .card-btn { font-size: var(--fs-lg); padding: 14px 28px 16px; }
     }
 }
 
@@ -235,7 +239,7 @@ $inactive-scale: 0.569; // 535 / 940 — visual width of inactive cards
     }
 
     .specialise-desc {
-        font-size: 18px;
+        font-size: var(--fs-md);
     }
 
     .specialise-swiper {
@@ -251,7 +255,7 @@ $inactive-scale: 0.569; // 535 / 940 — visual width of inactive cards
         height: 400px;
         .card-content { padding: 36px; }
         .card-title { font-size: 38px; }
-        .card-btn { font-size: 16px; padding: 12px 24px 14px; }
+        .card-btn { font-size: var(--fs-sm); padding: 12px 24px 14px; }
     }
 }
 
@@ -275,7 +279,7 @@ $inactive-scale: 0.569; // 535 / 940 — visual width of inactive cards
     }
 
     .specialise-desc {
-        font-size: 16px;
+        font-size: var(--fs-sm);
     }
 
     .specialise-swiper {
@@ -304,12 +308,12 @@ $inactive-scale: 0.569; // 535 / 940 — visual width of inactive cards
 
         .card-content { padding: 20px; }
         .card-title {
-            font-size: 22px;
+            font-size: var(--fs-xl);
             opacity: 1;
             transform: none;
         }
         .card-btn {
-            font-size: 12px;
+            font-size: var(--fs-xs);
             padding: 10px 18px 12px;
             margin-top: 14px;
             opacity: 1;

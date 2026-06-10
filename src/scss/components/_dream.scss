@@ -81,7 +81,7 @@
 .dream-desc {
     font-family: var(--font-family);
     font-weight: 500;
-    font-size: 18px;
+    font-size: var(--fs-md);
     color: #fff;
     opacity: 0.8;
     line-height: 1.4;
@@ -156,7 +156,7 @@
     }
     
     .dream-desc {
-        font-size: 16px;
+        font-size: var(--fs-sm);
     }
 }
 
@@ -196,7 +196,7 @@
     }
     
     .dream-desc {
-        font-size: 14px;
+        font-size: var(--fs-xs);
     }
     
     .dream-nav {
@@ -260,7 +260,7 @@
     .dream-title {
         grid-area: title;
         font-family: 'Noto Sans', sans-serif;
-        font-size: 16px;
+        font-size: var(--fs-sm);
         font-weight: 500;
         line-height: 22px;
         margin-bottom: 0;
@@ -275,7 +275,7 @@
     .dream-desc {
         grid-area: desc;
         font-family: 'Noto Sans', sans-serif;
-        font-size: 12px;
+        font-size: var(--fs-xs);
         font-weight: 400;
         line-height: 16px;
         margin-top: 24px;
@@ -302,13 +302,13 @@
     }
     
     .dream-title {
-        font-size: 16px;
+        font-size: var(--fs-sm);
         font-weight: 500;
         line-height: 22px;
     }
     
     .dream-desc {
-        font-size: 12px;
+        font-size: var(--fs-xs);
         font-weight: 400;
         line-height: 16px;
         margin-top: 20px;

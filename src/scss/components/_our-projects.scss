@@ -171,7 +171,7 @@
 .our-projects-card-title {
     font-family: "Noto Sans";
     font-weight: 400;
-    font-size: clamp(12px, 1.2vw, 18px);
+    font-size: clamp(16px, 1.2vw, 18px);
     color: #fff;
     text-transform: uppercase;
     font-stretch: condensed;
@@ -194,7 +194,7 @@
     color: #fff;
     font-family: "Noto Sans";
     font-weight: 500;
-    font-size: 14px;
+    font-size: var(--fs-xs);
     padding: 12px 24px;
     border-radius: 30px;
     border-radius: 17.854px;
@@ -209,7 +209,7 @@ backdrop-filter: blur(0.9396824836730957px);
     }
 
     @media screen and (max-width: 480px) {
-        font-size: 12px;
+        font-size: var(--fs-xs);
         padding: 10px 20px;
     }
 }
