@@ -78,8 +78,15 @@ function wow_i18n_collect($value, array $path, array &$items) {
  * ------------------------------------------------------------------ */
 
 function wow_i18n_llm_system($target_name = 'Russian') {
-    return "You are a professional English to {$target_name} translator for the website of a luxury wedding and events agency (brand: Golden5Event). "
-        . "Produce natural, fluent, elegant {$target_name} suitable for an upscale brand voice.\n"
+    // Tone is editable in Settings → AI Translate ("Style instructions").
+    // Default deliberately asks for plain, human wording — the earlier
+    // "elegant upscale brand voice" default produced overly pompous copy.
+    $style = trim((string) get_option('wow_translate_style', ''));
+    if ($style === '') {
+        $style = "Produce natural, fluent {$target_name} the way a native copywriter would write for a website: simple, warm and human. Avoid pompous, flowery or overly formal phrasing.";
+    }
+    return "You are a professional English to {$target_name} translator for the website of a wedding and events agency (brand: Golden5Event). "
+        . $style . "\n"
         . "Rules:\n"
         . "- Keep ALL HTML tags and attributes exactly as-is; translate only the human-visible text between them.\n"
         . "- NEVER translate or alter: the literal token [wow_diamond]; Yoast SEO variables wrapped in double percent signs such as %%sitename%%, %%title%%, %%page%% or %%sep%%; brand/product names (Golden5Event, Mux, Instagram, Facebook); URLs; email addresses; phone numbers.\n"
@@ -153,13 +160,20 @@ function wow_i18n_deepl(array $texts, $key, $target = 'RU') {
     $endpoint = (strpos($key, ':fx') !== false) ? 'https://api-free.deepl.com/v2/translate' : 'https://api.deepl.com/v2/translate';
     // DeepL deprecated the legacy `auth_key` form-body method — the key must now
     // be sent in the Authorization header.
+    $body = [
+        'text' => array_values($texts), 'target_lang' => $target, 'source_lang' => 'EN',
+        'tag_handling' => 'html', 'preserve_formatting' => '1',
+    ];
+    // Optional formality (Settings → AI Translate). prefer_* variants are safe:
+    // languages that do not support formality simply ignore them.
+    $formality = (string) get_option('wow_translate_formality', '');
+    if ($formality === 'prefer_more' || $formality === 'prefer_less') {
+        $body['formality'] = $formality;
+    }
     $resp = wp_remote_post($endpoint, [
         'timeout' => 60,
         'headers' => ['Authorization' => 'DeepL-Auth-Key ' . $key],
-        'body'    => [
-            'text' => array_values($texts), 'target_lang' => $target, 'source_lang' => 'EN',
-            'tag_handling' => 'html', 'preserve_formatting' => '1',
-        ],
+        'body'    => $body,
     ]);
     if (is_wp_error($resp)) { error_log('wow-i18n DeepL: ' . $resp->get_error_message()); return []; }
     $data = json_decode(wp_remote_retrieve_body($resp), true);
@@ -520,6 +534,10 @@ if (is_admin()) {
         register_setting('wow_ai_translate', 'wow_translate_deepl_key', ['sanitize_callback' => 'trim']);
         register_setting('wow_ai_translate', 'wow_translate_gemini_key', ['sanitize_callback' => 'trim']);
         register_setting('wow_ai_translate', 'wow_translate_model', ['sanitize_callback' => 'trim']);
+        register_setting('wow_ai_translate', 'wow_translate_style', ['sanitize_callback' => 'sanitize_textarea_field']);
+        register_setting('wow_ai_translate', 'wow_translate_formality', ['sanitize_callback' => function ($v) {
+            return in_array($v, ['prefer_more', 'prefer_less'], true) ? $v : '';
+        }]);
     });
 
     function wow_ai_translate_settings_page() {
@@ -605,6 +623,29 @@ if (is_admin()) {
                             <input type="text" id="wow_translate_model" name="wow_translate_model" class="regular-text"
                                    value="<?php echo esc_attr(get_option('wow_translate_model', '')); ?>" placeholder="claude-sonnet-4-6">
                             <p class="description">Leave blank for each engine's default (claude-sonnet-4-6 / gpt-4o / gemini-2.0-flash). Cheaper Claude: <code>claude-haiku-4-5-20251001</code>.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label for="wow_translate_style">Style instructions<br><small>(Claude / OpenAI / Gemini)</small></label></th>
+                        <td>
+                            <textarea id="wow_translate_style" name="wow_translate_style" class="large-text" rows="3"
+                                      placeholder="e.g. Переводи просто и по-человечески, без пафоса и канцелярита. Короткие живые фразы, обращение на «вы»."><?php echo esc_textarea(get_option('wow_translate_style', '')); ?></textarea>
+                            <p class="description">
+                                Your own tone brief for the LLM engines — written in any language. Leave empty for the default
+                                (plain, human wording without pomp). <strong>Does not affect DeepL</strong> — DeepL cannot take prompts.
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label for="wow_translate_formality">DeepL formality</label></th>
+                        <td>
+                            <?php $formality = (string) get_option('wow_translate_formality', ''); ?>
+                            <select id="wow_translate_formality" name="wow_translate_formality">
+                                <option value="" <?php selected($formality, ''); ?>>Default</option>
+                                <option value="prefer_more" <?php selected($formality, 'prefer_more'); ?>>More formal (вы)</option>
+                                <option value="prefer_less" <?php selected($formality, 'prefer_less'); ?>>Less formal (ты)</option>
+                            </select>
+                            <p class="description">The only tone control DeepL offers. For prompt-level style control use a Claude / OpenAI / Gemini engine with the field above.</p>
                         </td>
                     </tr>
                 </table>
