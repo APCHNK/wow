@@ -73,7 +73,7 @@ function bnm_fix_url_slugs_page() {
     echo '<div class="wrap"><h1>Fix URL Slugs</h1>';
 
     if ( ! function_exists( 'pll_get_post' ) ) {
-        echo '<p>Polylang не активний — інструмент не потрібен на цьому сайті.</p></div>';
+        echo '<p>Polylang is not active — this tool is not needed on this site.</p></div>';
         return;
     }
 
@@ -94,18 +94,18 @@ function bnm_fix_url_slugs_page() {
         }
         flush_rewrite_rules();
         if ( function_exists( 'wp_cache_flush' ) ) wp_cache_flush();
-        echo '<div class="notice notice-success"><p>Виправлено слагів: <strong>' . (int) $done . '</strong>. Старі адреси редіректяться на нові.</p></div>';
+        echo '<div class="notice notice-success"><p>Fixed slugs: <strong>' . (int) $done . '</strong>. Old URLs now redirect to the new ones.</p></div>';
     }
 
     $items = bnm_find_suffixed_translations();
 
     if ( ! $items ) {
-        echo '<p>✅ Все чисто — слагів із суфіксом "-N" у перекладів не знайдено.</p></div>';
+        echo '<p>✅ All clean — no "-N" suffixed translation slugs found.</p></div>';
         return;
     }
 
-    echo '<p>Знайдено перекладів зі "зайвим" суфіксом у слагу (WP додає його, бо слаг зайнятий сторінкою основної мови):</p>';
-    echo '<table class="widefat striped" style="max-width:900px"><thead><tr><th>Сторінка</th><th>Мова</th><th>Зараз</th><th>Стане</th></tr></thead><tbody>';
+    echo '<p>Translations with a redundant slug suffix (WordPress adds it because the default-language page owns the slug):</p>';
+    echo '<table class="widefat striped" style="max-width:900px"><thead><tr><th>Page</th><th>Language</th><th>Current</th><th>Will become</th></tr></thead><tbody>';
     foreach ( $items as $it ) {
         printf(
             '<tr><td><a href="%s">%s</a></td><td>%s</td><td><code>%s</code></td><td><code>%s</code></td></tr>',
@@ -120,7 +120,7 @@ function bnm_fix_url_slugs_page() {
 
     echo '<form method="post" style="margin-top:16px">';
     wp_nonce_field( 'bnm_fix_slugs' );
-    submit_button( 'Виправити слаги', 'primary', 'bnm_fix_slugs' );
+    submit_button( 'Fix slugs', 'primary', 'bnm_fix_slugs' );
     echo '</form></div>';
 }
 
