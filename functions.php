@@ -1217,3 +1217,6 @@ function wow_diamond_svg($atts) {
     </svg>';
 }
 add_shortcode('wow_diamond', 'wow_diamond_svg');
+
+// Tools -> Fix URL Slugs (repairs '-2' suffixed translation slugs)
+require_once get_template_directory() . '/inc/fix-translation-slugs.php';
