@@ -123,3 +123,24 @@ function bnm_fix_url_slugs_page() {
     submit_button( 'Виправити слаги', 'primary', 'bnm_fix_slugs' );
     echo '</form></div>';
 }
+
+// 404 fallback: /ru/foo-2/ → 301 → /ru/foo/ when the suffixless page exists
+// in that language (covers links indexed before the slugs were fixed).
+add_action( 'template_redirect', function () {
+    if ( ! is_404() || ! function_exists( 'pll_get_post_language' ) ) return;
+    $path = wp_parse_url( $_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH );
+    if ( ! is_string( $path ) || ! preg_match( '#^(.*/)([a-z0-9-]+)-\d+/?$#', $path, $m ) ) return;
+    $base = $m[2];
+    $posts = get_posts( [
+        'post_type'        => [ 'page', 'post' ],
+        'post_status'      => 'publish',
+        'name'             => $base,
+        'numberposts'      => -1,
+        'fields'           => 'ids',
+        'suppress_filters' => false,
+        'lang'             => '',
+    ] );
+    if ( ! $posts ) return;
+    wp_safe_redirect( home_url( untrailingslashit( $m[1] ) . '/' . $base . '/' ), 301 );
+    exit;
+} );
