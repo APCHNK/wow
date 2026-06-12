@@ -31,8 +31,7 @@ function bnm_find_suffixed_translations(): array {
     if ( ! function_exists( 'pll_get_post' ) || ! function_exists( 'pll_default_language' ) ) {
         return [];
     }
-    $default = pll_default_language();
-    $found   = [];
+    $found = [];
 
     $posts = get_posts( [
         'post_type'        => [ 'page', 'post' ],
@@ -44,24 +43,28 @@ function bnm_find_suffixed_translations(): array {
 
     foreach ( $posts as $p ) {
         $lang = pll_get_post_language( $p->ID );
-        if ( ! $lang || $lang === $default ) continue;
+        if ( ! $lang ) continue;
 
-        $twin_id = pll_get_post( $p->ID, $default );
-        if ( ! $twin_id || (int) $twin_id === (int) $p->ID ) continue;
+        // Compare against every translation twin — the suffix can land on
+        // either side (an admin re-save re-triggers WP's slug dedupe).
+        $translations = function_exists( 'pll_get_post_translations' ) ? pll_get_post_translations( $p->ID ) : [];
+        foreach ( $translations as $twin_lang => $twin_id ) {
+            if ( (int) $twin_id === (int) $p->ID ) continue;
+            $twin = get_post( $twin_id );
+            if ( ! $twin ) continue;
 
-        $twin = get_post( $twin_id );
-        if ( ! $twin ) continue;
-
-        // slug is exactly "<twin-slug>-<digits>"
-        if ( $p->post_name !== $twin->post_name
-            && preg_match( '/^' . preg_quote( $twin->post_name, '/' ) . '-\d+$/', $p->post_name ) ) {
-            $found[] = [
-                'post_id'      => $p->ID,
-                'current_slug' => $p->post_name,
-                'target_slug'  => $twin->post_name,
-                'lang'         => $lang,
-                'title'        => get_the_title( $p ),
-            ];
+            // slug is exactly "<twin-slug>-<digits>"
+            if ( $p->post_name !== $twin->post_name
+                && preg_match( '/^' . preg_quote( $twin->post_name, '/' ) . '-\d+$/', $p->post_name ) ) {
+                $found[] = [
+                    'post_id'      => $p->ID,
+                    'current_slug' => $p->post_name,
+                    'target_slug'  => $twin->post_name,
+                    'lang'         => $lang,
+                    'title'        => get_the_title( $p ),
+                ];
+                break;
+            }
         }
     }
     return $found;
@@ -144,3 +147,28 @@ add_action( 'template_redirect', function () {
     wp_safe_redirect( home_url( untrailingslashit( $m[1] ) . '/' . $base . '/' ), 301 );
     exit;
 } );
+
+// Root-cause guard: WordPress re-suffixes a slug on every save if another
+// post owns it — even when that other post is just the translation of this
+// one. Allow translations to share a slug (what Polylang Pro does).
+add_filter( 'wp_unique_post_slug', function ( $slug, $post_id, $post_status, $post_type, $post_parent, $original_slug ) {
+    if ( $slug === $original_slug ) return $slug;
+    if ( ! function_exists( 'pll_get_post_language' ) ) return $slug;
+    if ( ! in_array( $post_type, [ 'page', 'post' ], true ) ) return $slug;
+
+    $lang = pll_get_post_language( $post_id );
+    if ( ! $lang ) return $slug;
+
+    global $wpdb;
+    $conflicts = $wpdb->get_col( $wpdb->prepare(
+        "SELECT ID FROM {$wpdb->posts} WHERE post_name = %s AND post_type = %s AND ID != %d",
+        $original_slug, $post_type, $post_id
+    ) );
+    if ( ! $conflicts ) return $slug;
+
+    foreach ( $conflicts as $cid ) {
+        // a post in the SAME language owns the slug — keep WP's suffix
+        if ( pll_get_post_language( (int) $cid ) === $lang ) return $slug;
+    }
+    return $original_slug; // only other-language posts own it — share the slug
+}, 10, 6 );
