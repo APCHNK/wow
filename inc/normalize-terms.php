@@ -114,6 +114,80 @@ function wow_normalize_terms_scan($limit = 0) {
             break;
         }
     }
+
+    // term names + taxonomy descriptions (nav/category terms carry copy too)
+    $terms = $wpdb->get_results(
+        "SELECT t.term_id, t.name, tt.term_taxonomy_id, tt.description
+         FROM {$wpdb->terms} t
+         JOIN {$wpdb->term_taxonomy} tt ON tt.term_id = t.term_id
+         WHERE t.name LIKE '%ицв%' OR t.name LIKE '%итцв%'
+            OR tt.description LIKE '%ицв%' OR tt.description LIKE '%итцв%'"
+    );
+    foreach ($terms as $t) {
+        $nn = wow_normalize_terms_text($t->name);
+        if ($nn !== $t->name) {
+            $changes[] = ['post_id' => 0, 'title' => 'term: ' . $t->name, 'where' => 'term_name',
+                'old' => $t->name, 'new' => $nn, 'term_id' => (int) $t->term_id];
+        }
+        $nd = wow_normalize_terms_text((string) $t->description);
+        if ($nd !== (string) $t->description) {
+            $changes[] = ['post_id' => 0, 'title' => 'term: ' . $t->name, 'where' => 'term_desc',
+                'old' => $t->description, 'new' => $nd, 'tt_id' => (int) $t->term_taxonomy_id];
+        }
+    }
+
+    // Polylang string translations — hardcoded theme UI strings whose RU value
+    // lives serialized in the language term's "_pll_strings_translations" meta
+    // as [source, translation] pairs. Normalize each translation side.
+    $plls = $wpdb->get_results(
+        "SELECT meta_id, meta_value FROM {$wpdb->termmeta} WHERE meta_key = '_pll_strings_translations'"
+    );
+    foreach ($plls as $row) {
+        $arr = maybe_unserialize($row->meta_value);
+        if (!is_array($arr)) {
+            continue;
+        }
+        $changed = false;
+        $sample_old = $sample_new = '';
+        foreach ($arr as $i => $pair) {
+            if (is_array($pair) && isset($pair[1]) && is_string($pair[1])) {
+                $nn = wow_normalize_terms_text($pair[1]);
+                if ($nn !== $pair[1]) {
+                    if ($sample_old === '') {
+                        $sample_old = $pair[1];
+                        $sample_new = $nn;
+                    }
+                    $arr[$i][1] = $nn;
+                    $changed = true;
+                }
+            }
+        }
+        if ($changed) {
+            $changes[] = ['post_id' => 0, 'title' => 'Polylang UI strings', 'where' => 'pll_strings',
+                'old' => $sample_old, 'new' => $sample_new,
+                'pll_meta_id' => (int) $row->meta_id, 'pll_value' => maybe_serialize($arr)];
+        }
+    }
+
+    // termmeta (ACF fields on terms, e.g. a nav description)
+    $tmetas = $wpdb->get_results(
+        "SELECT meta_id, term_id, meta_key, meta_value FROM {$wpdb->termmeta}
+         WHERE meta_value LIKE '%ицв%' OR meta_value LIKE '%итцв%'"
+    );
+    foreach ($tmetas as $m) {
+        if ($m->meta_key !== '' && $m->meta_key[0] === '_') {
+            continue;
+        }
+        if (is_serialized($m->meta_value)) {
+            continue;
+        }
+        $new = wow_normalize_terms_text($m->meta_value);
+        if ($new !== $m->meta_value) {
+            $changes[] = ['post_id' => 0, 'title' => 'term #' . $m->term_id, 'where' => 'termmeta:' . $m->meta_key,
+                'old' => $m->meta_value, 'new' => $new, 'term_meta_id' => (int) $m->meta_id];
+        }
+    }
+
     return $changes;
 }
 
@@ -128,10 +202,21 @@ function wow_normalize_terms_apply(array $changes) {
             $wpdb->update($wpdb->posts, ['post_content' => $c['new']], ['ID' => $c['post_id']]);
         } elseif (!empty($c['meta_id'])) {
             $wpdb->update($wpdb->postmeta, ['meta_value' => $c['new']], ['meta_id' => $c['meta_id']]);
+        } elseif ($c['where'] === 'term_name' && !empty($c['term_id'])) {
+            $wpdb->update($wpdb->terms, ['name' => $c['new']], ['term_id' => $c['term_id']]);
+            clean_term_cache($c['term_id']);
+        } elseif ($c['where'] === 'term_desc' && !empty($c['tt_id'])) {
+            $wpdb->update($wpdb->term_taxonomy, ['description' => $c['new']], ['term_taxonomy_id' => $c['tt_id']]);
+        } elseif (!empty($c['term_meta_id'])) {
+            $wpdb->update($wpdb->termmeta, ['meta_value' => $c['new']], ['meta_id' => $c['term_meta_id']]);
+        } elseif ($c['where'] === 'pll_strings' && !empty($c['pll_meta_id'])) {
+            $wpdb->update($wpdb->termmeta, ['meta_value' => $c['pll_value']], ['meta_id' => $c['pll_meta_id']]);
         } else {
             continue;
         }
-        clean_post_cache($c['post_id']);
+        if (!empty($c['post_id'])) {
+            clean_post_cache($c['post_id']);
+        }
         $n++;
     }
     return $n;
