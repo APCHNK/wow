@@ -142,7 +142,88 @@ function wow_i18n_glossary($target_slug) {
     return $pairs;
 }
 
-function wow_i18n_llm_system($target_name = 'Russian', $target_slug = 'ru') {
+/**
+ * Translation memory: EN title => target title pairs from posts ALREADY
+ * translated in the SAME service branch (top-level project_catalog). Feeding
+ * these to the model as reference keeps a new page's wording consistent with
+ * its siblings ("Corporate Events in X" all render the same way in RU).
+ */
+function wow_i18n_category_memory($en_id, $target_slug, $max_pairs = 30) {
+    if (!function_exists('pll_get_post') || !function_exists('pll_get_post_language')) {
+        return [];
+    }
+    $post = get_post($en_id);
+    if (!$post) {
+        return [];
+    }
+    $default = function_exists('pll_default_language') ? (pll_default_language() ?: 'en') : 'en';
+
+    // Resolve the top-level ancestor of a project_catalog id.
+    $top_of = function ($cat_id) {
+        $cat_id = (int) $cat_id;
+        $guard = 0;
+        while ($cat_id && ($p = get_post($cat_id)) && $p->post_parent && $guard++ < 10) {
+            $cat_id = (int) $p->post_parent;
+        }
+        return $cat_id;
+    };
+
+    // Find sibling EN post ids in the same branch that are already translated.
+    $siblings = [];
+    if ($post->post_type === 'wedding_project') {
+        $my_top = $top_of(get_post_meta($en_id, 'project_catalog', true));
+        if (!$my_top) {
+            return [];
+        }
+        $ids = get_posts([
+            'post_type' => 'wedding_project', 'posts_per_page' => -1,
+            'post_status' => 'publish', 'suppress_filters' => true, 'fields' => 'ids',
+        ]);
+        foreach ($ids as $pid) {
+            if ($pid == $en_id || pll_get_post_language($pid) !== $default) {
+                continue;
+            }
+            if ($top_of(get_post_meta($pid, 'project_catalog', true)) === $my_top && pll_get_post($pid, $target_slug)) {
+                $siblings[] = $pid;
+            }
+        }
+    } elseif ($post->post_type === 'project_catalog') {
+        $ids = get_posts([
+            'post_type' => 'project_catalog', 'post_parent' => $post->post_parent,
+            'posts_per_page' => -1, 'post_status' => 'publish', 'suppress_filters' => true, 'fields' => 'ids',
+        ]);
+        foreach ($ids as $pid) {
+            if ($pid == $en_id || pll_get_post_language($pid) !== $default) {
+                continue;
+            }
+            if (pll_get_post($pid, $target_slug)) {
+                $siblings[] = $pid;
+            }
+        }
+    } else {
+        return [];
+    }
+
+    // EN title => RU title, for siblings whose RU title was actually translated.
+    $pairs = [];
+    foreach ($siblings as $sid) {
+        $rid = (int) pll_get_post($sid, $target_slug);
+        if (!$rid) {
+            continue;
+        }
+        $en_t = trim((string) get_post($sid)->post_title);
+        $ru_t = trim((string) get_post($rid)->post_title);
+        if ($en_t !== '' && $ru_t !== '' && $en_t !== $ru_t) {
+            $pairs[$en_t] = $ru_t;
+        }
+        if (count($pairs) >= $max_pairs) {
+            break;
+        }
+    }
+    return $pairs;
+}
+
+function wow_i18n_llm_system($target_name = 'Russian', $target_slug = 'ru', array $memory = []) {
     // Tone is editable in Settings → AI Translate ("Style instructions").
     // Default deliberately asks for plain, human wording — the earlier
     // "elegant upscale brand voice" default produced overly pompous copy.
@@ -161,6 +242,15 @@ function wow_i18n_llm_system($target_name = 'Russian', $target_slug = 'ru') {
         $glossary_rule = "- GLOSSARY — translate these terms EXACTLY and CONSISTENTLY as given, adjusting ONLY the grammatical case/ending for {$target_name}; keep the exact spelling, hyphens and capitalization of the given form and never invent variants: " . implode('; ', $lines) . ".\n";
     }
 
+    $memory_rule = '';
+    if ($memory) {
+        $lines = [];
+        foreach ($memory as $en => $ru) {
+            $lines[] = "\"{$en}\" = \"{$ru}\"";
+        }
+        $memory_rule = "- TRANSLATION MEMORY — existing {$target_name} translations of sibling pages in the SAME category. Match their wording, terminology and style so the new page is consistent with them (adapt for the specific place/name in the current text): " . implode('; ', $lines) . ".\n";
+    }
+
     return "You are a professional English to {$target_name} translator for the website of a wedding and events agency (brand: Golden5Event). "
         . $style . "\n"
         . "Rules:\n"
@@ -168,16 +258,17 @@ function wow_i18n_llm_system($target_name = 'Russian', $target_slug = 'ru') {
         . "- NEVER translate or alter: the literal token [wow_diamond]; Yoast SEO variables wrapped in double percent signs such as %%sitename%%, %%title%%, %%page%% or %%sep%%; brand/product names (Golden5Event, Mux, Instagram, Facebook); URLs; email addresses; phone numbers.\n"
         . "- Translate well-known place names to their standard {$target_name} forms.\n"
         . $glossary_rule
+        . $memory_rule
         . "- Preserve meaning exactly. Do NOT add, drop, summarize or reorder content.\n"
         . "- The input is a JSON object {\"id\": \"english text\"}. Return ONLY a JSON object {\"id\": \"{$target_name} text\"} with the SAME ids and no surrounding prose or code fences.";
 }
 
 /** Translate id=>text via an LLM. Returns id=>translation. */
-function wow_i18n_llm(array $items, $key, $provider, $model, $target_name = 'Russian', $target_slug = 'ru') {
+function wow_i18n_llm(array $items, $key, $provider, $model, $target_name = 'Russian', $target_slug = 'ru', array $memory = []) {
     if (empty($items)) {
         return [];
     }
-    $system = wow_i18n_llm_system($target_name, $target_slug);
+    $system = wow_i18n_llm_system($target_name, $target_slug, $memory);
     $user   = json_encode($items, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     if ($model === '' || $model === null) {
         $model = wow_i18n_default_model($provider);
@@ -282,7 +373,7 @@ function wow_i18n_translate_texts(array $texts, array $engine) {
                 $results[$keys[$j]] = $t;
             }
         } else {
-            foreach (wow_i18n_llm($batch, $engine['key'], $engine['provider'], $engine['model'], $engine['target_name'] ?? 'Russian', $engine['target_slug'] ?? 'ru') as $bid => $t) {
+            foreach (wow_i18n_llm($batch, $engine['key'], $engine['provider'], $engine['model'], $engine['target_name'] ?? 'Russian', $engine['target_slug'] ?? 'ru', $engine['memory'] ?? []) as $bid => $t) {
                 $results[$bid] = $t;
             }
         }
@@ -543,6 +634,7 @@ function wow_i18n_translate_post($en_id, $target_slug, array $opts = []) {
     foreach ($items as $i => $it) {
         $texts[$i] = $it['en'];
     }
+    $engine['memory'] = wow_i18n_category_memory($en_id, $target_slug);
     $translations = wow_i18n_translate_texts($texts, $engine);
 
     // 5. Write (path joins to the exact ACF meta key).
