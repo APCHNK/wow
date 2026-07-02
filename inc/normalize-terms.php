@@ -21,39 +21,41 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Normalize the Bar/Bat Mitzvah term inside a RU text string.
- * Preserves grammatical endings (мицва/мицвы/мицву/мицве/...) and surrounding text.
+ * Normalize the Bar/Bat Mitzvah term inside a RU text string to the canonical
+ * form "Бар и Бат Митцва" (WITH the "т", spaces not hyphens, capitalized);
+ * standalone "Бар Митцва" / "Бат Митцва". Preserves grammatical endings
+ * (Митцва/Митцвы/Митцву/Митцве/...) and surrounding text.
  */
 function wow_normalize_terms_text($text) {
-    // "цв" catches both "мицв" and the misspelled "митцв" (и-т-ц-в); the
-    // regexes below are specific, so a broad guard is just a cheap fast-path.
     if (!is_string($text) || $text === '' || mb_stripos($text, 'цв') === false) {
         return $text;
     }
 
-    // 1) Spelling: drop the extra т — "митцв" → "мицв" (both cases).
-    $text = preg_replace('/([Мм])итцв/u', '$1ицв', $text);
+    // 1) Spelling: ensure the "т" — insert it between и and ц so "Мицв" → "Митцв".
+    //    "Митцв" already has т there, so it will not be doubled.
+    $text = preg_replace('/([Мм]и)цв/u', '$1тцв', $text);
 
-    // 2) Compound form "бар[- и ]бат[-]мицв<end>" (any hyphen/space/"и"/"and"
-    //    between) → full canonical "Бар-Мицв<end> и Бат-Мицв<end>", declining
-    //    both parts with the shared ending. Do this BEFORE the singular pass.
+    // 2) Compound "Бар[ Митцв<x>][ и/или ]Бат Митцв<end>" (hyphens/spaces, an
+    //    optional first Митцв, connector и/или/and/or) → compact
+    //    "Бар <conn> Бат Митцв<end>". Do this BEFORE the standalone pass.
     $text = preg_replace_callback(
-        '/\b[Бб]ар[\s\-]*(?:и|and)?[\s\-]*[Бб]ат[\s\-]*[Мм]ицв([а-яёА-ЯЁ]*)/u',
+        '/\b[Бб]ар(?:[\s\-]*[Мм]итцв[а-яёА-ЯЁ]*)?[\s\-]*(и|или|and|or)[\s\-]*[Бб]ат[\s\-]*[Мм]итцв([а-яёА-ЯЁ]*)/u',
         static function ($m) {
-            $end = mb_strtolower($m[1]);
-            return 'Бар-Мицв' . $end . ' и Бат-Мицв' . $end;
+            $conn = (mb_strtolower($m[1]) === 'или' || mb_strtolower($m[1]) === 'or') ? 'или' : 'и';
+            $end  = mb_strtolower($m[2]);
+            return 'Бар ' . $conn . ' Бат Митцв' . $end;
         },
         $text
     );
 
-    // 3) Singular "бар|бат [-| ]мицв<end>" → "Бар-Мицв<end>" / "Бат-Мицв<end>"
-    //    (capital Б + capital М, hyphenated — mirrors the always-capitalized EN).
+    // 3) Standalone "Бар|Бат [-| ]Митцв<end>" → "Бар Митцв<end>" / "Бат Митцв<end>"
+    //    (capital Б + capital М, single space — matches the always-capitalized EN).
     $text = preg_replace_callback(
-        '/\b([Бб]а[рт])[\s\-]*([Мм])ицв([а-яёА-ЯЁ]*)/u',
+        '/\b([Бб]а[рт])[\s\-]*[Мм]итцв([а-яёА-ЯЁ]*)/u',
         static function ($m) {
             $which = mb_strtoupper(mb_substr($m[1], 0, 1)) . mb_strtolower(mb_substr($m[1], 1)); // Бар / Бат
-            $end   = mb_strtolower($m[3]);
-            return $which . '-Мицв' . $end;
+            $end   = mb_strtolower($m[2]);
+            return $which . ' Митцв' . $end;
         },
         $text
     );
@@ -253,7 +255,7 @@ function wow_normalize_terms_page() {
         wp_die('Nope.');
     }
     echo '<div class="wrap"><h1>Normalize Terminology</h1>';
-    echo '<p>Normalizes the Bar/Bat Mitzvah term across all content to the canonical form <code>Бар-Мицва</code> / <code>Бат-Мицва</code> (matching the English source: capitalized, hyphenated, no extra “т”), keeping grammatical endings. Review the preview, then apply.</p>';
+    echo '<p>Normalizes the Bar/Bat Mitzvah term across all content to the canonical form <code>Бар и Бат Митцва</code> (standalone <code>Бар Митцва</code> / <code>Бат Митцва</code>): capitalized, spaced, with the “т”, keeping grammatical endings. Review the preview, then apply.</p>';
 
     if (isset($_POST['wow_norm_apply']) && check_admin_referer('wow_norm')) {
         $changes = wow_normalize_terms_scan();

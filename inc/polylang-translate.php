@@ -114,9 +114,9 @@ function wow_i18n_glossary($target_slug) {
     // 2) Sub-terms that appear inside copy but are not standalone categories.
     $manual = [
         'ru' => [
-            'Bar and Bat Mitzvah' => 'Бар-Мицва и Бат-Мицва',
-            'Bar Mitzvah'         => 'Бар-Мицва',
-            'Bat Mitzvah'         => 'Бат-Мицва',
+            'Bar and Bat Mitzvah' => 'Бар и Бат Митцва',
+            'Bar Mitzvah'         => 'Бар Митцва',
+            'Bat Mitzvah'         => 'Бат Митцва',
         ],
     ];
     if (!empty($manual[$target_slug])) {
