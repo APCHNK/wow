@@ -239,7 +239,7 @@ function wow_i18n_llm_system($target_name = 'Russian', $target_slug = 'ru', arra
         foreach ($gloss as $en => $ru) {
             $lines[] = "\"{$en}\" = \"{$ru}\"";
         }
-        $glossary_rule = "- GLOSSARY — translate these terms EXACTLY and CONSISTENTLY as given, adjusting ONLY the grammatical case/ending for {$target_name}; keep the exact spelling, hyphens and capitalization of the given form and never invent variants: " . implode('; ', $lines) . ".\n";
+        $glossary_rule = "- GLOSSARY — translate these terms EXACTLY and CONSISTENTLY as given: keep the given spelling and hyphens, adjust ONLY the grammatical case/ending for {$target_name}, and match the capitalization of the ENGLISH source at each spot (capitalize when the English term is capitalized, lowercase when it is lowercase). Never invent spelling variants: " . implode('; ', $lines) . ".\n";
     }
 
     $memory_rule = '';

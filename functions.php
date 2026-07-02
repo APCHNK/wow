@@ -10,6 +10,7 @@ add_filter('upload_size_limit', function() { return 256 * 1024 * 1024; });
 require_once get_template_directory() . '/inc/acf-flexible-content.php';
 require_once get_template_directory() . '/inc/polylang.php';
 require_once get_template_directory() . '/inc/polylang-translate.php';
+require_once get_template_directory() . '/inc/normalize-terms.php';
 
 // Allow SVG uploads
 function wow_allow_svg($mimes) {
