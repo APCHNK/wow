@@ -188,6 +188,26 @@ function wow_normalize_terms_scan($limit = 0) {
         }
     }
 
+    // Yoast indexable cache — breadcrumb/schema titles are cached here, derived
+    // from post data. Editing posts by SQL (as we do) leaves this stale, so
+    // normalize the cached text columns directly. Guarded: table is optional.
+    $yt = $wpdb->prefix . 'yoast_indexable';
+    if ($wpdb->get_var("SHOW TABLES LIKE '{$yt}'")) {
+        // Only columns that actually exist in this Yoast version.
+        $have = $wpdb->get_col("SHOW COLUMNS FROM `{$yt}`");
+        $cols = array_intersect(['title', 'description', 'breadcrumb_title', 'og_title', 'og_description', 'twitter_title', 'twitter_description'], $have);
+        foreach ($cols as $col) {
+            $rows = $wpdb->get_results("SELECT id, `{$col}` AS v FROM {$yt} WHERE `{$col}` LIKE '%ицв%' OR `{$col}` LIKE '%итцв%'");
+            foreach ($rows as $r) {
+                $new = wow_normalize_terms_text($r->v);
+                if ($new !== $r->v) {
+                    $changes[] = ['post_id' => 0, 'title' => 'Yoast cache', 'where' => 'yoast:' . $col,
+                        'old' => $r->v, 'new' => $new, 'yoast_id' => (int) $r->id, 'yoast_col' => $col];
+                }
+            }
+        }
+    }
+
     return $changes;
 }
 
@@ -211,6 +231,8 @@ function wow_normalize_terms_apply(array $changes) {
             $wpdb->update($wpdb->termmeta, ['meta_value' => $c['new']], ['meta_id' => $c['term_meta_id']]);
         } elseif ($c['where'] === 'pll_strings' && !empty($c['pll_meta_id'])) {
             $wpdb->update($wpdb->termmeta, ['meta_value' => $c['pll_value']], ['meta_id' => $c['pll_meta_id']]);
+        } elseif (!empty($c['yoast_id']) && !empty($c['yoast_col'])) {
+            $wpdb->update($wpdb->prefix . 'yoast_indexable', [$c['yoast_col'] => $c['new']], ['id' => $c['yoast_id']]);
         } else {
             continue;
         }
