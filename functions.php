@@ -11,6 +11,7 @@ require_once get_template_directory() . '/inc/acf-flexible-content.php';
 require_once get_template_directory() . '/inc/polylang.php';
 require_once get_template_directory() . '/inc/polylang-translate.php';
 require_once get_template_directory() . '/inc/normalize-terms.php';
+require_once get_template_directory() . '/inc/convert-heic.php';
 
 // Allow SVG uploads
 function wow_allow_svg($mimes) {
