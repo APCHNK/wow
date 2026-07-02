@@ -257,3 +257,4 @@
 /* Fix: long RU project titles wrapped to 2 lines overlapped the description.
    Take the title out of absolute flow on desktop; description flows below it. */
 @media (min-width:601px){.wedding-project-single-info{justify-content:space-between}.wedding-project-single-title{position:static;top:auto;left:auto}}
+.wedding-project-single-title{line-height:1em}
