@@ -254,14 +254,28 @@ add_filter('request', function ($query_vars) {
     if (empty($query_vars['pagename'])) return $query_vars;
     $path = $query_vars['pagename'];
 
+    // Resolve to an unambiguous post ID. We must NOT leave a slug-based query
+    // var (name/pagename/CPT) behind: several projects legitimately share a
+    // post_name across catalogs/languages, and Polylang's parse_query would
+    // otherwise re-resolve that slug and overwrite our chosen post with the
+    // wrong same-slug sibling. So we clear every slug var and pin only `p`.
+    $pin_post = function ($id, $post_type) use ($query_vars) {
+        unset(
+            $query_vars['pagename'],
+            $query_vars['name'],
+            $query_vars['page'],
+            $query_vars['project_catalog'],
+            $query_vars['wedding_project']
+        );
+        $query_vars['post_type'] = $post_type;
+        $query_vars['p'] = (int) $id;
+        return $query_vars;
+    };
+
     // 1) Exact match to a catalog post (handles /parent/ and /parent/child/).
     $catalog = get_page_by_path($path, OBJECT, 'project_catalog');
     if ($catalog) {
-        unset($query_vars['pagename']);
-        $query_vars['post_type'] = 'project_catalog';
-        $query_vars['name'] = $catalog->post_name;
-        $query_vars['project_catalog'] = $path;
-        return $query_vars;
+        return $pin_post($catalog->ID, 'project_catalog');
     }
 
     // 2) Last segment is a wedding_project, the rest is the catalog path.
@@ -285,12 +299,7 @@ add_filter('request', function ($query_vars) {
             ]);
             foreach ($candidates as $project) {
                 if ((int) get_post_meta($project->ID, 'project_catalog', true) === (int) $catalog->ID) {
-                    unset($query_vars['pagename']);
-                    $query_vars['post_type'] = 'wedding_project';
-                    $query_vars['name'] = $project->post_name;
-                    $query_vars['wedding_project'] = $project_slug;
-                    $query_vars['p'] = $project->ID;
-                    return $query_vars;
+                    return $pin_post($project->ID, 'wedding_project');
                 }
             }
         }

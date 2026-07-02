@@ -58,6 +58,10 @@
         flex: 1 1 0;
         width: auto;
         min-width: 0;
+        // Title flows at the top, description at the bottom. Keeps them apart no
+        // matter how many lines the title takes (long RU titles wrap to 2 lines
+        // and used to overlap the description under the absolute-positioned title).
+        justify-content: space-between;
     }
     @media screen and (max-width: 1024px) {
         padding:  40px;
@@ -98,6 +102,14 @@
     &.animate {
         opacity: 1;
         transform: translateX(0);
+    }
+    // Desktop: keep the title in normal flow so a 2-line title pushes the
+    // description down instead of overlapping it (absolute positioning below
+    // is only used by the ≤600px column layout).
+    @media (min-width: 601px) {
+        position: static;
+        top: auto;
+        left: auto;
     }
     @media screen and (max-width: 1024px) {
         top: 40px;
