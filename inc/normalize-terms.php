@@ -69,11 +69,13 @@ function wow_normalize_terms_scan($limit = 0) {
     global $wpdb;
     $changes = [];
 
-    // post_title + post_content
+    // post_title + post_content. Match BOTH spellings: "мицв" (и-ц-в) and the
+    // misspelled "митцв" (и-т-ц-в) — the latter does NOT contain "ицв".
     $posts = $wpdb->get_results(
         "SELECT ID, post_title, post_content FROM {$wpdb->posts}
          WHERE post_status IN ('publish','draft')
-           AND (post_title LIKE '%ицв%' OR post_content LIKE '%ицв%')"
+           AND (post_title LIKE '%ицв%' OR post_title LIKE '%итцв%'
+                OR post_content LIKE '%ицв%' OR post_content LIKE '%итцв%')"
     );
     foreach ($posts as $p) {
         foreach (['post_title' => $p->post_title, 'post_content' => $p->post_content] as $field => $val) {
@@ -90,7 +92,7 @@ function wow_normalize_terms_scan($limit = 0) {
     // postmeta: ACF text + Yoast. Skip field-key rows (_-prefixed) and serialized blobs.
     $metas = $wpdb->get_results(
         "SELECT meta_id, post_id, meta_key, meta_value FROM {$wpdb->postmeta}
-         WHERE meta_value LIKE '%ицв%'"
+         WHERE meta_value LIKE '%ицв%' OR meta_value LIKE '%итцв%'"
     );
     foreach ($metas as $m) {
         if ($m->meta_key !== '' && $m->meta_key[0] === '_' && strpos($m->meta_key, '_yoast_wpseo_') !== 0) {
