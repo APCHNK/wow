@@ -77,7 +77,72 @@ function wow_i18n_collect($value, array $path, array &$items) {
  * Translation engines (LLM + DeepL)
  * ------------------------------------------------------------------ */
 
-function wow_i18n_llm_system($target_name = 'Russian') {
+/**
+ * Canonical EN => target-language term map, so the translator renders the
+ * agency's service terms IDENTICALLY everywhere (no more "мицва" vs "митцва",
+ * hyphen/casing drift). Derived from the site's OWN top-level project_catalog
+ * titles (the authoritative names) + a few sub-terms that are not full category
+ * titles + any admin-added pairs.
+ */
+function wow_i18n_glossary($target_slug) {
+    $pairs = [];
+
+    // 1) Authoritative service names = the site's top-level catalog titles.
+    if (function_exists('pll_get_post') && function_exists('pll_get_post_language')) {
+        $default = function_exists('pll_default_language') ? pll_default_language() : 'en';
+        // Only TOP-LEVEL catalogs — these are the authoritative service names.
+        // Leaf catalogs (city/country combos) carry the very inconsistencies we
+        // are fixing, so they must not seed the glossary.
+        $cats = get_posts([
+            'post_type'        => 'project_catalog',
+            'post_parent'      => 0,
+            'posts_per_page'   => -1,
+            'post_status'      => 'publish',
+            'suppress_filters' => true,
+        ]);
+        foreach ($cats as $c) {
+            if (pll_get_post_language($c->ID) !== $default) {
+                continue;
+            }
+            $tw = pll_get_post($c->ID, $target_slug);
+            if ($tw && ($t = get_post($tw)) && trim((string) $t->post_title) !== '') {
+                $pairs[trim($c->post_title)] = trim($t->post_title);
+            }
+        }
+    }
+
+    // 2) Sub-terms that appear inside copy but are not standalone categories.
+    $manual = [
+        'ru' => [
+            'Bar and Bat Mitzvah' => 'Бар-Мицва и Бат-Мицва',
+            'Bar Mitzvah'         => 'Бар-Мицва',
+            'Bat Mitzvah'         => 'Бат-Мицва',
+        ],
+    ];
+    if (!empty($manual[$target_slug])) {
+        // Category titles win over these defaults where the key is identical.
+        $pairs = array_merge($manual[$target_slug], $pairs);
+    }
+
+    // 3) Admin-editable extras: option "wow_translate_glossary_<lang>", one
+    //    "English = Перевод" pair per line. These override everything above.
+    $extra = trim((string) get_option('wow_translate_glossary_' . $target_slug, ''));
+    if ($extra !== '') {
+        foreach (preg_split('/\r?\n/', $extra) as $line) {
+            if (strpos($line, '=') === false) {
+                continue;
+            }
+            [$en, $ru] = array_map('trim', explode('=', $line, 2));
+            if ($en !== '' && $ru !== '') {
+                $pairs[$en] = $ru;
+            }
+        }
+    }
+
+    return $pairs;
+}
+
+function wow_i18n_llm_system($target_name = 'Russian', $target_slug = 'ru') {
     // Tone is editable in Settings → AI Translate ("Style instructions").
     // Default deliberately asks for plain, human wording — the earlier
     // "elegant upscale brand voice" default produced overly pompous copy.
@@ -85,22 +150,34 @@ function wow_i18n_llm_system($target_name = 'Russian') {
     if ($style === '') {
         $style = "Produce natural, fluent {$target_name} the way a native copywriter would write for a website: simple, warm and human. Avoid pompous, flowery or overly formal phrasing.";
     }
+
+    $glossary_rule = '';
+    $gloss = wow_i18n_glossary($target_slug);
+    if ($gloss) {
+        $lines = [];
+        foreach ($gloss as $en => $ru) {
+            $lines[] = "\"{$en}\" = \"{$ru}\"";
+        }
+        $glossary_rule = "- GLOSSARY — translate these terms EXACTLY and CONSISTENTLY as given, adjusting ONLY the grammatical case/ending for {$target_name}; keep the exact spelling, hyphens and capitalization of the given form and never invent variants: " . implode('; ', $lines) . ".\n";
+    }
+
     return "You are a professional English to {$target_name} translator for the website of a wedding and events agency (brand: Golden5Event). "
         . $style . "\n"
         . "Rules:\n"
         . "- Keep ALL HTML tags and attributes exactly as-is; translate only the human-visible text between them.\n"
         . "- NEVER translate or alter: the literal token [wow_diamond]; Yoast SEO variables wrapped in double percent signs such as %%sitename%%, %%title%%, %%page%% or %%sep%%; brand/product names (Golden5Event, Mux, Instagram, Facebook); URLs; email addresses; phone numbers.\n"
         . "- Translate well-known place names to their standard {$target_name} forms.\n"
+        . $glossary_rule
         . "- Preserve meaning exactly. Do NOT add, drop, summarize or reorder content.\n"
         . "- The input is a JSON object {\"id\": \"english text\"}. Return ONLY a JSON object {\"id\": \"{$target_name} text\"} with the SAME ids and no surrounding prose or code fences.";
 }
 
 /** Translate id=>text via an LLM. Returns id=>translation. */
-function wow_i18n_llm(array $items, $key, $provider, $model, $target_name = 'Russian') {
+function wow_i18n_llm(array $items, $key, $provider, $model, $target_name = 'Russian', $target_slug = 'ru') {
     if (empty($items)) {
         return [];
     }
-    $system = wow_i18n_llm_system($target_name);
+    $system = wow_i18n_llm_system($target_name, $target_slug);
     $user   = json_encode($items, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     if ($model === '' || $model === null) {
         $model = wow_i18n_default_model($provider);
@@ -205,7 +282,7 @@ function wow_i18n_translate_texts(array $texts, array $engine) {
                 $results[$keys[$j]] = $t;
             }
         } else {
-            foreach (wow_i18n_llm($batch, $engine['key'], $engine['provider'], $engine['model'], $engine['target_name'] ?? 'Russian') as $bid => $t) {
+            foreach (wow_i18n_llm($batch, $engine['key'], $engine['provider'], $engine['model'], $engine['target_name'] ?? 'Russian', $engine['target_slug'] ?? 'ru') as $bid => $t) {
                 $results[$bid] = $t;
             }
         }
@@ -270,7 +347,7 @@ function wow_i18n_engine($target_slug, array $opts = []) {
     }
     return [
         'key' => $key, 'deepl' => $deepl, 'provider' => $provider, 'model' => $model,
-        'target_code' => strtoupper($target_slug), 'target_name' => $name,
+        'target_code' => strtoupper($target_slug), 'target_name' => $name, 'target_slug' => $target_slug,
     ];
 }
 
