@@ -30,6 +30,11 @@
     margin-bottom: 32px;
 }
 
+// RU headline is longer than the EN one — cap the max so it doesn't overflow.
+html[lang="ru-RU"] .hero-title {
+    font-size: clamp(50px, 16.5vw, 200px);
+}
+
 .hero-video {
     width: 70%;
     max-width: calc(100% - 160px);

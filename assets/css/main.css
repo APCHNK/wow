@@ -258,3 +258,5 @@
    Take the title out of absolute flow on desktop; description flows below it. */
 @media (min-width:601px){.wedding-project-single-info{justify-content:space-between}.wedding-project-single-title{position:static;top:auto;left:auto}}
 .wedding-project-single-title{line-height:1em}
+
+html[lang="ru-RU"] .hero-title{font-size:clamp(50px,16.5vw,200px)}
